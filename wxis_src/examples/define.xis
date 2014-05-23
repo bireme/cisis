@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE IsisScript SYSTEM "wxis.dtd">
+
+<!-- ==========================================
+ DEFINE.XIS
+ ----------
+========================================== -->
+
+<IsisScript>
+<section>
+
+   <display>
+   DEFINE.XIS
+   ----------
+   </display>
+   <display><pft>#</pft></display>
+   <field action="cgi" tag="2011" type="flag">trace</field>
+   <trace><pft>v2011</pft></trace>
+
+   <do>
+      <parm name="to">3</parm>
+      <field action="define" tag="1001">Isis_Current</field>
+      <field action="define" tag="1002">Isis_Total</field>
+      <loop>
+         <display><pft>v1001,'/',v1002/</pft></display>
+      </loop>
+   </do>
+
+</section>
+</IsisScript>

@@ -1,0 +1,30 @@
+<!-- ==========================================
+ CGITABLE.XIS
+ ------------
+========================================== -->
+
+<IsisScript>
+<section>
+
+   <cgitable><pft>'0 On'/,
+                  '2011 trace'/</pft></cgitable>
+   <trace><pft>v2011</pft></trace>
+
+   <display>
+   CGITABLE.XIS
+   ------------
+
+   ^t<n>=<value> ^u<n>=<value> ^w<n>=<value> tag<n>=<value> 
+
+   </display>
+   <cgitable><pft>'100 ^n^v'/,
+                  '0 ^t'/
+                  '0 ^u'/
+                  '0 ^w'/
+				  '0 tag'/
+                  '2001 db'/
+                  '2002 from'/</pft></cgitable>
+   <display><pft>ALL</pft></display>
+
+</section>
+</IsisScript>

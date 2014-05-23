@@ -1,0 +1,65 @@
+<IsisScript name="teste01">
+<section name="main">
+
+ <field action="cgi" tag="5000">db</field>
+
+ <display>Percorrendo 10 registros...
+</display>
+ <do task="mfnrange">
+	<parm name="db"><pft>v5000</pft></parm>
+	<parm name="from">1</parm>
+	<parm name="to">10</parm>
+	<loop>
+		<!-- display><pft>mfn(3)/</pft></display -->
+	</loop>
+ </do>
+ <display>Percorrendo o IF...
+</display>
+ <do task="keyrange">
+	<field action="define" tag="1000">Isis_Key</field>
+	<field action="define" tag="1001">Isis_Current</field>
+	<field action="define" tag="1002">Isis_Total</field>
+	<field action="define" tag="1031">Isis_From</field>
+	<field action="define" tag="1091">Isis_Status</field>
+	<field action="define" tag="1092">Isis_ErrorInfo</field>
+	<parm name="db"><pft>v5000</pft></parm>
+	<parm name="from">A</parm>
+	<parm name="to">ZZZZ</parm>
+	<loop>
+		<display><pft>v1000/</pft></display>
+	</loop>
+ </do>
+
+ <display>Efetuando uma busca...
+</display>
+ <do task="search">
+	<field action="define" tag="1001">Isis_Current</field>
+	<field action="define" tag="1002">Isis_Total</field>
+	<field action="define" tag="1031">Isis_From</field>
+	<field action="define" tag="1091">Isis_Status</field>
+	<field action="define" tag="1092">Isis_ErrorInfo</field>
+	<parm name="db"><pft>v5000</pft></parm>
+	<parm name="expression">water * plants</parm>
+	<loop>
+		<display><pft>mfn(3)/</pft></display>
+	</loop>
+ </do>
+
+<display>Efetuando outra busca...
+</display>
+ <do task="search">
+        <field action="define" tag="1001">Isis_Current</field>
+        <field action="define" tag="1002">Isis_Total</field>
+        <field action="define" tag="1031">Isis_From</field>
+        <field action="define" tag="1091">Isis_Status</field>
+        <field action="define" tag="1092">Isis_ErrorInfo</field>
+        <parm name="db"><pft>v5000</pft></parm>
+        <parm name="expression">a$ AND e$ AND i$ AND o$ AND u$ AND b$ AND c$</parm>
+        <loop>
+                <display><pft>mfn(3)/</pft></display>
+        </loop>
+ </do>
+
+</section>
+</IsisScript>
+

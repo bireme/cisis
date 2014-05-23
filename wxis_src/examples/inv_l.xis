@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE IsisScript SYSTEM "wxis.dtd">
+
+<!-- ==========================================
+ INV_L.XIS
+ ---------
+========================================== -->
+
+<IsisScript>
+<section>
+
+   <field action="cgi" tag="2001">db</field>
+   <field action="cgi" tag="2061">fst</field>
+   <field action="cgi" tag="2062">uctab</field>
+   <field action="cgi" tag="2063">actab</field>
+   <field action="cgi" tag="2064">dbkeys</field>
+   <field action="cgi" tag="2011" type="flag">trace</field>
+   <trace><pft>v2011</pft></trace>
+
+   <flow action="jump"><pft>if p(v2001) and p(v2064) then 'GO' fi</pft></flow>
+   <display>
+   INV_L.XIS
+   ---------
+
+   db=<database> dbkeys=<database> [trace]
+
+   </display>
+   <flow action="exit">0</flow>
+
+   <label>GO</label>
+
+   <do task="invertedload">
+
+      <parm name="db"><pft>v2001</pft></parm>
+      <parm name="keysdb"><pft>v2064</pft></parm>
+
+      <field action="define" tag="1">Isis_Key</field>
+      <field action="define" tag="1102">Isis_Status</field>
+
+      <display><pft>'Inverted load ...'/</pft></display>
+      <loop></loop>
+      <display><pft>'Lock status = 'v1102/</pft></display>
+
+      <flow action="exit"><pft>if val(v1102) <> 0 then v1102 fi</pft></flow>
+      <display><pft>'Inverted load: ',v2001,' loaded.'/</pft></display>
+
+   </do>
+
+</section>
+</IsisScript>

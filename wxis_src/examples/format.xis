@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE IsisScript SYSTEM "wxis.dtd">
+
+<!-- ==========================================
+ FORMAT.XIS
+ ----------
+========================================== -->
+
+<IsisScript>
+<section>
+
+   <field action="cgi" tag="2065">pft</field>
+   <field action="cgi" tag="2011" type="flag">trace</field>
+   <trace><pft>v2011</pft></trace>
+
+   <flow action="jump"><pft>if p(v2065) then 'GO' fi</pft></flow>
+   <display>
+ 	FORMAT.XIS
+   ----------
+
+   pft=<format> [trace]
+
+   </display>
+   <flow action="exit">0</flow>
+
+   <label>GO</label>
+
+   <display><pft type="check"><pft>v2065</pft></pft></display>
+
+</section>
+</IsisScript>

@@ -1,0 +1,33 @@
+/Twe/x/l/v/c/C/f/k /V3.10 /LC:\BC5\LIB +
+-v+ C:\BC5\LIB\c0x32.obj+
+-v+ TMP\cifm1.obj+
+-v+ TMP\cifm2.obj+
+-v+ TMP\cifm3.obj+
+-v+ TMP\citrm.obj+
+-v+ TMP\ciupd.obj+
+-v+ TMP\cirec.obj+
+-v+ TMP\cidbx.obj+
+-v+ TMP\mys.obj+
+-v+ TMP\ifloadao.obj+
+-v+ TMP\ciifl.obj+
+-v+ TMP\mx.obj+
+-v+ TMP\mxaot.obj+
+-v+ TMP\mxtxt.obj+
+-v+ TMP\mxbol.obj+
+-v+ TMP\mxrel.obj+
+-v+ TMP\mxrun.obj+
+-v+ TMP\cicgi.obj+
+-v+ TMP\cisisx.obj+
+-v+ TMP\cigiz.obj+
+-v+ TMP\ciiso.obj+
+-v+ TMP\ciifu.obj+
+-v+ TMP\cifst.obj+
+-v+ TMP\ciupi.obj+
+-v+ TMP\ciutl.obj+
+-v+ TMP\cib71.obj+
+-v+ TMP\cib72.obj
+..\UTL\WINDOWS\ISIS\mx.exe
+
+-v+ C:\BC5\LIB\import32.lib+
+-v+ C:\BC5\LIB\cw32.lib
+

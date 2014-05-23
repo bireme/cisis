@@ -1,0 +1,58 @@
+<!-- ==========================================
+ FULLINV.XIS
+ -----------
+========================================== -->
+
+<IsisScript>
+<section>
+
+   <field action="cgi" tag="2002">db</field>
+   <field action="cgi" tag="2061">fst</field>
+   <field action="cgi" tag="2062">uctab</field>
+   <field action="cgi" tag="2063">actab</field>
+   <field action="cgi" tag="2064" type="flag">-reset</field>
+   <field action="cgi" tag="2011" type="flag">trace</field>
+   <trace><pft>v2011</pft></trace>
+
+	<field action="replace" tag="2001"><pft>v2002[1]</pft></field>	
+
+   <flow action="jump"><pft>if nocc(v2002) = 2 then 'GO' fi</pft></flow>
+   <display>
+   FI2.XIS
+   -------
+
+   db=<database> db=<database> [trace]
+
+   </display>
+   <flow action="exit">0</flow>
+
+
+   <label>GO</label>
+
+   <field action="replace" tag="2061"><pft>cat(v2001,'.fst')</pft></field>
+   <display><pft>'[FST]'/,v2061/,'[FST]'/#</pft></display>
+
+   <display><pft>date/</pft></display>
+   <do task="fullinvertion">
+
+      <parm name="db"><pft>v2001</pft></parm>
+      <parm name="fst"><pft>v2061</pft></parm>
+
+		<parm name="reset">Off</parm>
+
+   	<field action="define" tag="1102">Isis_Status</field>
+
+   	<display><pft>'Full invertion: ',v2001/</pft></display>
+      <loop></loop>
+      <display><pft>'Finished.'/</pft></display>
+
+      <display><pft>'Lock status = 'v1102/</pft></display>
+   </do>
+   <display><pft>date/</pft></display>
+
+	<flow action="exit"><pft>if v2001 = v2002[2] then '0' fi</pft></flow>
+	<field action="replace" tag="2001"><pft>v2002[2]</pft></field>	
+	<flow action="jump">GO</flow>
+
+</section>
+</IsisScript>

@@ -1,0 +1,58 @@
+<IsisScript>
+<section>
+<display><pft>'Content-type:text/html'/#</pft></display>
+<trace>On</trace>
+<!-- parm name="actab"><pft>cat('c:\temp\egito\1256ac.tab')</pft></parm-->
+<parm name="uctab"><pft>cat('c:\temp\egito\voiduc.tab')</pft></parm>
+<display>
+  <html><body>
+</display>
+<field action=cgi tag=2000>dbn</field>
+<field action=cgi tag=2001>from</field>
+<field action=cgi tag=2002>to</field>
+<field action=cgi tag=2003>exp</field>
+
+<field action="replace" tag="2000">c:\temp\egito\Isatxt</field>
+<field action="replace" tag="2003"><pft>ref(['c:\temp\egito\Isatxt']2,v70[1])</pft></field>
+
+<do task=search>
+    
+    <display><table border=1></display>
+	
+    <parm name=db><pft>v2000</pft></parm>
+	<parm name=from><pft>v2001</pft></parm>
+    <parm name=to><pft>v2002</pft></parm>
+	<parm name=expression><pft>v2003</pft></parm>
+	
+	<field action="define" tag="1001">Isis_Current</field>
+	<field action="define" tag="1002">Isis_Total</field>
+	<field action="define" tag="1091">Isis_Status</field>
+	<field action="define" tag="1092">Isis_ErrorInfo</field>
+
+    <loop>
+	
+      <display><pft>'<tr><td>'mfn'<td>'(|70=|v70|<br>|),'<br>',|24=|v24,'</tr>'</pft></display>
+         
+
+    </loop>
+         <display>
+            </table>
+         </display>
+
+         <display><pft>
+            if val(v1091) > 0 then 'Syntax error: 'v1092/,
+            else if val(v1002) = 0 then 'No records found!'/
+                 fi,
+            fi</pft>
+         </display>
+	
+  </do>
+
+<display>
+  </body></html>
+</display>
+
+</section>
+
+
+</IsisScript>

@@ -1,0 +1,37 @@
+<IsisScript name="update">
+
+
+<section name="update">
+
+	<trace>xOn</trace>
+
+	<parm name="cipar">
+		<pft>
+			'GIZMO_XML.*=',v1,'gizmo/gizmoXML.*'/
+		</pft>
+	</parm>
+
+	<do task="update">
+		<parm name="db"><pft>'cds'</pft></parm>
+		<parm name="fst"><pft>cat('cds.fst')</pft></parm>
+
+		<parm name="mfn"><pft>'1'</pft></parm>
+
+		<parm name="lockid"><pft>'20110610'</pft></parm>
+
+		<parm name="expire"><pft>v2004</pft></parm>
+		<field action="define" tag="1101">Isis_Lock</field>
+		<field action="define" tag="1102">Isis_Status</field>
+
+		<update>
+            <proc><pft>'d30a30!BIREME!'</pft></proc>
+			
+			<write>Unlock</write>
+		</update>
+
+	</do>
+
+</section>
+
+</IsisScript>
+

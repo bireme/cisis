@@ -1,0 +1,13 @@
+<!-- ==========================================
+ FULLINV.XIS
+ -----------
+========================================== -->
+
+<IsisScript>
+<section>
+
+   <display><pft>date(DATEONLY)/</pft></display>
+   <display><pft>date(DATETIME)/</pft></display>
+
+</section>
+</IsisScript>

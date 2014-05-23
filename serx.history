@@ -1,0 +1,91 @@
+servidor: trigramas.bireme.br
+usuario: cdrom
+
+
+http://trigramas.bireme.br/cgi-bin/serx?cipar=similar/SciELO.org.TiKwAb.cip&host=localhost&port=1730&wtrig2%20c=SciELO.org.TiKwAb%20maxrel=30%20minsim=0.005%20text=Rumo%20a%20publicacao%20eletronica.
+http://trigramas.bireme.br/cgi-bin/serx?cipar=similar/SciELO.org.TiKwAb.cip&host=localhost&port=1730&db=SciELO.org.TiKwAb&mfn=1
+ 
+
+ 1004  export LC_ALL=POSIX
+ 1005  export FFI=/usr/local/bireme/cisis/5.4.pre05/ffi
+ 1006  export LIND=/usr/local/bireme/cisis/5.4.pre05/lind
+ 1007  ls */serx
+ 1008  ls */*/serx
+ 1009  cd
+ 1010  ls
+ 1011  ls */serx
+ 1012  20080903/serx what
+ 1013  200712160100.trigramas.home.cdrom/serx what
+ 1014  pwd
+ 1015  cd /bases/www/cgi-bin/sim
+ 1016  cd /bases/www/cgi-bin/similar/
+ 1017  200712160100.trigramas.home.cdrom/serx
+ 1018  /home/cdrom/200712160100.trigramas.home.cdrom/serx
+ 1019  /home/cdrom/200712160100.trigramas.home.cdrom/serx what
+ 1020  /home/cdrom/200712160100.trigramas.home.cdrom/serx cipar=SciELO.org.AuTiGs port=1433 "wtrig2 c=SciELO.org.AuTiGs maxrel=1 minsim=0.5 text=Packer Abel. Rumo a publicacao eletronica"
+ 1021  /home/cdrom/200712160100.trigramas.home.cdrom/serx cipar=SciELO.org.AuTiGs host=localhost port=1433 "wtrig2 c=SciELO.org.AuTiGs maxrel=1 minsim=0.5 text=Packer Abel. Rumo a publicacao eletronica"
+ 1022  /home/cdrom/200712160100.trigramas.home.cdrom/serx cipar=SciELO.org.AuTiGs.cip host=localhost port=1433 "wtrig2 c=SciELO.org.AuTiGs maxrel=1 minsim=0.5 text=Packer Abel. Rumo a publicacao eletronica"
+ 1023  /home/cdrom/200712160100.trigramas.home.cdrom/serx cipar=SciELO.org.AuTiGs.cip host=localhost port=1433 "wtrig2 c=SciELO.org.AuTiGs maxrel=1 minsim=0.5 text=Packer Abel. Rumo a publicacao eletronica. Ci inf"
+ 1024  /home/cdrom/200712160100.trigramas.home.cdrom/serx cipar=SciELO.org.AuTiGs.cip host=localhost port=1433 "wtrig2 c=SciELO.org.AuTiGs maxrel=1 minsim=0.5 text=Packer Abel. Rumo a publicacao eletronica. Ci inf. 1998"
+ 1025  /home/cdrom/200712160100.trigramas.home.cdrom/serx cipar=SciELO.org.AuTiGs.cip host=localhost port=1433 "wtrig2 c=SciELO.org.AuTiGs maxrel=1 minsim=0.5 text=Packer, Abel; Antonio, Irati; Beraquet, Vero. Rumo a publicacao eletronica. Ci inf. 1998"
+ 1026  h 2008
+ 1027  cd
+ 1028  ls */serx
+ 1029  cd
+ 1030  /home/cdrom/20080903/serx cipar=SciELO.org.AuTiGs.cip host=localhost port=1433 "wtrig2 c=SciELO.org.AuTiGs maxrel=1 minsim=0.5 text=Packer, Abel; Antonio, Irati; Beraquet, Vero. Rumo a publicacao eletronica. Ci inf. 1998"
+ 1031  /home/cdrom/200712160100.trigramas.home.cdrom/serx cipar=SciELO.org.AuTiGs.cip host=localhost port=1433 "wtrig2 c=SciELO.org.AuTiGs maxrel=1 minsim=0.5 text=Packer, Abel; Antonio, Irati; Beraquet, Vero. Rumo a publicacao eletronica. Ci inf. 1998"
+ 1032  pwd
+ 1033  cd -
+ 1034  cd /bases/www/cgi-bin
+ 1035  ll mx
+ 1036  cp -p 20080903/serx .
+ 1037  cp -p ~/20080903/serx .
+ 1038  /home/cdrom/200712160100.trigramas.home.cdrom/serx cipar=SciELO.org.AuTiGs.cip host=localhost port=1433 "wtrig2 c=SciELO.org.AuTiGs maxrel=1 minsim=0.5 text=Packer, Abel; Antonio, Irati; Beraquet, Vero. Rumo a publicacao eletronica. Ci inf. 1998"
+ 1039  /home/cdrom/200712160100.trigramas.home.cdrom/serx cipar=similar/SciELO.org.AuTiGs.cip host=localhost port=1433 "wtrig2 c=SciELO.org.AuTiGs maxrel=1 minsim=0.5 text=Packer, Abel; Antonio, Irati; Beraquet, Vero. Rumo a publicacao eletronica. Ci inf. 1998"
+ 1040  ./serx cipar=similar/SciELO.org.AuTiGs.cip host=localhost port=1433 "wtrig2 c=SciELO.org.AuTiGs maxrel=1 minsim=0.5 text=Packer, Abel; Antonio, Irati; Beraquet, Vero. Rumo a publicacao eletronica. Ci inf. 1998"
+ 1041  ./serx cipar=similar/SciELO.org.AuTiGs.cip host=localhost port=1433 "wtrig2 c=SciELO.org.AuTiGs maxrel=30 minsim=0.5 text=Packer, Abel; Antonio, Irati; Beraquet, Vero. Rumo a publicacao eletronica. Ci inf. 1998"
+ 1042  ./serx cipar=similar/SciELO.org.AuTiGs.cip host=localhost port=1433 "wtrig2 c=SciELO.org.AuTiGs maxrel=30 minsim=0.005 text=Packer, Abel; Antonio, Irati; Beraquet, Vero. Rumo a publicacao eletronica. Ci inf. 1998"
+ 1043  ./serx cipar=similar/SciELO.org.AuTiGs.cip host=localhost port=1732 "wtrig2 c=SciELO.org.AuTiAb maxrel=30 minsim=0.005 text=Rumo a publicacao eletronica."
+ 1044  ./serx cipar=similar/SciELO.org.AuTiGs.cip host=localhost port=1732 "wtrig2 c=SciELO.org.TiKwAb maxrel=30 minsim=0.005 text=Rumo a publicacao eletronica."
+ 1045  ./serx cipar=similar/SciELO.org.TiKwAb.cip host=localhost port=1730 "wtrig2 c=SciELO.org.TiKwAb maxrel=30 minsim=0.005 text=Rumo a publicacao eletronica."
+ 1046  ./serx cipar=similar/SciELO.org.TiKwAb.cip host=localhost port=1730 "wtrig2 c=SciELO.org.TiKwAb maxrel=30 minsim=0.005 text=Rumo a publicacao eletronica."
+ 1047  h cipar >hserx
+ 1048  vi hserx
+ 1049  ./serx
+ 1050  ./serx hello
+ 1051  cat hserx
+ 1052  h 2007
+ 1053  cp -p /home/cdrom/200712160100.trigramas.home.cdrom/serx serx.old
+ 1054  ./serx.old hello
+ 1055  ./serx hello
+ 1056  cat >heitor
+ 1057  rm heitor
+ 1058  cat hserx
+ 1059  ./serx cipar=similar/SciELO.org.TiKwAb.cip host=localhost port=1730 "wtrig2 c=SciELO.org.TiKwAb maxrel=30 minsim=0.005 text=Rumo a publicacao eletronica.
+ 1060  ./serx cipar=similar/SciELO.org.TiKwAb.cip host=localhost port=1730 "wtrig2 c=SciELO.org.TiKwAb maxrel=30 minsim=0.005 text=Rumo a publicacao eletronica."
+ 1061  ./serx hello
+ 1062  cd ../htdocs/
+ 1063  dir ser*.htm
+ 1064  ll ser*.htm
+ 1065  psw
+ 1066  cd similar/
+ 1067  grep 1417 *.cip
+ 1068  pwd
+ 1069  cd ..
+ 1070  pwd
+ 1071  cd cgi-bin
+ 1072  cd ..
+ 1073  cd cgi-bin
+ 1074  cd similar/
+ 1075  grep 1417 *.cip
+ 1076  history
+ 
+ 
+ diretorio /bases/www/cgi-bin
+ 
+ 
+ /bases/www/htdocs -> sercjd.htm  serx-MH.htm  serxmh.htm  serxsus.htm
+ 
+ mudar arquivo sercjd.htm para chamar lilacs   ./serw port=1430 cipar=LILACS.org.TiKwAb.cip tell
+
+ 

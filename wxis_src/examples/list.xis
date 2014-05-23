@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!DOCTYPE IsisScript SYSTEM "wxis.dtd">
+
+<!-- ==========================================
+ LIST.XIS
+ --------
+========================================== -->
+
+<IsisScript>
+<section>
+
+   <field action="cgi" tag="2011" type="flag">trace</field>
+   <trace><pft>v2011</pft></trace>
+
+   <display>
+   LIST.XIS
+   --------
+
+   [reverse=<On|Off>] [trace]
+
+   </display>
+
+   <do task="mfnrange">
+	<parm name="db">CDS</parm>
+	<display><pft>#,'----------------- Unsorted ----------------'/</pft></display>
+      <loop>
+         <list action="load" type="sort"><pft>if p(v44) then '^k',mhu,v44.60,mpl,'^m',mfn fi</pft></list>
+         <display><pft>mfn(1),c10,v44.60/</pft></display>
+	</loop>
+   </do>
+
+   <do task="list">
+   	<field action="cgi" tag="2007" type="flag">reverse</field>
+      <parm name="reverse"><pft>v2007</pft></parm>
+		<!-- 
+		<parm name="from">10</parm>
+		<parm name="to">20</parm>
+		-->
+		<field action="define" tag="1001">Isis_Current</field>
+		<field action="define" tag="1002">Isis_Itens</field>
+		<field action="define" tag="1">Isis_Item</field>
+		<display><pft>#,'----------------- Sorted ----------------'/</pft></display>
+      <loop>
+         <display><pft>v1001,'/',v1002,c10,ref(['CDS']val(v1^m),v44.60/)</pft></display>
+		</loop>
+   </do>
+
+</section>
+</IsisScript>

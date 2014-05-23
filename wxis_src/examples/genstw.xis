@@ -1,0 +1,36 @@
+<IsisScript>
+<section>
+	
+	<field action="replace" tag="1" split="occ">
+		<pft>
+			'A'/,'B'/,'C'/,'D'/,'F'/,'G'/,'H'/,'I'/,'J'/,'K'/,
+			'L'/,'M'/,'N'/,'O'/,'P'/,'Q'/,'R'/,'S'/,'T'/,'U'/,
+			'V'/,'W'/,'X'/,'Y'/,'Z'/,
+		</pft>
+	</field>
+
+	<display><pft>'Start ...'/</pft></display>
+	<file action="create" type="output">char2.stw</file>
+
+	<field action="replace" tag="2" split="occ"><pft>(v1/)</pft></field>
+
+	<label>NEXT CHAR 1</label>
+	<field action="replace" tag="12"><pft>v2[1]</pft></field>
+	<field action="replace" tag="3" split="occ"><pft>(v1/)</pft></field>
+	
+	<label>NEXT CHAR 2</label>
+	<field action="replace" tag="13"><pft>v3[1]</pft></field>
+
+	<display><pft>v12,v13/</pft></display>
+	
+	<field action="delete" tag="3">1</field>
+	<flow action="jump"><pft>"NEXT CHAR 2"d3</pft></flow>
+
+	<field action="delete" tag="2">1</field>
+	<flow action="jump"><pft>"NEXT CHAR 1"d2</pft></flow>
+
+	<file action="close" type="output">char2.stw</file>
+	<display><pft>'File: char2.stw generated.'/</pft></display>
+
+</section>
+</IsisScript>

@@ -1,0 +1,12 @@
+<IsisScript>
+
+<include>incl3.xis</include>
+
+<section>
+	<trace>xOn</trace>
+	<display><pft>'Test INCLUDE'/#,'.Before incl2.xis'/</pft></display>
+	<include>incl2.xis</include>
+	<display><pft>'.After incl2.xis'/</pft></display>	
+</section>
+
+</IsisScript>

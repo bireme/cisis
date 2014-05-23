@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!DOCTYPE IsisScript SYSTEM "wxis.dtd">
+
+<!-- ==========================================
+ APPEND.XIS
+ ..........
+========================================== -->
+
+<IsisScript>
+<section>
+
+   <field action="cgi" tag="2001">db</field>
+   <field action="cgi" tag="2011" type="flag">trace</field>
+   <field action="cgi" tag="2022">mfn</field>
+   <trace><pft>v2011</pft></trace>
+
+   <flow action="jump"><pft>if p(v2001) and p(v2022) then 'GO' fi</pft></flow>
+   <display>
+   APPEND.XIS
+   ----------
+
+   db=dbname mfn=parm_mfn [fldlist=field_list] [dbupdate=dbname] [trace]
+   </display>
+   <flow action="exit">0</flow>
+
+   <label>GO</label>
+
+   <do task="mfnrange">
+      <parm name="db"><pft>v2001</pft></parm>
+      <parm name="from"><pft>v2022</pft></parm>
+      <parm name="count">1</parm>
+   	<loop>
+
+	   	<field action="import" tag="2001">2001</field>
+	   	<field action="import" tag="2022">2022</field>
+  	   	<field action="cgi" tag="2023">dbupdate</field>
+
+   	   <do task="update">
+
+	      	<parm name="db"><pft>v2023,if a(v2023) then v2001 fi</pft></parm>
+            <parm name="mfn">New</parm>
+            <parm name="lockid">Test</parm>
+
+            <field action="define" tag="1101">Isis_Lock</field>
+            <field action="define" tag="1102">Isis_Status</field>
+
+		      <update>
+
+            	<field action="delete" tag="list">ALL</field>
+		   		<field action="import" tag="2001">2001</field>
+   		   	<field action="import" tag="2022">2022</field>
+   		   	<field action="cgi" tag="2024">fldlist</field>
+   		   	<field action="import" tag="list"><pft>v2024</pft></field>
+   		   	<field action="replace" tag="1"><pft>'Veio da base ',v2001,', MFN=',v2022</pft></field>
+		   		<field action="delete" tag="2001">ALL</field>
+   		   	<field action="delete" tag="2022">ALL</field>
+   		   	<field action="delete" tag="2024">ALL</field>
+		   		<write>Unlock</write>
+   		   	<display><pft>ALL</pft></display>
+
+	      	</update>
+
+	   	</do>
+      </loop>
+
+   </do>
+
+</section>
+</IsisScript>

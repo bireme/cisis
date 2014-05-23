@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!DOCTYPE IsisScript SYSTEM "wxis.dtd">
+
+<!-- ==========================================
+ SEARCHPF.XIS
+ ------------
+========================================== -->
+
+<IsisScript>
+<section>
+
+   <field action="cgi" tag="2002">from</field>
+   <field action="cgi" tag="2005">expression</field>
+   <field action="cgi" tag="2011" type="flag">trace</field>
+   <trace><pft>v2011</pft></trace>
+
+   <flow action="jump"><pft>if p(v2005) then 'GO' fi</pft></flow>
+   <display>
+   SEARCHPF.XIS
+   ------------
+
+   expression=search_expression [from=n] [trace]
+   </display>
+   <flow action="exit">0</flow>
+
+   <label>GO</label>
+
+   <do task="search">
+      <parm name="db">cds</parm>
+      <parm name="indexlist">
+			<pft>
+			     '^p*^ycds^m** '/,
+			     '^pAU ^ycdsaut^mAU '/,
+			     '^pTI ^ycdstit^mTI '/
+			</pft>
+		</parm>
+      <parm name="expression"><pft>v2005</pft></parm>
+   	<parm name="from"><pft>v2002,"1"n2002</pft></parm>
+   	<parm name="count">10</parm>
+      <field action="define" tag="1002">Isis_Total</field>
+      <field action="define" tag="1022">Isis_Keys</field>
+		<loop>
+	   	<hl>
+				<parm name="prefix"><b></parm>
+				<parm name="suffix"></b></parm>
+				<parm name="keys"><pft>(if v1022.3 = 'TI ' or v1022.3 = '24 ' then v1022*3/ fi)</pft></parm>
+      		<field action="hl" tag="24"><pft>v24</pft></field>
+				<parm name="keys"><pft>(if v1022.3 = 'AU ' or v1022.3 = '70 ' then v1022*3/ fi)</pft></parm>
+      		<field action="hl" tag="70" split="occ"><pft>(v70/)</pft></field>
+				<parm name="keys"><pft>(if v1022.3 = '** ' then v1022*3/ fi)</pft></parm>
+        		<field action="hl" tag="24"><pft>v24</pft></field>
+        		<field action="hl" tag="70" split="occ"><pft>(v70/)</pft></field>
+            <display><pft>ALL</pft></display>
+            <display><pft>#</pft></display>
+	   	</hl>
+		</loop>
+   	<display><pft>if val(v1002) = 0 then 'No record found!' fi</pft></display>
+   </do>
+
+</section>
+</IsisScript>

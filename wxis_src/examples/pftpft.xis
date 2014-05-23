@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE IsisScript SYSTEM "wxis.dtd">
+
+<!-- ==========================================
+ PFTPFT.XIS
+ ----------
+========================================== -->
+
+<IsisScript>
+<section>
+
+   <display>
+   PFTPFT.XIS
+   ----------
+   </display>
+   <display><pft>#</pft></display>
+   <field action="cgi" tag="2011" type="flag">trace</field>
+   <trace><pft>v2011</pft></trace>
+
+   <field action="cgi" tag="100">^n^v</field>
+   <display><pft>ALL</pft></display>
+   <do>
+      <parm name="to">2</parm>
+      <field action="define" tag="1001">Isis_Current</field>
+      <loop>
+         <field action="cgi" tag="100">^n^v</field>
+         <field action="replace" tag="1">'--------'/,
+                               (|100=|v100/),/
+                               '========'/#,</field>
+         <field action="replace" tag="1">
+                <pft>if val(v1001) = 2 then '"*** Second time ***"n31999/' fi</pft>
+         </field>
+         <display><pft type="reload"><pft>v1</pft></pft></display>
+      </loop>
+   </do>
+
+</section>
+</IsisScript>

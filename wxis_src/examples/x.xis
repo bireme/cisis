@@ -1,0 +1,14 @@
+<IsisScript>
+<section>
+<display><pft>'Content-type: text/html'##</pft></display>
+<trace>On</trace>
+<field action=add tag=1><pft>'Test 123'</pft></field>
+<hl>
+ <parm name=prefix><b></parm>
+ <parm name=suffix></b></parm>
+ <parm name=keys><pft>'1$'/'T$'/</pft></parm>
+ <field action=hl tag=1><pft>v1</pft></field>
+ <display><pft>v1</pft></display>
+</hl>
+</section>
+</IsisScript>

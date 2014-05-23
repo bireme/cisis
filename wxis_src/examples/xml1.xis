@@ -1,0 +1,42 @@
+<IsisScript>
+
+<function name="parameter">
+	<display>
+		<pft>
+			'db=<dbname> [from=<mfn>] [to=<mfn>] [count=<n>] [style={0|1|2}] [fdt=<filename>] [root=<element>]'/
+		</pft>
+	</display>
+	<flow action="exit">1</flow>
+</function>
+
+<section>
+	<trace>xOn</trace>
+
+	<field action="cgi" tag="1">db</field>
+	<field action="cgi" tag="2">from</field>
+	<field action="cgi" tag="3">to</field>
+	<field action="cgi" tag="4">count</field>
+	<field action="cgi" tag="5">fdt</field>
+	<field action="cgi" tag="7">style</field>
+	<field action="cgi" tag="8">root</field>
+
+	<call name="parameter"><pft>"*"n1</pft></call>
+
+	<do task="mfnrange">
+		<parm name="db"><pft>v1</pft></parm>
+		<parm name="from"><pft>v2</pft></parm>
+		<parm name="to"><pft>v3</pft></parm>
+		<parm name="count"><pft>v4</pft></parm>
+
+		<parm name="isisxml style"><pft>v7</pft></parm>
+                <parm name="isisxml table"><pft>"root="v8/,(v5/)</pft></parm>
+
+		<loop>
+			<display>
+				<isisxml>*</isisxml>
+			</display>
+		</loop>
+	</do>
+</section>
+
+</IsisScript>

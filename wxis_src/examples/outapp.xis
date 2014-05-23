@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE IsisScript SYSTEM "wxis.dtd">
+
+<!-- ==========================================
+ OUTAPP.XIS
+ ----------
+========================================== -->
+
+<IsisScript>
+<section>
+
+   <field action="cgi" tag="2051">file</field>
+   <field action="cgi" tag="2011" type="flag">trace</field>
+   <trace><pft>v2011</pft></trace>
+
+   <flow action="jump"><pft>if p(v2051) then 'GO' fi</pft></flow>
+   <display>
+   OUTAPP.XIS
+   ----------
+
+   file=<output_file> [trace=on|off]
+
+   </display>
+   <flow action="exit">0</flow>
+
+   <label>GO</label>
+
+   <field action="cgi" tag="100">^n^v</field>
+   <file action="append" type="output"><pft>v2051</pft></file>
+   <display><pft>date/</pft></display>
+   <display><pft>ALL</pft></display>
+   <file action="close" type="output">now</file>
+   <display><pft>'Appended to: ',v2051</pft></display>
+
+</section>
+</IsisScript>

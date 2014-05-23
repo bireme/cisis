@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE IsisScript SYSTEM "wxis.dtd">
+
+<!-- ==========================================
+ FUNCTION.XIS
+ ------------
+========================================== -->
+
+<IsisScript>
+
+<function name="First">
+   <display>FIRST </display>
+</function>
+
+<function name="Second">
+   <display>SECOND </display>
+</function>
+
+<function name="ParamTest" action="replace" tag="1" split="occ">
+   <display><pft>##'ParamTest'/</pft></display>
+   <field action="import" tag="2">2013</field>
+   <display><pft>ALL</pft></display>
+   <return action="replace" tag="9999" split="occ"><pft>(v1/)</pft></return>
+</function>
+
+<section>
+
+   <field action="cgi" tag="2011" type="flag">trace</field>
+   <trace><pft>v2011</pft></trace>
+
+   <display>
+   FUNCTION.XIS
+   ------------
+
+   </display>
+   <display>START </display>
+
+   <call name="First">now</call>
+   <call name="Second">now</call>
+   <field action="cgi" tag="2013">p</field>
+   <call name="ParamTest"><pft>(v2013/)</pft></call>
+   <display><pft>ALL</pft></display>
+
+</section>
+</IsisScript>

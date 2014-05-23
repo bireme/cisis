@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE IsisScript SYSTEM "wxis.dtd">
+
+<!-- ==========================================
+ FLDDIR.XIS
+ ----------
+========================================== -->
+
+<IsisScript>
+<section>
+
+   <field action="cgi" tag="2001">db</field>
+   <field action="cgi" tag="2011" type="flag">trace</field>
+   <field action="cgi" tag="2022">mfn</field>
+   <trace><pft>v2011</pft></trace>
+
+   <flow action="jump"><pft>if p(v2001) and p(v2022) then 'GO' fi</pft></flow>
+   <display>
+   FLDDIR.XIS
+   ----------
+<!--
+   db=<dbname> mfn=<parm name="mfn> [trace=on|off]
+-->
+   </display>
+   <flow action="exit">0</flow>
+
+   <label>GO</label>
+
+   <do task="mfnrange">
+      <parm name="db"><pft>v2001</pft></parm>
+      <parm name="from"><pft>v2022</pft></parm>
+      <parm name="count">1</parm>
+   	<loop>
+	   	<field action="replace" tag="1" split="flddir" type="list">ALL</field>
+	   	<display><pft>ALL</pft></display>
+      </loop>
+   </do>
+
+</section>
+</IsisScript>

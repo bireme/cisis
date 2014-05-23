@@ -1,0 +1,10 @@
+<IsisScript>
+<section>
+
+	<field action="cgi" tag="1">text</field>
+	
+	<field action="replace" tag="2" split="occ"><pft>replace(v1,' ',s(#))</pft></field>
+	<display><pft>(v2+| OR |/)</pft></display>
+
+</section>
+</IsisScript>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE IsisScript SYSTEM "wxis.dtd">
+
+<!-- ==========================================
+ FST.XIS
+ -------
+========================================== -->
+
+<IsisScript>
+<section>
+
+   <field action="cgi" tag="2065">fst</field>
+   <field action="cgi" tag="2011" type="flag">trace</field>
+   <trace><pft>v2011</pft></trace>
+
+   <flow action="jump"><pft>if p(v2065) then 'GO' fi</pft></flow>
+   <display>
+   FST.XIS
+   -------
+
+   fst=<fst_file> [trace]
+
+   </display>
+   <flow action="exit">0</flow>
+
+   <label>GO</label>
+
+   <parm name="fst" type="check" tag="1"><pft>cat(v2065)</pft></parm>
+   <display><pft>ALL</pft></display>
+
+</section>
+</IsisScript>

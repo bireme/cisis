@@ -1,0 +1,57 @@
+<IsisScript>
+<section>
+
+	<do task="mfnrange">
+		<parm name="db">PERU</parm>
+		<field action="cgi" tag=2001>to</field>
+		<parm name="to"><pft>v2001</pft></parm>
+		<field action="define" tag=1001>Isis_Current</field>
+		<field action="define" tag=1002>Isis_Total</field>
+		<field action="delete" tag="list">91/99,107/108,207/208</field>
+		<loop>
+			<field action="import" tag="list">91/99,107/108,207/208</field>
+
+			<!-- display><pft>ALL</pft></display -->
+
+			<flow action="jump"><pft>
+				if mfn > 1 then
+					if v1 <> v91 then 'Q1' break,fi
+					if v2 <> v92 then 'Q2' break,fi
+					if v3 <> v93 then 'Q3' break,fi
+					if v4 <> v94 then 'Q4' break,fi
+					if v5 <> v95 then 'Q5' break,fi
+				fi
+	
+			</pft></flow>
+
+			<label>Soma</label>
+			<field action="replace" tag="107"><pft>f(val(v7)+val(v107),1,0)</pft></field>
+			<field action="replace" tag="108"><pft>f(val(v8)+val(v108),1,0)</pft></field>
+			<field action="replace" tag="207"><pft>f(val(v7)+val(v207),1,0)</pft></field>
+			<field action="replace" tag="208"><pft>f(val(v8)+val(v208),1,0)</pft></field>
+			<flow action="jump">Export</flow>
+			
+			<label>Q5</label>
+			<display><pft>v91'|',v92'|',v93'|',v94'|',v95'|','|',v207'|',v208/,</pft></display>
+			<field action="delete" tag="list">207,208</field>
+			<flow action="jump">Soma</flow>
+			
+			<label>Q4</label>
+			<label>Q3</label>
+			<label>Q2</label>
+			<label>Q1</label>
+			<display><pft>v91'|',v92'|',v93'|',v94'|','|','|',v107'|',v108/,</pft></display>
+			<field action="delete" tag="list">107,108</field>
+			<flow action="jump">Q5</flow>
+			
+			<label>Export</label>
+			<field action="export" tag="list">[1:91][2:92][3:93][4:94][5:95][6:96][7:97][8:98][9:99],107/108,207/208</field>
+		</loop>
+
+		<display><pft>v91'|',v92'|',v93'|',v94'|',v95'|','|',v207'|',v208/,</pft></display>
+		<display><pft>v91'|',v92'|',v93'|',v94'|','|','|',v107'|',v108/,</pft></display>
+
+	</do>
+
+</section>
+</IsisScript>

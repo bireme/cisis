@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE IsisScript SYSTEM "wxis.dtd">
+
+<IsisScript>
+  <section>
+   <display><pft>'Content-type: text/html'/#</pft></display>
+
+   <field action="cgi" tag="1">value</field>
+   <display><pft>putenv('VAR1=',v1)</pft></display>
+   <do>
+      <parm name="to">1</parm>
+      <loop>
+         <display><pft>'VAR1=',getenv('VAR1')/</pft></display>
+      </loop>
+   </do>
+  </section>
+</IsisScript>

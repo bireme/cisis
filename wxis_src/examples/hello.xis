@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!DOCTYPE IsisScript SYSTEM "wxis.dtd">
+
+<IsisScript>
+ <section>
+  <display><pft>'Content-type: text/html'/#</pft></display>
+  <display>Hello world!</display>
+ </section>
+</IsisScript>

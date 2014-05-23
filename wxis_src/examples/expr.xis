@@ -1,0 +1,52 @@
+<!-- ========== EXPR.XIS ============ -->
+
+<IsisScript>
+<section>
+   <field action=cgi tag=2001>expr</field>
+   <field action=cgi tag=2062>uctab</field>
+   <field action=cgi tag=2063>actab</field>
+   <field action=cgi tag=2065>stw</field>
+   <field action=cgi tag=2011 type=flag>trace</field>
+
+   <trace><pft>v2011</pft></trace>
+   <flow action=jump><pft>if p(v2001) then 'GO' fi</pft></flow>
+
+   <display>
+   EXPR.XIS
+   --------
+
+   expr=<expression> [uctab=<file>] [actab=<file>] [stw=<stw_file>] [trace]
+   </display>
+   <flow action=exit>0</flow>
+
+   <label>GO</label>
+   <parm name=uctab><pft>if p(v2062) then cat(v2062) fi</pft></parm>
+   <parm name=actab><pft>if p(v2063) then cat(v2063) fi</pft></parm>
+
+	<do>
+
+		<parm name=fst><pft>'2 4 v1'/</pft></parm>
+   	<parm name="stw"><pft>v2065</pft></parm>
+		<parm name="count">1</parm>
+		
+		<!-- obligatory, but not used -->		
+		<field action="define" tag="3001">Isis_Key</field>
+
+		<loop>
+
+	  	   <field action=cgi tag=1>expr</field>
+         <extract>now</extract>
+
+   		<display>
+				<pft>
+				'Words:  ',v1/
+				'Search: ',(v2^*+| AND |)/
+				</pft>
+			</display>
+
+      </loop>
+
+   </do>
+
+</section>
+</IsisScript>

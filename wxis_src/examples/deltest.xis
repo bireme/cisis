@@ -1,0 +1,17 @@
+<IsisScript>
+<section>
+
+   <file action="create" type="tempfile">1</file>
+
+	<parm name="cipar">
+		<pft>
+			'TEMP=',v1/
+		</pft>
+	</parm>
+
+   <display><pft>ALL</pft></display>
+
+   <file action="delete" type="file">TEMP</file>
+
+</section>
+</IsisScript>

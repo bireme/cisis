@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE IsisScript SYSTEM "wxis.dtd">
+
+<!-- ==========================================
+ UNLOCK.XIS
+ ----------
+========================================== -->
+
+<IsisScript>
+<section>
+
+   <field action="cgi" tag="2001">db</field>
+   <field action="cgi" tag="2011" type="flag">trace</field>
+   <trace><pft>v2011</pft></trace>
+
+   <flow action="jump"><pft>if p(v2001) then 'GO' fi</pft></flow>
+   <display>
+   UNLOCK.XIS
+   ----------
+
+   db=<database> [trace=on|off]
+
+   </display>
+   <flow action="exit">0</flow>
+
+   <label>GO</label>
+
+   <file action="unlock" type="database"><pft>v2001</pft></file>
+   <display><pft>'Database: ',v2001,' unlocked!'</pft></display>
+
+</section>
+</IsisScript>

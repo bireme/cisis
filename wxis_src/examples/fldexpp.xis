@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE IsisScript SYSTEM "wxis.dtd">
+
+<IsisScript>
+<section>
+
+	<do task="mfnrange">
+		<parm name="db">CDS</parm>
+		<parm name="from">1</parm>
+		<parm name="count">5</parm>
+		<loop>
+			<field action="cgi" tag="4000">campo</field>
+			<field action="export" tag="5000" previous="add"><pft>v4000</pft></field>
+<!-- display><pft>ALL</pft></display -->
+		</loop>
+		<display><pft>(v5000/)</pft></display>
+	</do>
+
+</section>
+</IsisScript>
+

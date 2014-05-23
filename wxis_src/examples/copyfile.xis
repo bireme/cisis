@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE IsisScript SYSTEM "wxis.dtd">
+
+<!-- ==========================================
+ COPYFILE.XIS
+ ------------
+========================================== -->
+
+<IsisScript>
+<section>
+
+   <field action="cgi" tag="2002">from</field>
+   <field action="cgi" tag="2006">to</field>
+   <field action="cgi" tag="2031">cipar</field>
+   <field action="cgi" tag="2011" type="flag">trace</field>
+
+   <field action="cgi" tag="1000">user</field>
+   <trace><pft>if v1000='debug' then v2011 fi</pft></trace>
+
+   <flow action="jump"><pft>if p(v2002) and p(v2006)  then 'GO' fi</pft></flow>
+   <display>
+   COPYFILE.XIS
+   ------------
+
+	from=<file> to=<file> [trace]
+
+   </display>
+   <flow action="exit">0</flow>
+
+   <label>GO</label>
+	<parm name="cipar"><pft>if p(v2031) then cat(v2031) fi</pft></parm>
+	<file action="copy" type="file"><pft>v2002/,v2006</pft></file>
+
+</section>
+</IsisScript>

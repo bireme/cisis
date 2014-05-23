@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE IsisScript SYSTEM "wxis.dtd">
+
+<!-- ==========================================
+ KEYRPOST.XIS
+ ------------
+========================================== -->
+
+<IsisScript>
+<section>
+
+   <field action="cgi" tag="2001">db</field>
+   <field action="cgi" tag="2002">from</field>
+   <field action="cgi" tag="2003">count</field>
+   <field action="cgi" tag="2004" type="flag">reverse</field>
+   <field action="cgi" tag="2006">to</field>
+   <field action="cgi" tag="2007" type="flag">posting</field>
+   <field action="cgi" tag="2008">posttag</field>
+   <field action="cgi" tag="2011" type="flag">trace</field>
+   <trace><pft>v2011</pft></trace>
+
+   <flow action="jump"><pft>if p(v2001) then 'GO' fi</pft></flow>
+   <display>
+   KEYRPOST.XIS
+   ------------
+
+   db=<dbname> [posting=all|<n>] [posttag=<fst_tag>]
+   [from=<key1>] [to=<key2>] [count=<n>] [reverse] [trace]
+
+   </display>
+   <flow action="exit">0</flow>
+
+   <label>GO</label>
+	
+      <do task="keyrange">
+         <parm name="db">     <pft>v2001</pft></parm>
+         <parm name="from">   <pft>v2002,if v2004 = 'on' then "~"n2002 fi</pft></parm>
+         <parm name="count">  <pft>v2003,"20"n2003</pft></parm>
+         <parm name="reverse"><pft>v2004</pft></parm>
+         <parm name="to">     <pft>v2006</pft></parm>
+         <parm name="posting"><pft>v2007</pft></parm>
+         <parm name="posttag"><pft>(v2008/)</pft></parm>
+
+         <field action="define" tag="1001">Isis_Current</field>
+         <field action="define" tag="1">Isis_Key</field>
+         <field action="define" tag="2">Isis_Postings</field>
+         <field action="define" tag="3">Isis_Posting</field>
+
+	   	<display><pft>'    POSTINGS',c15,'KEY',c46,'POSTING DETAIL'/#</pft></display>
+         <loop>
+             <display><pft>f(val(v1001),2,0),') ',v2,c15,v1,c46,v3/</pft></display>
+         </loop>
+
+      </do>
+
+</section>
+</IsisScript>

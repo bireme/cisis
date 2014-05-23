@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<!DOCTYPE IsisScript SYSTEM "wxis.dtd">
+
+<!-- ==========================================
+ COPY2.XIS
+ ---------
+========================================== -->
+
+<IsisScript>
+<section>
+
+   <field action="cgi" tag="2001">db</field>
+   <field action="cgi" tag="2011" type="flag">trace</field>
+   <field action="cgi" tag="2022">mfn</field>
+   <field action="cgi" tag="2024">tag</field>
+   <field action="cgi" tag="2027">content</field>
+   <trace><pft>v2011</pft></trace>
+
+   <flow action="jump"><pft>if p(v2001) and p(v2022) and p(v2024) and p(v2027) then 'GO' fi</pft></flow>
+   <display>
+   COPY2.XIS
+   ---------
+
+   db=<dbname> mfn=<mfn> tag=<tag> content=<data> [dbupdate=<dbname>]
+   [expire=<seconds>] [trace]
+
+   </display>
+   <flow action="exit">0</flow>
+
+   <label>GO</label>
+
+   <do task="mfnrange">
+      <parm name="db"><pft>v2001</pft></parm>
+      <parm name="from"><pft>v2022</pft></parm>
+      <parm name="count">1</parm>
+   	<loop>
+   	   <do task="update">
+	      	<field action="cgi" tag="2001">db</field>
+   	      <field action="cgi" tag="2023">dbupdate</field>
+	      	<field action="replace" tag="2023"><pft>v2023,if a(v2023) then v2001 fi</pft></field>
+	      	<parm name="db"><pft>v2023</pft></parm>
+	      	<parm name="fst"><pft>cat(v2023,'.fst')</pft></parm>
+            <field action="cgi" tag="2064" type="flag">-reset</field>
+            <parm name="reset"><pft>if v2064 = 'On' then 'Off' fi</pft></parm>
+	      	<parm name="mfn"><pft>mfn</pft></parm>
+            <field action="cgi" tag="2026">expire</field>
+            <parm name="expire"><pft>v2026</pft></parm>
+
+            <field action="define" tag="1101">Isis_Lock</field>
+            <parm name="lockid"><pft>getenv('REMOTE_ADDR'),x1,s(date).8</pft></parm>
+	      	<field action="define" tag="1102">Isis_Status</field>
+
+	      	<update>
+
+   		   	<field action="cgi" tag="2024">tag</field>
+		   		<field action="cgi" tag="2027">content</field>
+   		   	<proc><pft>'a',v2024,'~',v2027,'~'</pft></proc>
+   		   	<field action="delete" tag="2024">ALL</field>
+   		   	<field action="delete" tag="2027">ALL</field>
+		   		<write>Unlock</write>
+
+   		   	<display><pft>ALL</pft></display>
+   		   	<display><pft>'*** LOCK STATUS: 'v1102/</pft></display>
+
+	      	</update>
+
+	   	</do>
+      </loop>
+
+   </do>
+
+</section>
+</IsisScript>

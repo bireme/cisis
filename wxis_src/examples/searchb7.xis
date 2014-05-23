@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!DOCTYPE IsisScript SYSTEM "wxis.dtd">
+
+<!-- ==========================================
+ SEARCHPF.XIS
+ ------------
+========================================== -->
+
+<IsisScript>
+<section>
+
+   <field action="cgi" tag="2002">from</field>
+   <field action="cgi" tag="2005">expression</field>
+   <field action="cgi" tag="2011" type="flag">trace</field>
+   <trace><pft>v2011</pft></trace>
+
+   <flow action="jump"><pft>if p(v2005) then 'GO' fi</pft></flow>
+   <display>
+   SEARCHPF.XIS
+   ------------
+
+   expression=search_expression [from=n] [trace]
+   </display>
+   <flow action="exit">0</flow>
+
+   <label>GO</label>
+
+   <do task="search">
+
+      <parm name="db">cds</parm>
+      <parm name="expression"><pft>v2005</pft></parm>
+   	<parm name="from"><pft>v2002,"1"n2002</pft></parm>
+
+      <parm name="indexlist">
+			<pft>
+			     '^pALL ^ycds'/,
+			     '^p/70^ycds'/,
+			     '^p/24^ycds'/
+			</pft>
+		</parm>
+
+      <field action="define" tag="1002">Isis_Total</field>
+		<field action="define" tag="1091">Isis_Status</field>
+      <field action="define" tag="1092">Isis_ErrorInfo</field>
+
+		<loop>
+			<display><pft>mfn,x2,v24/,(|70=|v70/)#</pft></display>
+		</loop>
+
+   	<display>
+			<pft>
+				if val(v1091) > 0 then 'Error ',v1091,', syntax error: 'v1092/,
+            else if val(v1002) = 0 then 'No records found!'/
+                 fi,
+            fi
+			</pft>
+		</display>
+   </do>
+
+</section>
+</IsisScript>

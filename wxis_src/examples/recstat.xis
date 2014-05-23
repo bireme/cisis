@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE IsisScript SYSTEM "wxis.dtd">
+
+<!-- ==========================================
+ RECSTAT.XIS
+ ------------
+========================================== -->
+<IsisScript>
+<section>
+
+   <display>
+ 	RECSTAT.XIS
+   ------------
+   </display>
+   <display><pft>#</pft></display>
+
+   <do task="mfnrange">
+      <parm name="db">c:\temp\x</parm>
+      <parm name="from">1</parm>
+      <parm name="to">10</parm>
+		<field action="define" tag="1091">Isis_Status</field>
+      <loop>
+         <display><pft>ALL</pft></display>
+         <display><pft>#</pft></display>
+      </loop>
+   </do>
+
+</section>
+</IsisScript>

@@ -1,0 +1,28 @@
+<!-- ==========================================
+ CGIOPT.XIS
+ ----------
+========================================== -->
+
+<IsisScript>
+<section>
+
+   <display><pft>'Content-type: text/plain'/#</pft></display>
+   <field action=cgi tag=2011 type=flag>trace</field>
+   <trace><pft>v2011</pft></trace>
+
+   <display>
+   CGIOPT.XIS
+   ----------
+
+   ^t<n>=<value> ^u<n>=<value> ^w<n>=<value> tag<n>=<value> 
+
+   </display>
+   <field action=cgi tag=100>^n^v</field>
+   <field action=cgi tag=^t>ALL</field>
+   <field action=cgi tag=^u>ALL</field>
+   <field action=cgi tag=^w>ALL</field>
+   <field action=cgi tag=prefix>tag</field>
+   <display><pft>ALL</pft></display>
+
+</section>
+</IsisScript>

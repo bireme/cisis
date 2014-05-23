@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE IsisScript SYSTEM "wxis.dtd">
+
+<!-- ==========================================
+ TEMPFILE.XIS
+ ------------
+========================================== -->
+
+<IsisScript>
+<section>
+
+   <field action="cgi" tag="2052">tag</field>
+   <field action="cgi" tag="2082">tempdir</field>
+   <field action="cgi" tag="2011" type="flag">trace</field>
+   <trace><pft>v2011</pft></trace>
+
+   <flow action="jump"><pft>if p(v2052) then 'GO' fi</pft></flow>
+   <display>
+   TEMPFILE.XIS
+   ------------
+
+   tag=<n> [tempdir=temporary directory] [trace=on|off]
+
+   </display>
+   <flow action="exit">0</flow>
+
+   <label>GO</label>
+
+	<parm name="cipar"><pft>"CI_TEMPDIR="v2082</pft></parm>
+
+   <file action="create" type="tempfile"><pft>v2052</pft></file>
+   <display><pft>ALL</pft></display>
+
+</section>
+</IsisScript>

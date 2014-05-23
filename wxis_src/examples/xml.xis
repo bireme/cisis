@@ -1,0 +1,64 @@
+<IsisScript>
+
+<include>record2xml.xic</include>
+
+<function name="i2x_error" action="replace" tag="1" split="occ">
+
+	<display>
+		<pft>
+			'<h3>isis2xml/',v1[1],'</h3>'/,
+			select val(v1[2])
+			case 1:
+				'file open error: ',v1[3]/,
+			elsecase
+				'undefined error: ',v1[2]/,
+			endsel
+		</pft>
+	</display>
+	<flow action="exit">1</flow>
+
+</function>
+
+<function name="parameter">
+	<display>
+		<pft>
+			'db=<dbname> [from=<mfn>] [to=<mfn>] [count=<n>] [style={0|1|2}] [fdt=<filename>] [root=<element>]'/
+		</pft>
+	</display>
+	<flow action="exit">1</flow>
+</function>
+
+<section>
+	<trace>xOn</trace>
+
+	<field action="cgi" tag="1">db</field>
+	<field action="cgi" tag="2">from</field>
+	<field action="cgi" tag="3">to</field>
+	<field action="cgi" tag="4">count</field>
+	<field action="cgi" tag="5">fdt</field>
+	<field action="cgi" tag="7">style</field>
+	<field action="cgi" tag="8">root</field>
+
+	<call name="parameter"><pft>"*"n1</pft></call>
+
+	<call name="r2x_loadFDT"><pft>if p(v5) then '^f',v5,'^r6^e3201',"^s"v7, fi</pft></call>
+	<call name="i2x_error"><pft>if p(v3201) then 'r2x_loadFDT'/,v3201/,v5/ fi</pft></call>
+
+	<do task="mfnrange">
+		<parm name="db"><pft>v1</pft></parm>
+		<parm name="from"><pft>v2</pft></parm>
+		<parm name="to"><pft>v3</pft></parm>
+		<parm name="count"><pft>v4</pft></parm>
+
+		<parm name="isisxml style"><pft>v7</pft></parm>
+		<parm name="isisxml table"><pft>"root="v8/,(v6^t,x1,v6^n/)</pft></parm>
+
+		<loop>
+			<display>
+				<isisxml>*</isisxml>
+			</display>
+		</loop>
+	</do>
+</section>
+
+</IsisScript>

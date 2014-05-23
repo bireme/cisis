@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE IsisScript SYSTEM "wxis.dtd">
+
+<!-- ==========================================
+ ERR.XIS
+ -------
+========================================== -->
+
+<IsisScript>
+<section>
+
+   <field action="cgi" tag="2001">db</field>
+   <field action="cgi" tag="2011" type="flag">trace</field>
+   <trace><pft>v2011</pft></trace>
+
+   <!--  parm name="cipar">CI_TEMPDIR=c:\temp\</parm -->
+
+   <flow action="jump"><pft>if p(v2001) then 'GO' fi</pft></flow>
+   <display>
+   ERR.XIS
+   -------
+
+   db=<database> [trace]
+
+   </display>
+   <flow action="exit">0</flow>
+
+   <label>GO</label>
+
+   <do task="mfnrange">
+      <parm name="db"><pft>v2001</pft></parm>
+      <file action="create" type="tempfile">2064</file>
+      <parm name="file"><pft>v2064</pft></parm>
+      <loop>
+         <export>now</export>
+	   	<display><pft>mfn(1)/</pft></display>
+      </loop>
+      <file action="delete" type="file"><pft>v2064</pft></file>
+   </do>
+
+</section>
+</IsisScript>

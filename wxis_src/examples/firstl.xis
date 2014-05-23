@@ -1,0 +1,14 @@
+<IsisScript>
+<section>
+	<field action="cgi" tag="100">^n^v</field>
+	<field action="cgi" tag="2001">dup</field>
+	<field action="replace" tag="first line" split="occ">
+		<pft>
+			if p(v2001) then
+				v2001/,(v100/)
+			fi
+		</pft>
+	</field>
+	<display><pft>ALL</pft></display>
+</section>
+</IsisScript>

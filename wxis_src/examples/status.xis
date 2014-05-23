@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE IsisScript SYSTEM "wxis.dtd">
+
+<!-- ==========================================
+ STATUS.XIS
+ ----------
+========================================== -->
+
+<IsisScript>
+<section>
+
+   <field action="cgi" tag="2001">db</field>
+   <field action="cgi" tag="2002">file</field>
+   <field action="cgi" tag="2011">trace</field>
+   <trace><pft>v2011</pft></trace>
+
+   <flow action="jump"><pft>if p(v2001) or p(v2002) then 'GO' fi</pft></flow>
+   <display>
+   STATUS.XIS
+   ----------
+
+   db=<database> file=<file_name>
+
+   </display>
+   <flow action="exit">0</flow>
+
+   <label>GO</label>
+   <flow action="jump"><pft>if a(v2001) then 'LABEL_FILE' fi</pft></flow>
+   <field action="statusdb" tag="1091"><pft>v2001</pft></field>
+   <display><pft>
+   	'Master  : ',v2001,x1,if v1091^s : 'm' then 'exist' else '[not found]' fi/
+   	'Inverted: ',v2001,x1,if v1091^s : 'i' then 'exist' else '[not found]' fi/
+   	"Next record: "v1091^n/
+   	"Data entry lock: "v1091^d/
+   	"Exclusive write lock: "v1091^e/#</pft>
+   </display>
+   <flow action="exit"><pft>if a(v2002) then '0' fi</pft></flow>
+
+   <label>LABEL_FILE</label>
+   <field action="statusfile" tag="1091"><pft>v2002</pft></field>
+   <display><pft>
+   	'File : ',v2002,x1,if v1091^s : 'e' then 'exist' else '[not found]' fi/</pft>
+   </display>
+
+</section>
+</IsisScript>

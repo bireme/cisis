@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE IsisScript SYSTEM "wxis.dtd">
+
+<!-- ==========================================
+ DELFILE.XIS
+ -----------
+========================================== -->
+
+<IsisScript>
+<section>
+
+   <field action="cgi" tag="2051">file</field>
+   <field action="cgi" tag="2011" type="flag">trace</field>
+   <trace><pft>v2011</pft></trace>
+
+   <flow action="jump"><pft>if p(v2051) then 'GO' fi</pft></flow>
+   <display>
+   DELFILE.XIS
+   -----------
+
+   file=<file_name> [trace]
+
+   </display>
+   <flow action="exit">0</flow>
+
+   <label>GO</label>
+
+   <file action="delete" type="file"><pft>v2051</pft></file>
+   <display><pft>'File: ',v2051,' deleted!'</pft></display>
+
+</section>
+</IsisScript>

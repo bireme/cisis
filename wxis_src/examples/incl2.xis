@@ -1,0 +1,8 @@
+<display><pft>'..Inside incl2.xis'/</pft></display>
+<display><pft>'..Before incl3.xis'/</pft></display>
+<call name="Inside_incl3.xis">*</call>
+<display><pft>'..After incl3.xis'/</pft></display>
+<display><pft>'..Before incl4.xis'/</pft></display>
+<include>incl4.xis</include>
+<display><pft>'..After incl4.xis'/</pft></display>
+<include>incl5.xis</include>

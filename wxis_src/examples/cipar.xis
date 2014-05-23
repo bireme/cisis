@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE IsisScript SYSTEM "wxis.dtd">
+
+<!-- ==========================================
+ CIPAR.XIS
+ ---------
+========================================== -->
+
+<IsisScript>
+<section>
+
+   <field action="cgi" tag="2001">db</field>
+   <field action="cgi" tag="2003">count</field>
+   <field action="cgi" tag="2011">trace</field>
+   <field action="cgi" tag="2031">cipar</field>
+   <trace><pft>v2011</pft></trace>
+
+   <flow action="jump"><pft>if p(v2001) and p(v2031) then 'GO' fi</pft></flow>
+   <displ>
+   CIPAR.XIS
+   ---------
+<!--
+   cipar=<filename> db=<dbname> [count=<n>] [trace=on|off]
+-->
+   </displ>
+   <flow action="exit">0</flow>
+
+   <label>GO</label>
+
+   <parm name="cipar"><pft>cat(v2031)</pft></parm>
+
+   <!-- parm name="buffersize">90000</parm -->
+
+   <do task="mfnrange">
+      <parm name="db"><pft>v2001</pft></parm>
+		<parm name="count"><pft>v2003</pft></parm>
+      <loop>
+         <display><pft>ALL</pft></display>
+      </loop>
+   </do>
+
+</section>
+</IsisScript>

@@ -1,0 +1,21 @@
+<IsisScript>
+<section>
+
+	<do>
+		<parm name=fst><pft>'2 0 (v1/)'/</pft></parm>
+		<parm name="count">1</parm>
+		<loop>
+	  	   <field action=cgi tag=1>text</field>
+			<field action="add" tag="1">  Teste com á e Ã </field>
+         <extract>now</extract>
+
+   		<display>
+				<pft>ALL</pft>
+			</display>
+
+      </loop>
+
+   </do>
+
+</section>
+</IsisScript>

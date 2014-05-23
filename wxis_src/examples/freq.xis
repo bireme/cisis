@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!DOCTYPE IsisScript SYSTEM "wxis.dtd">
+
+<!-- ==========================================
+ FREQ.XIS
+ --------
+========================================== -->
+
+<IsisScript>
+<section>
+
+   <field action="cgi" tag="2004" type="flag">reverse</field>
+   <field action="cgi" tag="2006">to</field>
+   <field action="cgi" tag="2011" type="flag">trace</field>
+   <trace><pft>v2011</pft></trace>
+
+   <display>
+   FREQ.XIS
+   --------
+
+   [to=<n>] [reverse] [delete] [freqsum] [trace]
+
+   </display>
+
+   <do>
+		<parm name="to"><pft>v2006,"1"n2006</pft></parm>
+      <loop>
+
+	   	<do task="mfnrange">
+				<parm name="db">TESTE</parm>
+            <display><pft>#,'Cidade',c50,'Campo 303'/#</pft></display>
+            <loop>
+			   	<field action="cgi" tag="2012" type="flag">freqsum</field>
+               <parm name="freqsum"><pft>if p(v2012) then v303 fi</pft></parm>
+               <list action="load" type="freq"><pft>v66</pft></list>
+               <display><pft>if p(v66) then v66,c50,v303/ fi</pft></display>
+         	</loop>
+         </do>
+
+         <do task="list">
+   			<field action="import" tag="2004">2004</field>
+				<parm name="reverse"><pft>v2004</pft></parm>
+        		<parm name="sort"><pft>f(val(v2),10,0)</pft></parm>
+				<field action="define" tag="1001">Isis_Current</field>
+				<field action="define" tag="1003">Isis_Total</field>
+            <field action="define" tag="1004">Isis_Itens</field>
+            <field action="define" tag="1005">Isis_Items</field>
+				<field action="define" tag="1">Isis_Item</field>
+				<field action="define" tag="2">Isis_Value</field>
+            <display><pft>#c10,'Cidade',c25,'Quantidade'/#</pft></display>
+            <loop>
+               <display><pft>f(val(v1001),2,0),'/',v1004,')',c10,v1,c25,v2/</pft></display>
+            </loop>
+            <display><pft>#,c10,'Total',c25,v1003/,'1005='v1005/</pft></display>
+         </do>
+
+         <field action="cgi" tag="2012" type="flag">delete</field>
+         <list action="delete"><pft>if s(mpu,v2012,mpl) = 'ON' then 'ALL' fi</pft></list>
+
+      </loop>
+   </do>
+
+</section>
+</IsisScript>

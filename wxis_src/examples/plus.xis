@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!DOCTYPE IsisScript SYSTEM "wxis.dtd">
+
+<!-- ==========================================
+ PLUS.XIS
+ --------
+========================================== -->
+
+<IsisScript>
+<section>
+
+   <field action="cgi" tag="2051">^n^v</field>
+   <field action="cgi" tag="2011" type="flag">trace</field>
+   <trace><pft>v2011</pft></trace>
+
+   <flow action="jump"><pft>"GO"d2051</pft></flow>
+
+   <display>
+   PLUS.XIS
+   --------
+
+   name=<number> [trace]
+   </display>
+   <flow action="exit">0</flow>
+
+   <label>GO</label>
+   <do>
+      <parm name="to"><pft>f(nocc(v2051),1,0)</pft></parm>
+      <field action="define" tag="1001">Isis_Current</field>
+      <field action="define" tag="1002">Isis_Total</field>
+      <loop>
+         <field action="import" tag="4001">2051</field>
+         <field action="occ" tag="4002" from="4001"><pft>v1001</pft></field>
+
+			<flow action="skip"><pft>if val(v4002^v) = 0 then 'Next' fi</pft></flow>         
+         <parm name="freqsum"><pft>v4002^v</pft></parm>
+         <list action="load" type="freq"><pft>v4002^n</pft></list>
+      </loop>
+   </do>
+
+   <display><pft>#</pft></display>
+
+   <do task="list">
+      <field action="define" tag="1">Isis_Item</field>
+      <field action="define" tag="2">Isis_Value</field>
+      <loop>
+         <display><pft>v1,'=',v2/</pft></display>
+      </loop>
+   </do>
+
+</section>
+</IsisScript>

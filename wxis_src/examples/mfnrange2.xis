@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+
+<IsisScript>
+
+<function name="command line">
+   <display>
+		<pft>
+			'db=<dbname> [from=<mfn>] [to=<mfn>] [count=<n>]'/
+		</pft>
+   </display>
+	<flow action="exit">1</flow>
+</function>
+
+<section>
+
+	<field action="cgi" tag="9991" type="flag">trace</field>
+	<trace><pft>v9991</pft></trace>
+
+	<field action="cgi" tag="1">db</field>
+	<field action="cgi" tag="2">from</field>
+	<field action="cgi" tag="3">to</field>
+	<field action="cgi" tag="4">count</field>
+	<field action="cgi" tag="5">pft</field>
+        <field action="cgi" tag="6">cipar</field>
+
+	<call name="command line"><pft>"*"n1</pft></call>
+
+        <parm name="cipar"><pft>cat(v6)</pft></parm>
+
+   <do task="mfnrange">
+
+      <parm name="db"><pft>v1</pft></parm>
+      <parm name="from"><pft>v2</pft></parm>
+      <parm name="to"><pft>v3</pft></parm>
+      <parm name="count"><pft>v4</pft></parm>
+
+	<field action="define" tag="1001">Isis_Current</field>
+	<field action="define" tag="1002">Isis_Total</field>
+
+		<field action="define" tag="1091">Isis_Status</field>
+
+      <loop>
+			<field action="import" tag="9990">5</field>
+         <display><pft><pft>v9990,"ALL"n9990</pft></pft></display>
+      </loop>
+   </do>
+
+</section>
+</IsisScript>

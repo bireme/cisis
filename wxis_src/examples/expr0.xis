@@ -1,0 +1,21 @@
+<!-- ========== EXPR.XIS ============ -->
+
+<IsisScript>
+<section>
+   <field action=cgi tag=2001>expr</field>
+
+		<parm name=fst><pft>'2 4 v2001'/</pft></parm>
+		<field action="define" tag="3001">Isis_Key</field>
+                
+         <extract>now</extract>
+
+   		<display>
+				<pft>
+				'Words:  ',v1/
+				'Search: ',(v2^*+| AND |)/
+				</pft>
+			</display>
+
+
+</section>
+</IsisScript>

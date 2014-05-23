@@ -1,0 +1,31 @@
+<IsisScript>
+
+<function name="Show">
+	<field action="import" tag="4001">4001</field>
+	<field action="import" tag="list"><pft>v4001</pft></field>
+	<display><pft>ALL</pft></display>
+</function>
+
+<section>
+
+	<field action="replace" tag="1">um</field>
+	<field action="replace" tag="2">dois</field>
+	<field action="replace" tag="3">tres</field>
+	<field action="replace" tag="4">quatro</field>
+	<field action="add" tag="4">IV</field>
+	<field action="replace" tag="4001">1,2,4</field>
+	
+	<do>
+		<parm name="to">2</parm>
+		<field action="define" tag="1001">Isis_Current</field>
+		<loop>
+			<field action="import" tag="4001">4001</field>
+			<field action="import" tag="list"><pft>v4001</pft></field>
+			<field action="replace" tag="4001"><pft>v4001,',1001'</pft></field>
+			<call name="Show">*</call>
+		</loop>
+	</do>
+
+</section>
+</IsisScript>
+

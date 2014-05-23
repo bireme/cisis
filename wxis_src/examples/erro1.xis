@@ -1,0 +1,12 @@
+<IsisScript>
+<section>
+	<list action="load" type="list"><pft>'Um'/,'Dois'/</pft></list>
+	<do>
+		<parm name="task"><pft>'list'</pft></parm>
+		<field action="define" tag="1">Isis_Item</field>
+		<loop>
+			<display><pft>ALL</pft></display>
+		</loop>
+	</do>
+</section>
+</IsisScript>

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE IsisScript SYSTEM "wxis.dtd">
+
+<!-- ==========================================
+ HTML2PFT.XIS
+ ------------
+========================================== -->
+
+<IsisScript>
+<section>
+
+   <field action="cgi" tag="2014">html</field>
+   <field action="cgi" tag="2017">pft</field>
+   <field action="cgi" tag="2011" type="flag">trace</field>
+   <trace><pft>v2011</pft></trace>
+
+   <flow action="jump"><pft>if p(v2014) and p(v2017) then 'GO' fi</pft></flow>
+   <display>
+   HTML2PFT.XIS
+   ------------
+
+   html=<html> pft=<html> [prefix=<text>] [suffix=<text>] [trace]
+
+   </display>
+   <flow action="exit">0</flow>
+
+   <label>GO</label>
+
+   <field action="cgi" tag="2015">prefix</field>
+   <field action="cgi" tag="2016">suffix</field>
+   <parm name="prefix"><pft>v2015</pft></parm>
+   <parm name="suffix"><pft>v2016</pft></parm>
+   <file action="create" type="output"><pft>v2017</pft></file>
+   <display><htmlpft action="convert"><pft>cat(v2014)</pft></htmlpft></display>
+   <file action="close" type="output">now</file>
+   <display><pft>'HTML file: ',v2014,' conveted to: 'v2017</pft></display>
+
+</section>
+</IsisScript>

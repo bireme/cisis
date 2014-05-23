@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE IsisScript SYSTEM "wxis.dtd">
+
+<!-- ==========================================
+ MFNRANGE.XIS
+ ------------
+========================================== -->
+<IsisScript>
+<section>
+
+   <display>
+   MFNRANGE.XIS
+   ------------
+   </display>
+   <display><pft>#</pft></display>
+
+   <do task="mfnrange">
+      <parm name="db">TESTE</parm>
+      <parm name="from">1</parm>
+      <parm name="to">4</parm>
+      <display>antes do loop</display>
+      <loop>
+         <display><pft>v18/,v7| |</pft></display>
+      </loop>
+      <display>depois do loop</display>
+   </do>
+
+   <do task="mfnrange">
+      <parm name="db">CDS</parm>
+      <parm name="from">10</parm>
+      <parm name="to">13</parm>
+      <proc>a200~duzentos~</proc>
+      <loop>
+         <proc>a300~trezentos~</proc>
+         <display><pft>ALL</pft></display>
+      </loop>
+      <display><pft>ALL</pft></display>
+   </do>
+
+</section>
+</IsisScript>

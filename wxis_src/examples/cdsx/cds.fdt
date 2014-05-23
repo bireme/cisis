@@ -1,0 +1,17 @@
+W:CDS   
+F:CDS   F     CDS1  
+S:CDS   
+***
+Conference main entry         npdz                12 300 0 0
+Title                         z                   24 500 0 0
+Edition                                           25 100 0 0
+Imprint                       abc                 26 300 0 0
+Collation                     abc                 30 100 0 0
+Series                        vz                  44 300 0 1
+Notes                                             50 500 0 0
+Keywords                                          69 1000 0 0
+Personal Authors                                  70 100 0 1
+Corporate Bodies                                  71 300 0 1
+Meetings                      npdz                72 300 0 1
+Added Title                   z                   74 500 0 1
+Other language titles         z                   76 500 0 1

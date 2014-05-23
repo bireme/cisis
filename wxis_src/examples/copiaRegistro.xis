@@ -1,0 +1,64 @@
+<IsisScript name="">
+ <section name="">
+
+<!-- Pega parametros -->
+<field action="cgi" tag="2000">db</field>
+<field action="cgi" tag="2001">mfn</field>
+
+ <!-- Se passou todos os parametros -->
+ <flow action="jump"><pft>if p(v2000) and p(v2001) then 'GO' fi</pft></flow>
+
+ <!-- Mostra os parametros de entrada se não estiverem presentes -->
+ <display>
+   COPIAR REGISTRO.XIS
+   ----------
+
+   db=dbname mfn=mfn
+
+ </display>
+
+ <flow action="exit">0</flow>
+
+ <label>GO</label>
+
+<!-- Le registro original -->
+<do task="mfnrange">
+  <parm name="db"><pft>v2000</pft></parm>
+  <parm name="from"><pft>v2001</pft></parm>
+  <parm name="count">1</parm>
+  <loop>
+   <field action="export" tag="list">1/999</field>
+  </loop>
+</do>
+
+<!-- Manipula dados a gravar 
+<field action="replace" tag="1"><pft>s(v1,v100)</pft></field>
+-->
+
+<!-- Gravacao da tag ja preparada -->
+<do task="update">
+  <parm name="db"><pft>v2000</pft></parm>
+  <parm name="mfn">New</parm>
+  <field action="define" tag="1101">Isis_Lock</field>
+  <field action="define" tag="1102">Isis_Status</field>
+  <parm name="lockid"><pft>s(date).8</pft></parm>
+  <update>
+   <field action="import" tag="list">1/999</field>
+<display>passou3a</display>
+   <write>unlock</write>
+<display>passou4</display>
+  </update>
+</do>
+
+ </section>
+</IsisScript>
+
+
+
+<!--
+
+Exemplos de chamada em linha de comando
+
+wxis IsisScript=teste.xis 
+wxis IsisScript=teste.xis Endereco=dflkjflkfjsdf
+ -->

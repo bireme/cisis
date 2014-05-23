@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<!DOCTYPE IsisScript SYSTEM "wxis.dtd">
+
+<!-- ==========================================
+ COPY.XIS
+ --------
+========================================== -->
+
+<IsisScript>
+<section>
+
+   <field action="cgi" tag="2001">db</field>
+   <field action="cgi" tag="2011" type="flag">trace</field>
+   <field action="cgi" tag="2022">mfn</field>
+   <field action="cgi" tag="2024">tag</field>
+   <trace><pft>v2011</pft></trace>
+
+   <flow action="jump"><pft>if p(v2001) and p(v2022) and p(v2024) then 'GO' fi</pft></flow>
+   <display>
+   COPY.XIS
+   --------
+
+   db=<dbname> mfn=<mfn> tag=<tag> [dbupdate=<dbname>]
+   [lock] [expire=<seconds>] [trace]
+
+   </display>
+   <flow action="exit">0</flow>
+
+   <label>GO</label>
+
+   <do task="mfnrange">
+      <parm name="db"><pft>v2001</pft></parm>
+      <parm name="from"><pft>v2022</pft></parm>
+      <parm name="count">1</parm>
+   	<loop>
+   	   <do task="update">
+	      	<field action="cgi" tag="2001">db</field>
+  	      	<field action="cgi" tag="2023">dbupdate</field>
+	      	<parm name="db"><pft>v2023,if a(v2023) then v2001 fi</pft></parm>
+	      	<parm name="mfn"><pft>mfn</pft></parm>
+         	<field action="cgi" tag="2026">expire</field>
+         	<parm name="expire"><pft>v2026</pft></parm>
+
+         	<field action="define" tag="1101">Isis_Lock</field>
+         	<parm name="lockid"><pft>getenv('REMOTE_ADDR'),x1,s(date).8</pft></parm>
+	      	<field action="define" tag="1102">Isis_Status</field>
+
+      		<update>
+
+            	<field action="cgi" tag="2025" type="flag">lock</field>
+               <flow action="jump"><pft>if v2025 <> 'On' then 'LABEL_1' fi</pft></flow>
+		   		<write>Lock</write>
+		   		<flow action="jump">LABEL_SHOW</flow>
+
+					<label>LABEL_1</label>
+   				<field action="cgi" tag="2024">tag</field>
+   		   	<field action="import" tag="4001" split="occ"><pft>v2024</pft></field>
+   		   	<field action="delete" tag="2024">ALL</field>
+		   		<write>Unlock</write>
+
+		   		<label>LABEL_SHOW</label>
+   		   	<display><pft>ALL</pft></display>
+   		   	<display><pft>'*** LOCK STATUS: 'v1102/</pft></display>
+
+	      	</update>
+
+	   	</do>
+      </loop>
+
+   </do>
+
+</section>
+</IsisScript>

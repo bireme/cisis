@@ -1,0 +1,28 @@
+<IsisScript>
+<section>
+
+	<field action="cgi" tag="1">style</field>
+
+	<do task="mfnrange">
+		<parm name="db">cds</parm>
+		<parm name="to">3</parm>
+
+		<parm name="isisxml style"><pft>v1</pft></parm>
+		<parm name="isisxml table">
+			<pft>
+			   'root=cds'/,
+			   '24 Title'/
+			   '70 Author'/
+			</pft>
+		</parm>
+
+		<loop>
+			<display>
+				<isisxml>*</isisxml>
+			</display>
+		</loop>
+	</do>
+
+
+</section>
+</IsisScript>

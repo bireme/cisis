@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE IsisScript SYSTEM "wxis.dtd">
+
+<IsisScript>
+
+<function name="Split" action="replace" tag="1">
+	<field action="import" tag="2"><pft>v1</pft></field>
+	<field action="replace" tag="2" split="occ"><pft>v2</pft></field>
+	<field action="export" tag="list"><pft>'[2:',v1,']'</pft></field>
+</function>
+
+<function name="SplitList" action="replace" tag="5000" split="occ">
+  <field action="import" tag="list"><pft>v5000+|,|</pft></field>
+  <do>
+    <parm name="to"><pft>f(nocc(v5000),1,0)</pft></parm>
+    <field action="define" tag="1001">Isis_Current</field>
+	 <loop>
+      <field action="import" tag="5000">5000</field>
+		<field action="occ" tag="5001" from="5000"><pft>v1001</pft></field>
+		<call name="Split"><pft>v5001</pft></call>
+      <field action="export" tag="list"><pft>v5001</pft></field>
+    </loop>
+  </do>
+  <field action="export" tag="list"><pft>v5000+|,|</pft></field>
+</function>
+
+<section>
+
+<call name="SplitList"><pft>'300'/,'301'/,(v8000^t/)</pft></call>
+
+</section>
+</IsisScript>

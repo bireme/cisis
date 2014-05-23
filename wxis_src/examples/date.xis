@@ -1,0 +1,12 @@
+<IsisScript>
+<section>
+
+   <field action="cgi" tag="1">date</field>
+   <display><pft>'date='v1,'/',f(val(v1),1,0)/#</pft></display>
+
+   <display><pft>'date=',date/</pft></display>
+   <display><pft>'date(DATETIME)=',date(DATETIME)/</pft></display>
+   <display><pft>'date(DATEONLY)=',date(DATEONLY)/</pft></display>
+
+</section>
+</IsisScript>

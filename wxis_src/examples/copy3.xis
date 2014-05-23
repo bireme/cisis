@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!DOCTYPE IsisScript SYSTEM "wxis.dtd">
+
+<!-- ==========================================
+ COPY.XIS
+ --------
+========================================== -->
+
+<IsisScript>
+<section>
+
+   <field action="cgi" tag="2001">db</field>
+   <field action="cgi" tag="2011" type="flag">trace</field>
+   <field action="cgi" tag="2022">mfn</field>
+   <field action="cgi" tag="2023">dbupdate</field>
+   <field action="cgi" tag="2024">tag</field>
+   <trace><pft>v2011</pft></trace>
+
+   <flow action="jump"><pft>if p(v2001) and p(v2022) then 'GO' fi</pft></flow>
+   <display>
+   COPY.XIS
+   --------
+
+   db=<dbname> mfn=<mfn> tag=<tag> [dbupdate=<dbname>]
+   [lock] [expire=<seconds>] [trace]
+
+   </display>
+   <flow action="exit">0</flow>
+
+   <label>GO</label>
+   <display><pft>'dbupdate=' v2023</pft></display>
+   
+   <file action="create" type="database"><pft>v2023</pft></file>
+   
+   <do task="mfnrange">
+      <parm name="db"><pft>v2001</pft></parm>
+      <parm name="from"><pft>v2022</pft></parm>	  
+      
+   	<loop>
+	   
+   	   <do task="update">
+		   <field action="import" tag="list">2001,2023</field>
+	      	<parm name="db"><pft>v2023,if a(v2023) then v2001 fi</pft></parm>
+	      	<parm name="mfn">New</parm>
+			<parm name="lockid">Test</parm>
+			
+	      	<field action="define" tag="1102">Isis_Status</field>
+			<field action="define" tag="1101">Isis_Lock</field>			
+						
+      		<update>								
+				<!-- passar lista de campos para gravação -->
+				<field action="import" tag="list">24,70</field>
+				<display><pft>ALL</pft></display>
+		   		<write>Unlock</write>				
+			</update>
+	   	</do>
+      </loop>
+
+   </do>
+
+</section>
+</IsisScript>

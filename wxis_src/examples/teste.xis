@@ -1,0 +1,14 @@
+<IsisScript>
+<section>
+
+ <do task="import">
+  <parm name="type">RLine</parm>
+  <parm name="file">x</parm>
+  <loop>
+   <display><pft>'[',v1,']'/</pft></display>
+  </loop>
+ </do>
+
+</section>
+</IsisScript>
+

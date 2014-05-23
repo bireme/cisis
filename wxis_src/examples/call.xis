@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<IsisScript>
+
+<include>include_1.xis</include>
+
+<function name="displayAll" action="replace" tag="1" split="occ">
+   <display><pft>ALL</pft></display>
+</function>
+
+<section>
+
+	<call name="displayAll">call.xis</call>
+	
+</section>
+</IsisScript>

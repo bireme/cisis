@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE IsisScript SYSTEM "wxis.dtd">
+
+<!-- ==========================================
+ MFNRMFNR.XIS
+ ------------
+========================================== -->
+
+<IsisScript>
+<section>
+
+   <field action="cgi" tag="2011" type="flag">trace</field>
+   <trace><pft>v2011</pft></trace>
+
+   <do task="mfnrange">
+      <parm name="db">dbname</parm>
+      <loop>
+
+         <do task="mfnrange">
+
+            <field action="statusdb" tag="1091"><pft>v1</pft></field>
+            <display><pft>##,if v1091^s : 'm' then '---- ',v1,' ----'
+                            else 'Data base not found: ',v1 fi/</pft></display>
+            <flow action="skip"><pft>if v1091^s : 'm' then , else 'Quit' fi</pft></flow>
+
+            <parm name="db"><pft>v1</pft></parm>
+            <parm name="count">1</parm>
+            <loop>
+               <display><pft>mstname/</pft></display>
+               <display><pft>ALL</pft></display>
+            </loop>
+
+         </do>
+
+      </loop>
+   </do>
+
+</section>
+</IsisScript>
+
