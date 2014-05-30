@@ -452,7 +452,7 @@ LOOPMFN:
         batchp+=(x=strlen(batchp)); left-=x;
         x=strlen(keyp);
         if (left <= (x+MINBJJJ)) fatal(keyp);
-        memcpy(batchp,keyp,x); batchp+=x; left-=x;
+        memmove(batchp,keyp,x); batchp+=x; left-=x;
         if (wocc) {
             if (left <= MINBJJJ) fatal(keyp);
             sprintf(batchp,"^o%d",wocc);
@@ -507,7 +507,7 @@ LOOPMFN:
             sprintf(batchp,"H%"_LD_" %"_LD_" ",(LONGX)tag+mj_plustag[ijjj],(LONGX)DIRlen(xdir));
             batchp+=(x=strlen(batchp)); left-=x;
             if (left <= (x=DIRlen(xdir))) fatal(keyp);
-            memcpy(batchp,FIELDP(xdir),x); batchp+=x; left-=x;
+            memmove(batchp,FIELDP(xdir),x); batchp+=x; left-=x;
         }
 #if JOINALL
         if (!parmjchk)

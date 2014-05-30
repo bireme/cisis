@@ -222,13 +222,13 @@ BOOLEAN first;
  if (treecase==0) {
    n0p=(N0STRU *)&nw_node1;
    n1p=(N1STRU *)&nw_node1;
-   memcpy(item_no1.key,tmp,keysize);
+   memmove(item_no1.key,tmp,keysize);
    item_no1.punt=esq;
  }
  else {
    n0p=(N0STRU *)&nw_node2;
    n2p=(N2STRU *)&nw_node2;
-   memcpy(item_no2.key,tmp,keysize);
+   memmove(item_no2.key,tmp,keysize);
    item_no2.punt=esq;
  }
 
@@ -249,22 +249,22 @@ BOOLEAN first;
  if (first==FALSE) {
    ind++;
    if (treecase == 0) {
-     memcpy(n1p->idx[ind].key,key,keysize);
+     memmove(n1p->idx[ind].key,key,keysize);
      n1p->idx[ind].punt=dir;
    }
    else {
-     memcpy(n2p->idx[ind].key,key,keysize);
+     memmove(n2p->idx[ind].key,key,keysize);
      n2p->idx[ind].punt=dir;
    }
  }
  isroot=TRUE;
  upif_branqueia(tmp,keysize);
  if (treecase == 0) {
-   memcpy(item_no1.key,tmp,keysize);
+   memmove(item_no1.key,tmp,keysize);
    item_no1.punt=(INFO )0;
   }
   else {
-   memcpy(item_no2.key,tmp,keysize);
+   memmove(item_no2.key,tmp,keysize);
    item_no2.punt=(INFO )0;
   }
  for (i=ind+1;i<=TWORDN-1;i++){
@@ -347,16 +347,16 @@ PUNT *p_punt;
  keysize=vlex[treecase];
  /* Inicializa um no do ttipo 1 ou tipo 2 */
  if (treecase == 0){
-   memcpy(no1.key,b_key,keysize);
+   memmove(no1.key,b_key,keysize);
    no1.punt=b_punt;
  }
  else {
-   memcpy(no2.key,b_key,keysize);
+   memmove(no2.key,b_key,keysize);
    no2.punt=b_punt;
  }
 
  np=(UCHR *)noderead(invp,treecase,level,punt);
- memcpy((UCHR *)&node,np,sizeof(N2STRU)); /* pega maior caso*/
+ memmove((UCHR *)&node,np,sizeof(N2STRU)); /* pega maior caso*/
  np=(UCHR *)&node;
  n0p=(N0STRU *)np;
  n1p=(N1STRU *)np;
@@ -400,7 +400,7 @@ PUNT *p_punt;
  */
  /* Proxima posicao livre de idx */
  nodenumber= invp->cn[treecase].nmaxpos+1;
- memcpy((UCHR *)tmp,b_key,keysize);
+ memmove((UCHR *)tmp,b_key,keysize);
  tmp[keysize]='\0';
  /* Copia o no para area de trabalho para inserir mais um elemento.
         Processa do Fim para Comeco
@@ -535,10 +535,10 @@ PUNT *p_punt;
                           */
   upif_branqueia((UCHR *)tmp,LE2);
   if (treecase == 0) {
-        memcpy(no1.key,tmp,keysize);
+        memmove(no1.key,tmp,keysize);
         no1.punt=(INFO )0;
   }else {
-        memcpy(no2.key,tmp,keysize);
+        memmove(no2.key,tmp,keysize);
         no2.punt=(INFO )0;
   }
 
@@ -569,9 +569,9 @@ PUNT *p_punt;
 
  /* Retorna o primeiro item da nova pagina  ser promovido */
   if (treecase == 0) {
-        memcpy(p_key,n1pnw->idx[0].key,keysize);
+        memmove(p_key,n1pnw->idx[0].key,keysize);
   }else {
-    memcpy(p_key,n2pnw->idx[0].key,keysize);
+    memmove(p_key,n2pnw->idx[0].key,keysize);
   }
 
   *p_punt=nodenumber;  /* numero da folha definida  ??*/
@@ -652,7 +652,7 @@ INFO TSToff;
  l2wp = &l2w;
  l1wp = &l1w;
  if (treecase == 0) {
-   memcpy(leaf_el1.key,key,keysize);
+   memmove(leaf_el1.key,key,keysize);
    leaf_el1.info1=TSTblk;
    leaf_el1.info2=TSToff;
 #if LIND /* 55 */
@@ -663,7 +663,7 @@ INFO TSToff;
 #endif
  }
  else {
-   memcpy(leaf_el2.key,key,keysize);
+   memmove(leaf_el2.key,key,keysize);
    leaf_el2.info1=TSTblk;
    leaf_el2.info2=TSToff;
 #if LIND /* 56 */
@@ -714,7 +714,7 @@ INFO TSToff;
   */
 
  leafnumber=invp->cn[treecase].fmaxpos+1;
- memcpy((UCHR *)tmp,key,keysize); /* para nao estragar chave original */
+ memmove((UCHR *)tmp,key,keysize); /* para nao estragar chave original */
  tmp[keysize]='\0';
  /* A copia devera ser feita para todo vetor original (ock vezes).
    Para o vetor novo devera ser feita ock+1 vezes.
@@ -896,10 +896,10 @@ INFO TSToff;
 
  /* Retorna o primeiro item da nova pagina  ser promovido */
  if (treecase == 0) {
-    memcpy(p_b_key,l1pnw->idx[0].key,keysize);
+    memmove(p_b_key,l1pnw->idx[0].key,keysize);
  }
  else {
-    memcpy(p_b_key,l2pnw->idx[0].key,keysize);
+    memmove(p_b_key,l2pnw->idx[0].key,keysize);
  }
  *p_b_punt= -leafnumber;  /* numero da nova folha inserida */
  return(TRUE);
@@ -938,7 +938,7 @@ INFO TSToff;
 
 
   if (treecase == 0) {
-   memcpy(nw_leaf1.idx[0].key,key,keysize);
+   memmove(nw_leaf1.idx[0].key,key,keysize);
    nw_leaf1.idx[0].info1=TSTblk;
    nw_leaf1.idx[0].info2=TSToff;
 #if LIND /* 57 */
@@ -947,7 +947,7 @@ INFO TSToff;
    l0p=(L0STRU *)&nw_leaf1;
  }
  else {
-   memcpy(nw_leaf2.idx[0].key,key,keysize);
+   memmove(nw_leaf2.idx[0].key,key,keysize);
    nw_leaf2.idx[0].info1=TSTblk;
    nw_leaf2.idx[0].info2=TSToff;
 #if LIND /* 58 */
@@ -967,7 +967,7 @@ INFO TSToff;
  upif_branqueia(tmp,keysize);
  for (i=ind+1;i<TWORDF;i++){   /*Atencao: Indices de vetor 0..twordf-1*/
    if (treecase == 0) {
-      memcpy(nw_leaf1.idx[i].key,tmp,keysize);
+      memmove(nw_leaf1.idx[i].key,tmp,keysize);
       nw_leaf1.idx[i].info1=(INFO )0;
       nw_leaf1.idx[i].info2=(INFO )0;
 #if LIND /* 59 */
@@ -976,7 +976,7 @@ INFO TSToff;
 #endif /* LIND 59 */
    }
    else {
-      memcpy(nw_leaf2.idx[i].key,tmp,keysize);
+      memmove(nw_leaf2.idx[i].key,tmp,keysize);
       nw_leaf2.idx[i].info1=(INFO )0;
       nw_leaf2.idx[i].info2=(INFO )0;
 #if LIND /* 59 */
@@ -1037,7 +1037,7 @@ UCHR *key;
   for (level=0;level<=mx_liv;level++){
 	 lfpath.stck[level]=punt;
          np = (UCHR *)noderead(invp,treecase,level,punt);
-         memcpy((UCHR *)&node,np,sizeof(N2STRU));
+         memmove((UCHR *)&node,np,sizeof(N2STRU));
          np = (UCHR *)&node;
          n0p = (N0STRU *)np;
          n1p = (N1STRU *)np;
@@ -1250,16 +1250,16 @@ int pstflag;
                 }
                 break;
             case MFNSTRING:
-                if (luxx+PMFNSIZ < LVXIYPBS) memcpy(luxp,(char *)pst,PMFNSIZ);
+                if (luxx+PMFNSIZ < LVXIYPBS) memmove(luxp,(char *)pst,PMFNSIZ);
 		else {
-		    memcpy(luxp,(char *)pst,(luxn=PMFNSIZ-(LVXIYPBS-luxx)));
+		    memmove(luxp,(char *)pst,(luxn=PMFNSIZ-(LVXIYPBS-luxx)));
 		    luxyaddr+=luxn;
 		    luxx=luxyaddr/LVXIYPBS;
 		    if (luxx >= invp->lvxpages) fatal("svdifupd/lvx/pages");
 		    luxp=invp->lvxvpagp[luxx];
 		    luxx=luxyaddr%LVXIYPBS;
 		    luxp+=luxx;
-		    memcpy(luxp,((char *)pst)+luxn,PMFNSIZ-luxn);
+		    memmove(luxp,((char *)pst)+luxn,PMFNSIZ-luxn);
 		}
                 (*luxinfo2p)--;		/* one more doc unflagged */
 	    	(*luxinfo1p)+=PMFNSIZ;	/* one more doc stored */
@@ -1340,7 +1340,7 @@ int pstflag;
                 /* se houve necessidade de criar um novo no,
                    faz insercao em niveis superiores */
    for (level=topo; level>=0 && promoted==TRUE; level--){
-           memcpy(key,p_b_key,keysize);
+           memmove(key,p_b_key,keysize);
            key_punt=p_b_punt;
            node=lfpath.stck[level];
 #if TRACEUPIF
@@ -1356,7 +1356,7 @@ int pstflag;
 
          /* Se houve promocao ate a raiz cria uma nova raiz           */
          if (promoted==TRUE){
-           memcpy(key,p_b_key,keysize);
+           memmove(key,p_b_key,keysize);
            root=upif_create_root(dbxp,node,key,p_b_punt,treecase,NOFIRST);
          }
   }

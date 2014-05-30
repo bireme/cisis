@@ -233,7 +233,7 @@ int option;
 	    fatal("recunlck/must wait ewl");
         }
     /* copy MFX to what will be written */
-    memcpy(DBXmsibp,MFX,sizeof(M0STRU));
+    memmove(DBXmsibp,MFX,sizeof(M0STRU));
 #endif
 
     /* check data entry lock */
@@ -276,7 +276,7 @@ int option;
     }
 #endif
 #if CNV_PCBINUM
-	    memcpy(cnv_pcbuff,DBXmsibp,sizeof(M0STRU));
+	    memmove(cnv_pcbuff,DBXmsibp,sizeof(M0STRU));
 	    ConvertMST_CTLSTRUCT(cnv_pcbuff);
 	    if (CIWRITE(fd,cnv_pcbuff,sizeof(M0STRU)) != sizeof(M0STRU))
 #else
@@ -709,10 +709,10 @@ printf("recwrite - comb=%"_LD_"  comp=%d [%"_LD_,"%"_LD_"+%d]\n",
 	ConvertMST_LEADER((char *)mshp,0,LEADER);
 #endif
 #if CNV_PCFILES
-	memcpy(unibuff,(char *)mshp,MSNVSPLT);
-	memcpy(((char *)mshp)+0,unibuff+0,4); /* mfn= */
-	memcpy(((char *)mshp)+4,unibuff+6,4); /* mfbwb= */
-	memcpy(((char *)mshp)+8,unibuff+4,2); /* mfrl= */
+	memmove(unibuff,(char *)mshp,MSNVSPLT);
+	memmove(((char *)mshp)+0,unibuff+0,4); /* mfn= */
+	memmove(((char *)mshp)+4,unibuff+6,4); /* mfbwb= */
+	memmove(((char *)mshp)+8,unibuff+4,2); /* mfrl= */
 #endif
 	if (n != LEADER) {
 #if RUCTRACE
@@ -1035,14 +1035,14 @@ printf("recwmast - fd=%d  lseek=%"P_OFF_T"  newblk=%d\n",
     if (recp) {
 #if CNV_PCFILES
 	if (MFRmfn > 0) {
-	    memcpy(unibuff,MFX,MSNVSPLT);
-	    memcpy(MFX+0,unibuff+0,4); /* mfn= */
-	    memcpy(MFX+6,unibuff+4,4); /* mfbwb= */
-	    memcpy(MFX+4,unibuff+8,2); /* mfrl= */
+	    memmove(unibuff,MFX,MSNVSPLT);
+	    memmove(MFX+0,unibuff+0,4); /* mfn= */
+	    memmove(MFX+6,unibuff+4,4); /* mfbwb= */
+	    memmove(MFX+4,unibuff+8,2); /* mfrl= */
 	}
 #endif
 #if CNV_PCBINUM
-	memcpy(cnv_pcbuff,MFX,mfrl);
+	memmove(cnv_pcbuff,MFX,mfrl);
 	if (MFRmfn > 0) {
 	    k=MFRnvf; /* CNV_PCFILES ok */
 	    ConvertMST_LEADER(cnv_pcbuff,0,LEADER);
@@ -1060,7 +1060,7 @@ printf("recwmast - write/rec  n=%d  mfrl=%d\n",n,mfrl);
         }
 #if CNV_PCFILES
 	if (MFRmfn > 0)
-	    memcpy(MFX,unibuff,MSNVSPLT);
+	    memmove(MFX,unibuff,MSNVSPLT);
 #endif
     }
 
@@ -1097,7 +1097,7 @@ printf("recwmast - write/end  n=%d  k=%d\n",n,k);
 #endif
 
 #if CNV_PCBINUM
-    memcpy(cnv_pcbuff,MFX,sizeof(M0STRU));
+    memmove(cnv_pcbuff,MFX,sizeof(M0STRU));
     ConvertMST_CTLSTRUCT(cnv_pcbuff);
     n=CIWRITE(DBXmsopn,cnv_pcbuff,sizeof(M0STRU));
 #else
@@ -1211,7 +1211,7 @@ printf("recwxref - thispos < lastpos\n");
 #endif
 
 #if CNV_PCBINUM
-	memcpy(cnv_pcbuff,p,XRPTRSIZ);
+	memmove(cnv_pcbuff,p,XRPTRSIZ);
 	ConvertXRF_PTR(cnv_pcbuff);
 	if ((n=CIWRITE(DBXxropn,cnv_pcbuff,XRPTRSIZ)) != XRPTRSIZ) {
 #else
@@ -1255,7 +1255,7 @@ printf("recwxref - thispos > lastpos\n");
 	if (LSEEK64(DBXxropn,xbyte,SEEK_SET) != xbyte)
 	    fatal("recwxref/lseek/lastpos");
 #if CNV_PCBINUM
-	memcpy(cnv_pcbuff,DBXxribp,XRBSIZ);
+	memmove(cnv_pcbuff,DBXxribp,XRBSIZ);
 	ConvertXRF_REC(cnv_pcbuff);
 	if ((n=CIWRITE(DBXxropn,cnv_pcbuff,XRBSIZ)) != XRBSIZ) {
 #else
@@ -1276,7 +1276,7 @@ printf("recwxref - rewrite/lastpos  n=%d\n",n);
 		DBXxribp->xrmfptr[n++] = xrftiv;
 
 #if CNV_PCBINUM
-	    memcpy(cnv_pcbuff,DBXxribp,XRBSIZ);
+	    memmove(cnv_pcbuff,DBXxribp,XRBSIZ);
 	    ConvertXRF_REC(cnv_pcbuff);
 	    if ((n=CIWRITE(DBXxropn,cnv_pcbuff,XRBSIZ)) != XRBSIZ) {
 #else
@@ -1303,7 +1303,7 @@ printf("recwxref - write/midpos  n=%d\n",n);
 	    DBXxribp->xrmfptr[n] = xrftiv;
 
 #if CNV_PCBINUM
-	memcpy(cnv_pcbuff,DBXxribp,XRBSIZ);
+	memmove(cnv_pcbuff,DBXxribp,XRBSIZ);
 	ConvertXRF_REC(cnv_pcbuff);
 	if ((n=CIWRITE(DBXxropn,cnv_pcbuff,XRBSIZ)) != XRBSIZ) {
 #else
@@ -1352,7 +1352,7 @@ printf("recwxref - thispos == lastpos\n");
 
 #if CNV_PCBINUM
 	xrp=(XRSTRU *)cnv_pcbuff;
-	memcpy(cnv_pcbuff,p,k);
+	memmove(cnv_pcbuff,p,k);
 	for (n=0; n <= j; n++) /* (j+1) ptr's*/
 	    ConvertXRF_PTR(&cnv_pcbuff[n*XRPTRSIZ]);
 	if ((n=CIWRITE(DBXxropn,cnv_pcbuff,k)) != k) {
@@ -1388,7 +1388,7 @@ printf("recwxref - thispos == lastpos 127\n");
 	    fatal("recwxref/lseek/thispos/last");
 	/* should write only xrxrpos and lseek next blk */
 #if CNV_PCBINUM
-	memcpy(cnv_pcbuff,DBXxribp,XRBSIZ);
+	memmove(cnv_pcbuff,DBXxribp,XRBSIZ);
 	ConvertXRF_REC(cnv_pcbuff);
 	if ((n=CIWRITE(DBXxropn,cnv_pcbuff,XRBSIZ)) != XRBSIZ) {
 #else
@@ -1409,7 +1409,7 @@ printf("recwxref - rewrite/thispos/last  n=%d\n",n);
 	    DBXxribp->xrmfptr[n++] = xrftiv;
 
 #if CNV_PCBINUM
-	memcpy(cnv_pcbuff,DBXxribp,XRBSIZ);
+	memmove(cnv_pcbuff,DBXxribp,XRBSIZ);
 	ConvertXRF_REC(cnv_pcbuff);
 	if ((n=CIWRITE(DBXxropn,cnv_pcbuff,XRBSIZ)) != XRBSIZ) {
 #else
@@ -1749,9 +1749,9 @@ for (dirp=dirarea, loop=0; loop<dirsleft; loop++, dirp++)
                     len=DIRlen(i); if (len>DIRlen(j)) len=DIRlen(j);
                     cmp=memcmp(FIELDP(i),FIELDP(j),len);
         		    if (cmp > 0 || cmp==0 && DIRlen(i) > DIRlen(j)) {
-            			memcpy(tempdir,&MFRdir[i],sizeof(DIRSTRU));
-            			memcpy(&MFRdir[i],&MFRdir[j],sizeof(DIRSTRU));
-            			memcpy(&MFRdir[j],tempdir,sizeof(DIRSTRU));
+            			memmove(tempdir,&MFRdir[i],sizeof(DIRSTRU));
+            			memmove(&MFRdir[i],&MFRdir[j],sizeof(DIRSTRU));
+            			memmove(&MFRdir[j],tempdir,sizeof(DIRSTRU));
             		}
                 }
         	}
@@ -1762,9 +1762,9 @@ for (dirp=dirarea, loop=0; loop<dirsleft; loop++, dirp++)
     		for (i=0; i+1 < MFRnvf; i++) {
     		    j=i+1;
     		    if (DIRtag(i) > DIRtag(j)) {
-        			memcpy(tempdir,&MFRdir[i],sizeof(DIRSTRU));
-        			memcpy(&MFRdir[i],&MFRdir[j],sizeof(DIRSTRU));
-        			memcpy(&MFRdir[j],tempdir,sizeof(DIRSTRU));
+        			memmove(tempdir,&MFRdir[i],sizeof(DIRSTRU));
+        			memmove(&MFRdir[i],&MFRdir[j],sizeof(DIRSTRU));
+        			memmove(&MFRdir[j],tempdir,sizeof(DIRSTRU));
         			anychange=1; sort=1;
         		}
         	}
@@ -2061,7 +2061,7 @@ for (sxp=srcareap, dp=dirarea, loop=0; loop<dirsleft; loop++, dp++, sxp++)
 		mfdirp->pos = lastpos;
 		mfdirp->len = dirp->len;
 		p=MFX+MFRbase+dirp->pos;
-		memcpy(newp,p,dirp->len); newp+=dirp->len;
+		memmove(newp,p,dirp->len); newp+=dirp->len;
 		lastpos+=dirp->len;
 		mfdirp++;
 	    }
@@ -2086,7 +2086,7 @@ for (sxp=srcareap, dp=dirarea, loop=0; loop<dirsleft; loop++, dp++, sxp++)
 	    if (*sp == 'r')                                     /* v3.4 */
 		continue;
 	    p=batchp+dirp->pos;                                 /* v3.4 */
-	    memcpy(mfp,p,dirp->len); mfp+=dirp->len;
+	    memmove(mfp,p,dirp->len); mfp+=dirp->len;
 	    mfdirp->tag = dirp->tag;
 	    mfdirp->pos = nxtpos;
 	    mfdirp->len = dirp->len;
@@ -2130,11 +2130,11 @@ printf("\n");
 	lastpos=0;
 	for (n=MFRnvf; n--; dirp++) {
 	    p=MFX+MFRbase+dirp->pos;
-	    memcpy(sp,p,dirp->len); sp+=dirp->len;
+	    memmove(sp,p,dirp->len); sp+=dirp->len;
 	    dirp->pos = lastpos;
 	    lastpos+=dirp->len;
 	}
-	memcpy(MFX+MFRbase,srcareap,MFRmfrl-MFRbase);
+	memmove(MFX+MFRbase,srcareap,MFRmfrl-MFRbase);
     freex(srcareap,dirarea);
     }
 

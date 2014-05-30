@@ -64,7 +64,7 @@ printf("cntwrit - cnt[%d] \n",treecase);
 	unin=CNBSIZ;
 #endif
 #if CNV_PCBINUM
-        memcpy(cnv_pcbuff,(char *)&invp->cn[treecase],CNBSIZ);
+        memmove(cnv_pcbuff,(char *)&invp->cn[treecase],CNBSIZ);
         ConvertCNT_REC(cnv_pcbuff);
 	unip=cnv_pcbuff;
 #else
@@ -143,7 +143,7 @@ printf("nodewrit - dbxp=%p (%s)  n0p=%p  level=%d  isroot=%d\n",
             invp->ltxpages[treecase]++;
         }
         /* copy */
-        memcpy(invp->ltxvpagp[treecase][punt],(char *)n0p,nxbsiz[treecase]);
+        memmove(invp->ltxvpagp[treecase][punt],(char *)n0p,nxbsiz[treecase]);
     }
     else { /* else if invp->ltxthresh */
 #endif /* LINDLUX */
@@ -224,12 +224,12 @@ printf("nodewrit - xbytes=%"P_OFF_T" nodesize=%d \n",(LONG_LONG)xbytes,nodesize)
     up=unp->idxchars;
     for (n=0; n < TWORDN; n++, up+=sizeof(PUNT))
         if (treecase) {
-            memcpy(up,n2p->idx[n].key,LE2); up+=LE2;
-            memcpy(up,&(n2p->idx[n].punt),sizeof(PUNT));
+            memmove(up,n2p->idx[n].key,LE2); up+=LE2;
+            memmove(up,&(n2p->idx[n].punt),sizeof(PUNT));
         }
         else {
-            memcpy(up,n1p->idx[n].key,LE1); up+=LE1;
-            memcpy(up,&(n1p->idx[n].punt),sizeof(PUNT));
+            memmove(up,n1p->idx[n].key,LE1); up+=LE1;
+            memmove(up,&(n1p->idx[n].punt),sizeof(PUNT));
         }
 #if CNV_PCBINUM
     if (treecase) ConvertN02_REC(nodeunibuff);
@@ -239,7 +239,7 @@ printf("nodewrit - xbytes=%"P_OFF_T" nodesize=%d \n",(LONG_LONG)xbytes,nodesize)
         fatal("nodewrit/writ");
 #else /* CNV_PCFILES */
 #if CNV_PCBINUM
-    memcpy(cnv_pcbuff,(char *)n0p,nodesize);
+    memmove(cnv_pcbuff,(char *)n0p,nodesize);
     if (treecase) ConvertN02_REC(cnv_pcbuff);
              else ConvertN01_REC(cnv_pcbuff);
     if (CIWRITE(fd,cnv_pcbuff,nodesize) != nodesize)
@@ -337,7 +337,7 @@ printf("leafwrit - dbxp=%p (%s)  l0p=%p \n",dbxp,DBXname,l0p);
             invp->luxpages[treecase]++;
         }
         /* copy */
-        memcpy(invp->luxvpagp[treecase][punt],(char *)l0p,lxbsiz[treecase]);
+        memmove(invp->luxvpagp[treecase][punt],(char *)l0p,lxbsiz[treecase]);
         /* Update .cnt */
         if (punt > invp->cn[treecase].fmaxpos) {
             invp->cn[treecase].fmaxpos = punt;
@@ -377,7 +377,7 @@ printf("leafwrit - xbytes=%"P_OFF_T" lbufsiz=%d \n",(LONG_LONG)xbytes,lbufsiz);
         fatal("leafwrit/lseek");
     }
 #if CNV_PCBINUM
-    memcpy(cnv_pcbuff,(char *)l0p,lbufsiz);
+    memmove(cnv_pcbuff,(char *)l0p,lbufsiz);
     if (treecase) ConvertL02_REC(cnv_pcbuff);
              else ConvertL01_REC(cnv_pcbuff);
     if (CIWRITE(fd,cnv_pcbuff,lbufsiz) != lbufsiz) fatal("leafwrit/write");
@@ -482,7 +482,7 @@ LONGX nbytes;             /* bytes contiguos a gravar  */
     if (CIWRITE(fd,buffer,towrite) != towrite)
 #else
 #if CNV_PCBINUM
-    memcpy(cnv_pcbuff,buffer,towrite);
+    memmove(cnv_pcbuff,buffer,towrite);
     blk1=0;
     if (((IFPSTRU *)buffer)->ifpblk == 1) blk1=1;
     for (xbytes=0; xbytes < towrite; xbytes+=IFBSIZ, blk1=0) {
@@ -794,7 +794,7 @@ int n;
 UCHR *tkey;
 #endif /*CICPP*/
 {
- memcpy((UCHR *)tkey,v,n);
+ memmove((UCHR *)tkey,v,n);
  tkey[n]='\0';
 }
 /* ------------------------------------------------------------------------*/
@@ -822,11 +822,11 @@ N0STRU *n0p;
 /*  if(i-i/4*4==0)printf("\n    "); */
     printf("\n");
     if (treecase == 0){
-       memcpy(key,n1p->idx[i].key,keysize);
+       memmove(key,n1p->idx[i].key,keysize);
        punt= n1p->idx[i].punt;
     }
     else {
-       memcpy(key,n2p->idx[i].key,keysize);
+       memmove(key,n2p->idx[i].key,keysize);
        punt= n2p->idx[i].punt;
     }
     key[keysize]='\0';
@@ -856,12 +856,12 @@ L0STRU *l0p;
   for (i=0;i<ock;i++){
      if (i-i/4*4==0)printf("\n  ");
      if (treecase == 0 ) {
-     memcpy((char *)key ,l1p->idx[i].key,keysize);
+     memmove((char *)key ,l1p->idx[i].key,keysize);
      info1=l1p->idx[i].info1;
      info2=l1p->idx[i].info2;
      }
      else {
-     memcpy((char *)key ,l2p->idx[i].key,keysize);
+     memmove((char *)key ,l2p->idx[i].key,keysize);
      info1=l2p->idx[i].info1;
      info2=l2p->idx[i].info2;
      }
@@ -917,12 +917,12 @@ FILE *fout;
 	fprintf(fout,"\n");
       }
       if (treecase == 0 ) {
-	 memcpy((char *)key ,l1p->idx[i].key,keysize);
+	 memmove((char *)key ,l1p->idx[i].key,keysize);
 	 info1=l1p->idx[i].info1;
 	 info2=l1p->idx[i].info2;
       }
       else {
-	  memcpy((char *)key ,l2p->idx[i].key,keysize);
+	  memmove((char *)key ,l2p->idx[i].key,keysize);
 	  info1=l2p->idx[i].info1;
 	  info2=l2p->idx[i].info2;
       }
@@ -937,12 +937,12 @@ FILE *fout;
   n1p=(N1STRU *)np;
   n2p=(N2STRU *)np;
   if (treecase == 0) {
-     memcpy((UCHR *)keep_node1,(UCHR *)np,sizeof(N1STRU));
+     memmove((UCHR *)keep_node1,(UCHR *)np,sizeof(N1STRU));
      n0local=(N0STRU *)keep_node1;
      n1p=(N1STRU *)n0local;
   }
   else {
-     memcpy((UCHR *)keep_node2,(UCHR *)np,sizeof(N2STRU));
+     memmove((UCHR *)keep_node2,(UCHR *)np,sizeof(N2STRU));
      n0local=(N0STRU *)keep_node2;
      n2p=(N2STRU *)n0local;
   }
@@ -1003,12 +1003,12 @@ FILE *fkeys;
     l2p=(L2STRU *)l0p;
     for (i=0;i<l0p->ock;i++){
       if (treecase == 0) {
-	 memcpy((char *)key,l1p->idx[i].key,keysize);
+	 memmove((char *)key,l1p->idx[i].key,keysize);
 	 info1=l1p->idx[i].info1;
 	 info2=l1p->idx[i].info2;
       }
       else{
-	 memcpy((char *)key,l2p->idx[i].key,keysize);
+	 memmove((char *)key,l2p->idx[i].key,keysize);
 	 info1=l2p->idx[i].info1;
 	 info2=l2p->idx[i].info2;
       }
@@ -1021,12 +1021,12 @@ FILE *fkeys;
   n1p=(N1STRU *)np;
   n2p=(N2STRU *)np;
   if (treecase == 0) {
-     memcpy((UCHR *)keep_node1,(UCHR *)np,sizeof(N1STRU));
+     memmove((UCHR *)keep_node1,(UCHR *)np,sizeof(N1STRU));
      n0local=(N0STRU *)keep_node1;
      n1p=(N1STRU *)n0local;
   }
   else {
-     memcpy((UCHR *)keep_node2,(UCHR *)np,sizeof(N2STRU));
+     memmove((UCHR *)keep_node2,(UCHR *)np,sizeof(N2STRU));
      n0local=(N0STRU *)keep_node2;
      n2p=(N2STRU *)n0local;
   }

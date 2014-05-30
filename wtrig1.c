@@ -307,7 +307,7 @@ void main(int argc, char *argv[])
             }
             memset(isiswctab,0x00,256);
             if (strcmp(useruppercase,"ansi") == 0) {
-                memcpy(isisuctab,ansiuctab,256/*sizeof(ansiuctab)*/);
+                memmove(isisuctab,ansiuctab,256/*sizeof(ansiuctab)*/);
                 for (isiswctot=0; ansiactab[isiswctot]; isiswctot=isiswctot+1)
                     isiswctab[ansiactab[isiswctot]]=1;
             } else {
@@ -730,7 +730,7 @@ void main(int argc, char *argv[])
                     }
                     p=buff;
                     sprintf(p,"H%"_LD_" %"_LD_" ",(LONGX)parmtag,(LONGX)dtagfldlen); p+=strlen(p);
-                    memcpy(p,dtagfldp,dtagfldlen); *(p+=dtagfldlen)='\0'; dtagfldlen=0;
+                    memmove(p,dtagfldp,dtagfldlen); *(p+=dtagfldlen)='\0'; dtagfldlen=0;
                     if (fldupdat(irec,buff)) fatal("wtrig1/dtag/fldupdat/1");
 /**/
 #endif /* PARMDTAG */
@@ -768,7 +768,7 @@ void main(int argc, char *argv[])
             sprintf(zp,"D*"); zp+=strlen(zp);
             if (zfldp) {
                 sprintf(zp,"H%"_LD_" %"_LD_" ",(LONGX)parmtag,(LONGX)zdirp->len); zp+=strlen(zp);
-                memcpy(zp,zfldp,zdirp->len); *(zp+zdirp->len)='\0';
+                memmove(zp,zfldp,zdirp->len); *(zp+zdirp->len)='\0';
             }
             if (fldupdat(zirec,buff)) fatal("wtrig1/line/fldupdat/1");
 //prtfields(vrecp[zirec],4);  //debug//
@@ -1002,7 +1002,7 @@ void main(int argc, char *argv[])
                         dtagfldlen-=skip;
                         dtagfldp+=skip;
                         if (langlen>=BUFSIZ) langlen=BUFSIZ-1;
-                        memcpy(zilang,langp,langlen); zilang[langlen]='\0';
+                        memmove(zilang,langp,langlen); zilang[langlen]='\0';
 #if PARMLANG
     if (*zilang) {
         int xlang;
@@ -1027,7 +1027,7 @@ void main(int argc, char *argv[])
                     }
                     p=buff;
                     sprintf(p,"H%"_LD_" %"_LD_" ",(LONGX)parmtag,(LONGX)dtagfldlen); p+=strlen(p);
-                    memcpy(p,dtagfldp,dtagfldlen); *(p+=dtagfldlen)='\0'; dtagfldlen=0;
+                    memmove(p,dtagfldp,dtagfldlen); *(p+=dtagfldlen)='\0'; dtagfldlen=0;
                     if (fldupdat(irec,buff)) fatal("wtrig1/dtag/fldupdat/2");
 /**/
 #endif /* PARMDTAG */
@@ -1051,7 +1051,7 @@ void main(int argc, char *argv[])
                 /* save original text */
                 n=sizeof(savetext)-1;
                 if (DIRlen(zxdir) < n) n=DIRlen(zxdir);
-                memcpy(savetext,zfldp,n); savetext[n]='\0';
+                memmove(savetext,zfldp,n); savetext[n]='\0';
             }
             /* exclude common words */
             if (*parmexcludedb) {
@@ -1068,7 +1068,7 @@ void main(int argc, char *argv[])
             sprintf(zp,"D*"); zp+=strlen(zp);
             if (zfldp) {
                 sprintf(zp,"H%"_LD_" %"_LD_" ",(LONGX)parmtag,(LONGX)zdirp->len); zp+=strlen(zp);
-                memcpy(zp,zfldp,zdirp->len); *(zp+zdirp->len)='\0';
+                memmove(zp,zfldp,zdirp->len); *(zp+zdirp->len)='\0';
             }
             if (fldupdat(zirec,buff)) fatal("wtrig1/line/fldupdat/2");
 /*2*/
@@ -1266,12 +1266,12 @@ void main(int argc, char *argv[])
                         hidx=l->hidx; h=table+hidx*hwidth;
                         TERMWEIGHT=l->weight;
                         usi_w=(unsigned short int)(USHRT_MAX*TERMWEIGHT);
-                        memcpy(p,(void *)&usi_w,sizeof(usi_w)); n1=sizeof(usi_w);  p+=n1;
-                        memcpy(p,h,n2=strlen(h)+1); p+=n2; n=n1+n2;
+                        memmove(p,(void *)&usi_w,sizeof(usi_w)); n1=sizeof(usi_w);  p+=n1;
+                        memmove(p,h,n2=strlen(h)+1); p+=n2; n=n1+n2;
 /*
-                        memcpy(p,h,hwidth); n=hwidth; p+=n;
-                        memcpy(p,(void *)&TERMWEIGHT,sizeof(TERMWEIGHT)); n+=sizeof(TERMWEIGHT);  p+=sizeof(TERMWEIGHT);
-                        memcpy(p,(void *)&DOCUMENT[hidx],sizeof(DOCUMENT[hidx])); n+=sizeof(DOCUMENT[hidx]);  p+=sizeof(DOCUMENT[hidx]);
+                        memmove(p,h,hwidth); n=hwidth; p+=n;
+                        memmove(p,(void *)&TERMWEIGHT,sizeof(TERMWEIGHT)); n+=sizeof(TERMWEIGHT);  p+=sizeof(TERMWEIGHT);
+                        memmove(p,(void *)&DOCUMENT[hidx],sizeof(DOCUMENT[hidx])); n+=sizeof(DOCUMENT[hidx]);  p+=sizeof(DOCUMENT[hidx]);
 */
                         dirp->len+=n; VMFRmfrl(zirec)=VMFRmfrl(zirec)+n;
                     }
@@ -1377,7 +1377,7 @@ void main(int argc, char *argv[])
       for (nterms=0, p=h=table, hidx2=hidx=0; hidx < maxprim; hidx++, h+=hwidth) {
         if (!*h) continue;
         if (hidx2 != hidx) {
-            memcpy(p,h,hwidth); memset(h,0x00,hwidth);
+            memmove(p,h,hwidth); memset(h,0x00,hwidth);
             COLLECTION[hidx2]=COLLECTION[hidx]; COLLECTION[hidx]=0;
             GLOBALWEIGHT[hidx2]=GLOBALWEIGHT[hidx]; GLOBALWEIGHT[hidx]=0;
         }
@@ -1413,9 +1413,9 @@ void main(int argc, char *argv[])
             float w;
             if (memcmp(h,h2,hwidth) == 0) fatal("wtrig1/outcollectionoccs/duplicated key");;
             if (memcmp(h,h2,hwidth) < 0) continue;
-            memcpy(buff,h,hwidth);
-            memcpy(h,h2,hwidth);
-            memcpy(h2,buff,hwidth);
+            memmove(buff,h,hwidth);
+            memmove(h,h2,hwidth);
+            memmove(h2,buff,hwidth);
             index=INDEX[hidx];
             INDEX[hidx]=INDEX[hidx2];
             INDEX[hidx2]=index;
@@ -1505,12 +1505,12 @@ void main(int argc, char *argv[])
                   //    if (MFRmfrl+count*n > RECnbytes) fatal("wtrig1/outtermvinverted/RECnbytes"); /* 20110811 */
                   //for (; count--; postp++) {
                   //    q=(char *)postp;
-                  //    memcpy(p,q,n); p+=n;
+                  //    memmove(p,q,n); p+=n;
                   //    dirp->len+=n; MFRmfrl+=n;
                   //}
                     q=(char *)postp;
                     n=sizeof(*postp)*COUNT[INDEX[hidx]]; 
-                    memcpy(p,q,(size_t)n);
+                    memmove(p,q,(size_t)n);
                     dirp->len+=n; MFRmfrl+=n;
                 }
                 else {
@@ -1534,7 +1534,7 @@ void main(int argc, char *argv[])
                 if (fldupdat(xirec,buff)) fatal("wtrig1/outtermvinverted/langs/fldupdat");
                 n=hitbytes;
                 dirp=MFRdir; dirp++;
-                memcpy(FIELDP(1),HITS,n); dirp->len+=n; MFRmfrl+=n;
+                memmove(FIELDP(1),HITS,n); dirp->len+=n; MFRmfrl+=n;
                 recupdat(crec2,xirec);
         }
 #endif /* PARMLANG */

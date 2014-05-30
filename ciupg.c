@@ -149,7 +149,7 @@
         if (parmcopy == APPEND) if (MFRnvf <= 0) n=0;
 
         if (n) {
-            memcpy(upirecp->recmfp->mx,MFX,MFRmfrl);
+            memmove(upirecp->recmfp->mx,MFX,MFRmfrl);
             if (parmcopy == APPEND) {
                 upirecp->recmfp->m1.m1mfn=upcrecp->recmfp->m0.m0nxtmfn;
 #if MULTI
@@ -200,7 +200,7 @@
         if (parmcopy == APPEND) if (MFRnvf <= 0) n=0;
 
         if (n) {
-            memcpy(VMFX(upirec),MFX,MFRmfrl);
+            memmove(VMFX(upirec),MFX,MFRmfrl);
             if (parmcopy == APPEND) {
                 VMFRmfn(upirec)=VMF0nxtmfn(upcrec);
 #if MULTI
@@ -294,7 +294,7 @@
 #endif /* CICPP */
         if (RECrc == RCNORMAL) for (xdir=0; xdir < MFRnvf; xdir++) {
             sprintf(rp,"H%"_LD_" %"_LD_" ",(LONGX)DIRtag(xdir),(LONGX)DIRlen(xdir)); rp+=strlen(rp);
-            memcpy(rp,FIELDP(xdir),DIRlen(xdir)); rp+=DIRlen(xdir);
+            memmove(rp,FIELDP(xdir),DIRlen(xdir)); rp+=DIRlen(xdir);
         }
         *rp='\0'; recp=keeprecp;
 #if CICPP
@@ -546,7 +546,7 @@
                 char *batchp;
                 sprintf(fst_batchup,"H 32767 %d ",fst_hdru);
 		        batchp=fst_batchup+strlen(fst_batchup);
-		        memcpy(batchp,fst_hdrp,fst_hdru); *(batchp+fst_hdru)='\0';
+		        memmove(batchp,fst_hdrp,fst_hdru); *(batchp+fst_hdru)='\0';
             }
             if (fldupdat(irec,fst_batchup)) fatal(errp);
             fst_batchup=NULL; fst_hdrp=NULL; fst_hdrx=0;

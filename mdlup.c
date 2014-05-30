@@ -158,7 +158,7 @@ char *argv[];
             printf("*** mfn=%"_LD_"  tag %d \n",mfn,NLMTAGUI);
             fatal("mdlup/UI");
         }
-        memcpy(ui,FIELDP(xdir),DIRlen(xdir)); ui[DIRlen(xdir)]='\0';
+        memmove(ui,FIELDP(xdir),DIRlen(xdir)); ui[DIRlen(xdir)]='\0';
         for (p=ui, q=uiasc; *p; p++, q++) {
             c= *p; c&=0x0F; /* digit */
             c+='0'; *q=c;
@@ -199,7 +199,7 @@ char *argv[];
                         printf("*** mfn=%"_LD_"  tag %d \n",mfn,NLMTAGCU);
                          fatal("mdlup/CU");
                     }
-                    memcpy(cu,FIELDP(xdir),DIRlen(xdir)); cu[DIRlen(xdir)]='\0';
+                    memmove(cu,FIELDP(xdir),DIRlen(xdir)); cu[DIRlen(xdir)]='\0';
                     for (data2=0L, p=cu, q=cuasc; *p; p++, q++) {
                         c= *p;
                         if ((c & 0xF0) != 0xF0) {

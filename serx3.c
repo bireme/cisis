@@ -146,7 +146,7 @@ main(int argc, char *argv[])
 
 #if FATRAP__WT
      /* save/notrap */
-     strcpy(z_iomsg,fatal_iomsg); memcpy(z_jumper,fatal_jumper,sizeof(fatal_jumper)); z_errcod=fatal_errcod;
+     strcpy(z_iomsg,fatal_iomsg); memmove(z_jumper,fatal_jumper,sizeof(fatal_jumper)); z_errcod=fatal_errcod;
      z_xerrno=dbxopt_errno;
      /* trap cisis fatal() */
      strcpy(fatal_iomsg,"trap");
@@ -167,7 +167,7 @@ main(int argc, char *argv[])
              }
          }
          /* restore/notrap */  //strcpy(fatal_iomsg,"");
-    	 memcpy(fatal_jumper,z_jumper,sizeof(fatal_jumper)); strcpy(fatal_iomsg,z_iomsg);
+    	 memmove(fatal_jumper,z_jumper,sizeof(fatal_jumper)); strcpy(fatal_iomsg,z_iomsg);
          fatal_errcod=z_errcod;
          dbxopt_errno=z_xerrno;
          return (-1);
@@ -374,7 +374,7 @@ http://serverofi.bireme.br/cgi-bin/serx?port=1727&wtrig2=on&c=xLILACS&minsim=0.0
             np=strstr(wwwcgip,"^nhost^v");
             if (np) {
                 for (vlen=0,vp=p=np+8; *p; p++) if (strncmp(p,"H2000 ",6) == 0) break; else vlen++;
-                if (vlen) { memcpy(serverhost,vp,vlen); serverhost[vlen]='\0'; }
+                if (vlen) { memmove(serverhost,vp,vlen); serverhost[vlen]='\0'; }
             }                                         
         } // end wwwcgip
 
@@ -390,7 +390,7 @@ http://serverofi.bireme.br/cgi-bin/serx?port=1727&wtrig2=on&c=xLILACS&minsim=0.0
             np=strstr(wwwcgip,"^ndb^v");
             if (np) {
                 for (vlen=0,p=np+6; *p; p++) if (strncmp(p,"H2000 ",6) == 0) break; else vlen++;
-                memcpy(dbname,np+6,vlen); dbname[vlen]='\0';
+                memmove(dbname,np+6,vlen); dbname[vlen]='\0';
             }
             np=strstr(wwwcgip,"^nmfn^v");
             if (np) {
@@ -488,7 +488,7 @@ http://serverofi.bireme.br/cgi-bin/serx?port=1727&wtrig2=on&c=xLILACS&minsim=0.0
                 for (; occ <= oc2; occ++) {
                     xdir=fieldx(irec,tag,occ);
                     if (xdir < 0) break;
-		    memcpy(buffer,FIELDP(xdir),len=DIRlen(xdir)); buffer[len]='\0';
+		    memmove(buffer,FIELDP(xdir),len=DIRlen(xdir)); buffer[len]='\0';
                     printf("%s\n",buffer);
                 }
             }
@@ -533,7 +533,7 @@ http://serverofi.bireme.br/cgi-bin/serx?port=1727&wtrig2=on&c=xLILACS&minsim=0.0
                             if (!debug) if (xtag == 2000) continue;
                             if (xtag == lastag) xocc++; else { lastag=xtag; xocc=1; }
                             sprintf(buffer+strlen(buffer),"<field tag=\"%u\" occ=\"%d\">",DIRtag(xdir),xocc);
-                            memcpy(buffer+strlen(buffer),FIELDP(xdir),DIRlen(xdir));
+                            memmove(buffer+strlen(buffer),FIELDP(xdir),DIRlen(xdir));
                             sprintf(buffer+strlen(buffer),"</field>\n");
                         }
                         sprintf(buffer+strlen(buffer),"</fields>\n");
@@ -600,7 +600,7 @@ http://serverofi.bireme.br/cgi-bin/serx?port=1727&wtrig2=on&c=xLILACS&minsim=0.0
                 npairs++;
                 //
                 np[nlen]='\0';                        // Nam dlm
-                vlen=len-nlen-2-2;                    // memcpy
+                vlen=len-nlen-2-2;                    // memmove
                 if (debug) printf("+++ pair %d: %s[%d+%d,%d,%d]<br />\n",npairs,hhp,y,len,nlen,vlen);
                 if (vlen < 0) fatal("serc/vlen");
 
@@ -634,7 +634,7 @@ http://serverofi.bireme.br/cgi-bin/serx?port=1727&wtrig2=on&c=xLILACS&minsim=0.0
                   //move wtrig2/other parms - w2p0.c now discart non-w2 parms
                   if (wtmsg) {
                       if (!vlen) { sprintf(x," %s" ,np); x+=strlen(x); }
-                      else       { sprintf(x," %s=",np); x+=strlen(x); memcpy(x,vp,vlen); x+=vlen; }
+                      else       { sprintf(x," %s=",np); x+=strlen(x); memmove(x,vp,vlen); x+=vlen; }
                   }
                   else if (debug) printf("+++ pair %d: %s[%d+%d,%d,%d] - ignored <br />\n",npairs,hhp,y,len,nlen,vlen);
 
@@ -664,10 +664,10 @@ http://serverofi.bireme.br/cgi-bin/serx?port=1727&wtrig2=on&c=xLILACS&minsim=0.0
            char *x=wtmsg+strlen(wtmsg);
            message=wtmsg;
            if (txt1vlen) {
-             sprintf(x," text1="); x+=strlen(x); memcpy(x,txt1vp,txt1vlen); x+=txt1vlen; *x='\0';
+             sprintf(x," text1="); x+=strlen(x); memmove(x,txt1vp,txt1vlen); x+=txt1vlen; *x='\0';
            }
            if (txtvlen) {
-             sprintf(x," text=" ); x+=strlen(x); memcpy(x,txtvp,txtvlen);   x+=txtvlen;  *x='\0';
+             sprintf(x," text=" ); x+=strlen(x); memmove(x,txtvp,txtvlen);   x+=txtvlen;  *x='\0';
            }
        } /* end wtmsg */
 

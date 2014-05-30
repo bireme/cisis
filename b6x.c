@@ -188,9 +188,9 @@ char *buffup;       /* area addr for fldupdat */
     } /* end else nord == 0 || nord > hits */
     /* store */
     sprintf(buffup,B5EDIT1,hcur);
-    memcpy(FIELDP(xdir_hcur),buffup,B5UPLEN);
+    memmove(FIELDP(xdir_hcur),buffup,B5UPLEN);
     sprintf(buffup,B5EDIT1,hmfn);
-    memcpy(FIELDP(xdir_hmfn),buffup,B5UPLEN);
+    memmove(FIELDP(xdir_hmfn),buffup,B5UPLEN);
 #if HITTRACE
  printf("b6_hit - mfn: %"_LD_"\n",mfn);
 #endif

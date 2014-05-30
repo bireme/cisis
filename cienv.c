@@ -107,7 +107,7 @@ void env_copyrec(torec,fromrec)
 long torec,fromrec;
 {
    VRECrc(torec) = VRECrc(fromrec);
-   memcpy(VMFX(torec),VMFX(fromrec),VMFRmfrl(fromrec));
+   memmove(VMFX(torec),VMFX(fromrec),VMFRmfrl(fromrec));
 }
 /* -------------------------------------------------------------- env_recupd */
 int env_recupd(irec,db)

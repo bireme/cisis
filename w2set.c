@@ -76,11 +76,11 @@
                 memset(xisiswctab,0x00,sizeof(xisisuctab)); 
                 xisiswctot=0;
                 if (strcmp(q,"ascii") == 0) {
-                    memcpy(xisisuctab,isisuctab,sizeof(xisisuctab));
+                    memmove(xisisuctab,isisuctab,sizeof(xisisuctab));
                     for (; isisactab[xisiswctot]; xisiswctot=xisiswctot+1) xisiswctab[isisactab[xisiswctot]]=1;
                 }
                 if (strcmp(q,"ansi") == 0) {
-                    memcpy(xisisuctab,ansiuctab,sizeof(xisisuctab));
+                    memmove(xisisuctab,ansiuctab,sizeof(xisisuctab));
                     for (; ansiactab[xisiswctot]; xisiswctot=xisiswctot+1) xisiswctab[ansiactab[xisiswctot]]=1;
                 } 
                 else {

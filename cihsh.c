@@ -65,7 +65,7 @@ LONGX hashindex(char *table, LONGX maxprim, int tabwidth, char *keyp, int keylen
         else h+=tabwidth;
         if (hidx == x) fatal("cihsh/hashindex/overflow");
     }
-    if (!found) if (installit) memcpy(h,keyp,keylen);
+    if (!found) if (installit) memmove(h,keyp,keylen);
     *foundp=found;
     return(hidx);
 }
@@ -103,7 +103,7 @@ LONGX bsrchstore(char *table, LONGX classes, LONGX *tabentries, int tabwidth, ch
     if (memcmp(keyp,h,w) <= 0) fatal("cihsh/bsrchstore/unsorted");
 
     h+=w; index=entries;
-    memcpy(h,keyp,keylen); (*tabentries)++;
+    memmove(h,keyp,keylen); (*tabentries)++;
 
     return(index);
 }

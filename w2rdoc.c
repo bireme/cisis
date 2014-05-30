@@ -25,13 +25,13 @@
                      while (left) {
                         if (cnt >= readmaxtv) break;
                         if (left < sizeof(usi_w)+1) fatal("wtrig2/loadvector/b2a/left/bin");
-                        memcpy((void *)&usi_w,fldp,sizeof(usi_w));
+                        memmove((void *)&usi_w,fldp,sizeof(usi_w));
                         fldp+=sizeof(usi_w); left-=sizeof(usi_w);
                         b2aweight=(float)usi_w/(float)USHRT_MAX;
                         p=fldp; keylen=strlen(p);
                         dv->hidx=bsrchindex(table,tabentries,readwidth,p,keylen,&found);
                         dv->foundp=NULL; if (found) dv->foundp=table+dv->hidx*hwidth;
-                        memcpy(dv->key,p,keylen); dv->key[keylen]='\0'; dv->keylen=keylen;
+                        memmove(dv->key,p,keylen); dv->key[keylen]='\0'; dv->keylen=keylen;
                         while (left) { q=fldp; fldp++; left--; if (!*q) break; }
                         dv->weight=b2aweight;
                         dv++; cnt++;

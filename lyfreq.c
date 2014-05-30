@@ -316,7 +316,7 @@ char *argv[];
 	    p = (treecase) ? lp->l2x.idx[iock].key
 			   : lp->l1x.idx[iock].key;
 
-	    memcpy(keyp,p,keylen);
+	    memmove(keyp,p,keylen);
 
 #if LIND
 /*	    /* if LIND */
@@ -345,9 +345,9 @@ char *argv[];
 
 	    if (iock == 0)
 		if (treecase)
-		    memcpy(&TRMl2buf,lp,L2BSIZ);
+		    memmove(&TRMl2buf,lp,L2BSIZ);
 		else
-		    memcpy(&TRMl1buf,lp,L1BSIZ);
+		    memmove(&TRMl1buf,lp,L1BSIZ);
 
 	    TRMliock(treecase)=iock;
 
@@ -365,7 +365,7 @@ char *argv[];
 		    }
 
 	    if (trace) {
-		memcpy(TRMkey,keyp,keylen); *(TRMkey+keylen)='\0';
+		memmove(TRMkey,keyp,keylen); *(TRMkey+keylen)='\0';
 		printf("TRMrc=%d  TRMlcase=%d/%d,%p  TRMkey=%s(%d)\n",
 		    TRMrc,TRMlcase,
 		    TRMliock(TRMlcase),TRMlidxp(TRMlcase),
@@ -440,7 +440,7 @@ char *argv[];
 			value = (weight) ? info*keylen : info;
 		    }
 		if (onmaxy == 0) {
-		    memcpy(VPmaxy,VPmaxz,sizeof(MAXSTRU));
+		    memmove(VPmaxy,VPmaxz,sizeof(MAXSTRU));
 		    onmaxy=1;
 		    continue; 		/* end qlfx - 1st */
 		}
@@ -489,7 +489,7 @@ for (xi=0; xi < nmaxt; xi++) {
 		    VPmaxj=maxp;
 		}
 
-		memcpy(VPmaxi->key,keyp,keylen);	    /* install it */
+		memmove(VPmaxi->key,keyp,keylen);	    /* install it */
 		VPmaxi->len=keylen;
 		VPmaxi->inf=info;
 		VPmaxi->val=value;

@@ -155,10 +155,10 @@ LOOP:
 #if CNV_PCFILES
     if ((n=CIREAD(fd,unibuff,LEADER)) == LEADER) {
 	p=MFX;
-        memcpy(p+0,unibuff+0,4); /* mfn= */
-        memcpy(p+4,unibuff+6,4); /* mfbwb= */
-        memcpy(p+8,unibuff+4,2); /* mfrl= */
-        memcpy(p+10,unibuff+10,LEADER-10); /* LEADER was read */
+        memmove(p+0,unibuff+0,4); /* mfn= */
+        memmove(p+4,unibuff+6,4); /* mfbwb= */
+        memmove(p+8,unibuff+4,2); /* mfrl= */
+        memmove(p+10,unibuff+10,LEADER-10); /* LEADER was read */
     } else {
 #else
     if ((n=CIREAD(fd,MFX,LEADER)) != LEADER) {

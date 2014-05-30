@@ -315,7 +315,7 @@ char *argv_main[];
     */
 #define ANSITABS 1
 #if ANSITABS
-    memcpy(isisuctab,ansiuctab,sizeof(ansiuctab));
+    memmove(isisuctab,ansiuctab,sizeof(ansiuctab));
     memset(isiswctab,0x00,256);
     for (isiswctot=0; ansiactab[isiswctot]; isiswctot=isiswctot+1) isiswctab[ansiactab[isiswctot]]=1;
 #endif /* ANSITABS */
@@ -954,7 +954,7 @@ if (1) printf("111: 2\n");
             /* get total records for each group */
             for (dirp=MFRdir, xdir=0, loop=MFRnvf; loop--; dirp++, xdir++) {
                 if (dirp->tag == MYDECSTAG022) {
-                    memcpy(categ,FIELDP(xdir),dirp->len); categ[dirp->len]='\0';
+                    memmove(categ,FIELDP(xdir),dirp->len); categ[dirp->len]='\0';
                     TERM(itrm,amdldbnp,categ);
                     if (TRMrc == RCNORMAL) { /* fatal("aotmsa2/TA/tabcntMDL/RCNORMAL"); */
                         tabcntMDL[mfn]=TRMxytotp;
@@ -1118,7 +1118,7 @@ mfn=     2
 
                 int n05=0;
                 /* tabulate it */
-                memcpy(area,FIELDP(xdir),dirp->len); area[dirp->len]='\0';
+                memmove(area,FIELDP(xdir),dirp->len); area[dirp->len]='\0';
                 v351=atoi(area);
                 n05=0;
                 if (1/*parmgroup*/)  {
@@ -1555,10 +1555,10 @@ flag
         nbreak=0;
         p=recfield(v2992,irec,2992,1,""); /* 1st mesh C/D */
         if (memcmp(vbreak[0],p+0,3)) {
-            memcpy(vbreak[0],p+0,3); nbreak+=1; *vbreak[1]='\0';
+            memmove(vbreak[0],p+0,3); nbreak+=1; *vbreak[1]='\0';
         }
         if (memcmp(vbreak[1],p+4,3)) {
-            memcpy(vbreak[1],p+4,3); nbreak+=2;
+            memmove(vbreak[1],p+4,3); nbreak+=2;
         }
 
         if (nbreak) {
@@ -1912,7 +1912,7 @@ typedef struct decs_sort_entry {
                 char *p;
                 int k=DIRlen(i);
                 if (k >= sizeof(sortp->name)) k=sizeof(sortp->name)-1;
-                memcpy(sortp->name,FIELDP(i),k);
+                memmove(sortp->name,FIELDP(i),k);
                 sortp->name[k]='\0';
                 for (p=sortp->name; *p; p++) *p=isisuctab[*p];
             }
@@ -1929,9 +1929,9 @@ typedef struct decs_sort_entry {
             for (j=i+1; j<nsort; j++) {
                 jp=sortareap+j;
                 if (memcmp((void *)ip,(void *)jp,sizeof(DECS_SORT_ENTRY)) > 0) {
-                    memcpy((void *)sort_tmp,(void *)ip,      sizeof(DECS_SORT_ENTRY));
-                    memcpy((void *)ip      ,(void *)jp,      sizeof(DECS_SORT_ENTRY));
-                    memcpy((void *)jp      ,(void *)sort_tmp,sizeof(DECS_SORT_ENTRY));
+                    memmove((void *)sort_tmp,(void *)ip,      sizeof(DECS_SORT_ENTRY));
+                    memmove((void *)ip      ,(void *)jp,      sizeof(DECS_SORT_ENTRY));
+                    memmove((void *)jp      ,(void *)sort_tmp,sizeof(DECS_SORT_ENTRY));
                 }
             }
         }
@@ -2097,7 +2097,7 @@ typedef struct outfreqF_sort_entry {
 	    }
             catlen=strlen(buffup); if (catlen>sizeof(sortp->categ)) buffup[catlen=sizeof(sortp->categ)]='\0';
             memset(buffup+catlen,(int)' ',sizeof(sortp->categ)-catlen);
-            memcpy(sortp->categ,buffup,sizeof(sortp->categ));
+            memmove(sortp->categ,buffup,sizeof(sortp->categ));
         } else memset(sortp->categ,(int)' ',sizeof(sortp->categ));
         sortp->null[0]='\0';
         sortp->v351=v351;
@@ -2112,9 +2112,9 @@ typedef struct outfreqF_sort_entry {
         for (j=i+1; j<ntabs; j++) {
             jp=sort_tab+j;
             if (memcmp((void *)ip,(void *)jp,keylen) > 0) {
-                memcpy((void *)sort_tmp,(void *)ip,      sizeof(OUTFREQF_SORT_ENTRY));
-                memcpy((void *)ip      ,(void *)jp,      sizeof(OUTFREQF_SORT_ENTRY));
-                memcpy((void *)jp      ,(void *)sort_tmp,sizeof(OUTFREQF_SORT_ENTRY));
+                memmove((void *)sort_tmp,(void *)ip,      sizeof(OUTFREQF_SORT_ENTRY));
+                memmove((void *)ip      ,(void *)jp,      sizeof(OUTFREQF_SORT_ENTRY));
+                memmove((void *)jp      ,(void *)sort_tmp,sizeof(OUTFREQF_SORT_ENTRY));
             }
         }
     }
@@ -2293,7 +2293,7 @@ typedef struct outfreqW_sort_entry {
 */
         }
 #endif
-        //memcpy(sortp->pesoTTxAout,(frelTTxA < frelTTamdl)?"out":"  ",sizeof(sortp->pesoTTxA)); /* if v1991[1]<v1991[2] then 'a2221|out|' fi */
+        //memmove(sortp->pesoTTxAout,(frelTTxA < frelTTamdl)?"out":"  ",sizeof(sortp->pesoTTxA)); /* if v1991[1]<v1991[2] then 'a2221|out|' fi */
         /* */
 
         sprintf(sortp->xrankF,"%6"_LD_,tabcntArankF[v351]); /* key */
@@ -2309,9 +2309,9 @@ typedef struct outfreqW_sort_entry {
         for (j=i+1; j<ntabs; j++) {
             jp=sort_tab+j;
             if (memcmp((void *)ip,(void *)jp,keylen) > 0) {
-                memcpy((void *)sort_tmp,(void *)ip,      sizeof(OUTFREQW_SORT_ENTRY));
-                memcpy((void *)ip      ,(void *)jp,      sizeof(OUTFREQW_SORT_ENTRY));
-                memcpy((void *)jp      ,(void *)sort_tmp,sizeof(OUTFREQW_SORT_ENTRY));
+                memmove((void *)sort_tmp,(void *)ip,      sizeof(OUTFREQW_SORT_ENTRY));
+                memmove((void *)ip      ,(void *)jp,      sizeof(OUTFREQW_SORT_ENTRY));
+                memmove((void *)jp      ,(void *)sort_tmp,sizeof(OUTFREQW_SORT_ENTRY));
             }
         }
     }
@@ -2431,7 +2431,7 @@ LONGX *gtabcntA;
 
 typedef struct outfreqD_sort_entry {
 //    char x2992[10];
-    char x2992_cat[1]; /* memcpy(,,1) */
+    char x2992_cat[1]; /* memmove(,,1) */
     char x2993[10];
     char x2992[MAXCATLEN+1];
     char xrankF[6];
@@ -2509,7 +2509,7 @@ typedef struct outfreqD_sort_entry {
                     if (*p == 'C' || *p == 'D') ; else fatal("aotmsa2/rutfreqD/TAG022/CD");
                     len=dirp->len; if (len>=sizeof(sortp->x2992)) len=sizeof(sortp->x2992)-1;
                     strncpy(sortp->x2992,p,len); sortp->x2992[len]='\0';
-                    memcpy(sortp->x2992_cat,p,1); /* memcpy(,,1) */
+                    memmove(sortp->x2992_cat,p,1); /* memmove(,,1) */
                     break;
                 }
           }
@@ -2525,9 +2525,9 @@ typedef struct outfreqD_sort_entry {
         for (j=i+1; j<ntabs; j++) {
             jp=sort_tab+j;
             if (memcmp((void *)ip,(void *)jp,keylen) > 0) {
-                memcpy((void *)sort_tmp,(void *)ip,      sizeof(OUTFREQD_SORT_ENTRY));
-                memcpy((void *)ip      ,(void *)jp,      sizeof(OUTFREQD_SORT_ENTRY));
-                memcpy((void *)jp      ,(void *)sort_tmp,sizeof(OUTFREQD_SORT_ENTRY));
+                memmove((void *)sort_tmp,(void *)ip,      sizeof(OUTFREQD_SORT_ENTRY));
+                memmove((void *)ip      ,(void *)jp,      sizeof(OUTFREQD_SORT_ENTRY));
+                memmove((void *)jp      ,(void *)sort_tmp,sizeof(OUTFREQD_SORT_ENTRY));
             }
         }
     }
@@ -2538,7 +2538,7 @@ typedef struct outfreqD_sort_entry {
     for (sortp=sort_tab, tabD=tabfreqD, mfn=1L; mfn<=ntabs; mfn++, sortp++, tabD++) {
         tabD->v351=sortp->v351;
 //        tabD->delta=sortp->delta;
-        memcpy(tabD->delca,sortp->x2992,MAXCATLEN);
+        memmove(tabD->delca,sortp->x2992,MAXCATLEN);
         tabD->gmfn=sortp->gmfn;
         tabcntArankD[sortp->v351]=mfn;
     }
@@ -2649,7 +2649,7 @@ char *defaultp;
     if (!areap)
         if ((areap=(char *)ALLOC((ALLOPARM)n+1)) == (char *)ALLONULL)
             fatal("aotmsa2/recsfldv/ALLOC");
-    memcpy(areap,p,n); areap[n]='\0';
+    memmove(areap,p,n); areap[n]='\0';
     return(areap);
 }
 
@@ -2666,9 +2666,9 @@ char *defaultp;
     		    for (j=i+1; j < MFRnvf; j++) {
     		        if (DIRtag(j) != tag) continue;
         		    if (memcmp(FIELDP(i),FIELDP(j),DIRlen(i)) > 0) {
-            			memcpy(tempdir,&MFRdir[i],sizeof(DIRSTRU));
-            			memcpy(&MFRdir[i],&MFRdir[j],sizeof(DIRSTRU));
-            			memcpy(&MFRdir[j],tempdir,sizeof(DIRSTRU));
+            			memmove(tempdir,&MFRdir[i],sizeof(DIRSTRU));
+            			memmove(&MFRdir[i],&MFRdir[j],sizeof(DIRSTRU));
+            			memmove(&MFRdir[j],tempdir,sizeof(DIRSTRU));
             		}
                 }
         	}

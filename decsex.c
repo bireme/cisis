@@ -364,7 +364,7 @@ getchar();
         strcpy(inpkey,pfxcall);
         pfxlen=strlen(pfxcall);
     }
-    memcpy(inpkey+pfxlen,hp,hn);
+    memmove(inpkey+pfxlen,hp,hn);
     inpkey[pfxlen+hn]='\0';
     for (p=inpkey; *p; p++) *p = isisuctab[*p];
 
@@ -385,7 +385,7 @@ getchar();
         for (n=n2; n > 1; n--, p--) {
             if (*p == PARMSFXC) {
                 sfxlen = n2 - n + 1;
-                memcpy(sfxkey,p,sfxlen);
+                memmove(sfxkey,p,sfxlen);
                 sfxkey[sfxlen]='\0';
                 n2 = n - 1;
                 break;
@@ -477,13 +477,13 @@ int sl;
     p=lnkp;
     *p='\0';
 
-    if (pl) memcpy(p,pfx,pl);
+    if (pl) memmove(p,pfx,pl);
     len=pl;
 
-    memcpy(p+len,midp,ml);
+    memmove(p+len,midp,ml);
     len+=ml;
 
-    if (sl) memcpy(p+len,sfx,sl);
+    if (sl) memmove(p+len,sfx,sl);
     len+=sl;
 
     lnkp[len]='\0';
@@ -530,12 +530,12 @@ int slen;
     *linp++ = '|';
 
     if (plen > PARMPFXL) fatal("keepinfo/pfx/length");
-    memcpy(linp,pfx,plen); linp+=plen;
+    memmove(linp,pfx,plen); linp+=plen;
     for (loop=PARMPFXL-plen+1; loop--; ) *linp++ = ' '; /* one for ifp1 */
     *linp++ = '|';
 
     if (slen > PARMSFXL) fatal("keepinfo/sfx/length");
-    memcpy(linp,sfx,slen); linp+=slen;
+    memmove(linp,sfx,slen); linp+=slen;
     for (loop=PARMSFXL-slen; loop--; ) *linp++ = ' ';
     *linp++ = '|';
 

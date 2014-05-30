@@ -245,7 +245,7 @@
                      int b2a=sizeof(usi_w);
                      while (left) {
                         if (left < b2a+1) fatal("fldupdat/procx/Gsplit/b2a/left/w");
-                        memcpy((void *)&usi_w,fldq,b2a);
+                        memmove((void *)&usi_w,fldq,b2a);
                         fldq+=b2a; left-=b2a;
                         b2aweight=(float)usi_w/(float)USHRT_MAX;
                         sprintf(q,"<%"_LD_" 0>",(LONGX)DIRtag(xdir)); q+=strlen(q);
@@ -262,10 +262,10 @@
                      if (left % b2a) fatal("fldupdat/procx/Gsplit/b2a/left");
                      while (left) {
                       if (b2a == sizeof(b2ashort)) {
-                        memcpy((void *)&b2ashort,fldq,b2a);
+                        memmove((void *)&b2ashort,fldq,b2a);
                         sprintf(q,"A%"_LD_"/%d/",(LONGX)DIRtag(xdir),b2ashort);
                       } else {
-                        memcpy((void *)&b2along,fldq,b2a);
+                        memmove((void *)&b2along,fldq,b2a);
                         sprintf(q,"A%"_LD_"/%"_LD_"/",(LONGX)DIRtag(xdir),b2along);
                       }
                       q+=strlen(q); fldq+=b2a; left-=b2a;
@@ -320,12 +320,12 @@
                             if (addlen < 3) tlen=addlen;
 
                             /* dna! */
-                            memcpy(trig,addp,tlen); trig[tlen++]='!';
+                            memmove(trig,addp,tlen); trig[tlen++]='!';
                             sprintf(q,"H%"_LD_" %"_LD_" ",(LONGX)DIRtag(xdir),(LONGX)tlen); q+=strlen(q);
-                            memcpy(q,trig,tlen); q+=tlen;
+                            memmove(q,trig,tlen); q+=tlen;
                             /* dna! - peso 2 */
                             sprintf(q,"H%"_LD_" %"_LD_" ",(LONGX)DIRtag(xdir),(LONGX)tlen); q+=strlen(q);
-                            memcpy(q,trig,tlen); q+=tlen;
+                            memmove(q,trig,tlen); q+=tlen;
                             tlen--;
 
                             /* d# */
@@ -344,11 +344,11 @@
 
                             /* dna */
                             sprintf(q,"H%"_LD_" %"_LD_" ",(LONGX)DIRtag(xdir),(LONGX)tlen); q+=strlen(q);
-                            memcpy(q,trig,tlen); q+=tlen;
+                            memmove(q,trig,tlen); q+=tlen;
                             while (addlen > 3) {
                               addp++;
                               sprintf(q,"H%"_LD_" %"_LD_" ",(LONGX)DIRtag(xdir),(LONGX)3); q+=strlen(q);
-                              memcpy(q,addp,3); q+=3;
+                              memmove(q,addp,3); q+=3;
                               addlen--;
                             }
 
@@ -363,7 +363,7 @@
                             if (letteroption) if (addlen) addlen=1;
                             if (addlen) {
                               sprintf(q,"H%"_LD_" %"_LD_" ",(LONGX)DIRtag(xdir),(LONGX)addlen); q+=strlen(q);
-                              memcpy(q,addp,addlen); q+=addlen;
+                              memmove(q,addp,addlen); q+=addlen;
                             }
                           }
                         }
@@ -397,7 +397,7 @@
                      vwordsx[nwords]=1;
                      for (loop=0; loop < nwords; loop++) {
                       oldq=q; oldlen=len;
-                      memcpy(q,vwordsp[loop],n=vwordsn[loop]); q+=n; len+=n;
+                      memmove(q,vwordsp[loop],n=vwordsn[loop]); q+=n; len+=n;
                       if (sixwordsif) {
 #if INCPRECX
                         *q='\0';
@@ -419,11 +419,11 @@
                         if ((n=loop+loop2) == nwords) break;
                         if (vwordsx[n]) break;
                         oldq=q; oldlen=len;
-                        memcpy(q,vwordsp[loop],n=vwordsn[loop]); q+=n; len+=n;
+                        memmove(q,vwordsp[loop],n=vwordsn[loop]); q+=n; len+=n;
                         for (loop3=0; loop3 < loop2; loop3++ ) {
                           *q++=' '; len++;
                           i=loop+1+loop3;
-                          memcpy(q,vwordsp[i],n=vwordsn[i]); q+=n; len+=n;
+                          memmove(q,vwordsp[i],n=vwordsn[i]); q+=n; len+=n;
                         }
                         if (sixwordsif) {
 #if INCPRECX

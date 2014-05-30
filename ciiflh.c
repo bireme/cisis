@@ -73,12 +73,12 @@ LONGX nbytes;
         if (towrite <= iyp_left) {
             n=(unsigned int)towrite;
             bufp=iyp_buff+(IYPBSIZ-iyp_left);
-            memcpy(bufp,p,n);
+            memmove(bufp,p,n);
             iyp_left-=n;
 	    break;
 	}
         bufp=iyp_buff+(IYPBSIZ-iyp_left);
-        memcpy(bufp,p,iyp_left);
+        memmove(bufp,p,iyp_left);
 	ifpwrit(dbxp,iyp_buff,IYPBSIZ);
 	towrite-=iyp_left;
         p+=iyp_left;

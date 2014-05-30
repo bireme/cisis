@@ -363,7 +363,7 @@ char *argv[];
         }
         if (strncmp(p,"uctab?",6) == 0 || strncmp(p,"uctab=",6) == 0) {
 		            if (strcmp(p+6,"ansi") == 0) {
-				                    memcpy(isisuctab,ansiuctab,256/*sizeof(ansiuctab)*/);
+				                    memmove(isisuctab,ansiuctab,256/*sizeof(ansiuctab)*/);
 						                } else {
 									                /* loaductb(mi_gidbnp,isisuctab,p+6); */
 									                if (!loaductb(gidbnp,isisuctab,p+6)) fatal(p); /* AOT, 02/04/2001 */
@@ -689,10 +689,10 @@ for (memoidx=0; memoidx < parmmemos; vntabs[memoidx]=0, memoidx++) {
         p=tabfmta;
 	    for (itabx=0; itabx < ntabx; itabx++) {
 		ilin=vinxtabx[itabx];
-		memcpy(wptr,xxlptabx[itabx][ilin],xxlltabx[itabx][ilin]);
+		memmove(wptr,xxlptabx[itabx][ilin],xxlltabx[itabx][ilin]);
         if (tabfmtp) {
             sprintf(p,"H%5d %5d ",32601+itabx,xxlltabx[itabx][ilin]); p+=13;
-		    memcpy(p,   xxlptabx[itabx][ilin],xxlltabx[itabx][ilin]); p+=xxlltabx[itabx][ilin]; *p='\0';
+		    memmove(p,   xxlptabx[itabx][ilin],xxlltabx[itabx][ilin]); p+=xxlltabx[itabx][ilin]; *p='\0';
         }
 		wptr+=xxlltabx[itabx][ilin];
 		memset(wptr,0x00,xxlftabx[itabx][ilin]);
@@ -848,7 +848,7 @@ printf("+0+ key=%s idx=%d memo=%d\n",wkey,widx,memoidx);
     wptr = &tabkey[widx * tabwidth];
 
     if (*wptr == NULL) {
-        memcpy(wptr,wkey,tabwidth);
+        memmove(wptr,wkey,tabwidth);
 	ntabs++; vntabs[memoidx]++;
         cq1++;
     }
@@ -874,7 +874,7 @@ printf("+0+ key=%s idx=%d memo=%d\n",wkey,widx,memoidx);
                     cq3++;
                 }
                 if (*wptr == NULL) {
-                    memcpy(wptr,wkey,tabwidth);
+                    memmove(wptr,wkey,tabwidth);
                     ntabs++; vntabs[memoidx]++;
                     break;
                 }
@@ -906,7 +906,7 @@ UINT n;
 		    if (wlen < lentabx[itabx]) wlen++;
 		    else break;
 		sprintf(batchp,"H%d %d ",itabx+1,wlen); batchp+=strlen(batchp);
-		memcpy(batchp,wptr,wlen);
+		memmove(batchp,wptr,wlen);
 		batchp+=wlen;
                 wptr+=lentabx[itabx];
 

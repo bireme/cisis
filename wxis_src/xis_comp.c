@@ -102,7 +102,7 @@ char *cplStrNDup(char *from,		/* source string buffer */
     dupl = (char *)efc_new(len+1);
 //printf("cplStrNDup/depois do efc_new\n");
    if (dupl) {
-    memcpy(dupl,from,len);
+    memmove(dupl,from,len);
       dupl[len] = '\0';
     }
 
@@ -417,7 +417,7 @@ CPL_COMMAND *cplLoadCommand(CPL_COMMAND *add_cmd,		/* command to be added */
    if (!cmd) return NULL;
 
    /* Copy command data */
-   memcpy(cmd,add_cmd,sizeof(CPL_COMMAND));
+   memmove(cmd,add_cmd,sizeof(CPL_COMMAND));
 
    /* Append on the list of commands */
    if (!cmdList->first) cmdList->first = cmd;
@@ -877,7 +877,7 @@ CPL_ERROR cplWriteCommand(CPL_STRUCT *program,		/* program structure */
 
    case PART_COMMAND:
     /* write command instruction */
-      memcpy(&cmdCompiled,cmd,sizeof(CPL_CMD_COMPILED));
+      memmove(&cmdCompiled,cmd,sizeof(CPL_CMD_COMPILED));
     if (fwrite(&cmdCompiled,sizeof(CPL_COMMAND),1,saveFile) != 1) {
             return cplError(program,CPL_ERROR_WRITE,cplElement[cmd->element].text);
        }
@@ -1026,7 +1026,7 @@ CPL_ERROR cplReadCommand(CPL_STRUCT *program,		/* program structure */
     /* read command instruction */
        *readEOF = (fread(&cmdCompiled,sizeof(CPL_COMMAND),1,loadFile) != 1);
       memset(cmd,0x00,sizeof(CPL_COMMAND));
-      memcpy(cmd,&cmdCompiled,sizeof(CPL_CMD_COMPILED));
+      memmove(cmd,&cmdCompiled,sizeof(CPL_CMD_COMPILED));
       cmd->isCompiled = TRUE;
     if (*readEOF) {
             return CPL_ERROR_OK;

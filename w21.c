@@ -49,7 +49,7 @@ int loadtrig (int cmd, WTFUN_ARRAY *awtfp, int coll, char *text, int textlen, fl
         RECORD(zirec,"null",1L); /*MFRstatus=ACTIVE;*/
         sprintf(trigbuff,"D*H1 %"_LD_" ",(LONGX)textlen);
         len=strlen(trigbuff);
-        memcpy(trigbuff+len,text,textlen);
+        memmove(trigbuff+len,text,textlen);
         trigbuff[len+textlen]='\0';
         if (fldupdat(zirec,trigbuff)) fatal("loadtrig/proc add field");
         // prtleader(recp,1L);
@@ -220,7 +220,7 @@ if (parmdebug2) printf("+++ 1 +++|\n");
                 dv->hidx=l->hidx;
                 dv->foundp=table+dv->hidx*hwidth;
                 dv->keylen=strlen(dv->foundp);
-                memcpy(dv->key,dv->foundp,dv->keylen); dv->key[dv->keylen]='\0';
+                memmove(dv->key,dv->foundp,dv->keylen); dv->key[dv->keylen]='\0';
                 docvectcnt++; dv++; 
             }
         }

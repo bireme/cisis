@@ -73,7 +73,7 @@ int w2rcol ( int cmd, WTFUN_ARRAY *awtfp, int coll )
                      while (left) {
                         if (cnt >= readmaxtv) break;
                         if (left < sizeof(usi_w)+1) fatal("wtrig2/loadvectors/b2a/left/bin");
-                        memcpy((void *)&usi_w,fldp,sizeof(usi_w));
+                        memmove((void *)&usi_w,fldp,sizeof(usi_w));
                         fldp+=sizeof(usi_w); left-=sizeof(usi_w);
                         b2aweight=(float)usi_w/(float)USHRT_MAX;
                         p=fldp; keylen=strlen(p);

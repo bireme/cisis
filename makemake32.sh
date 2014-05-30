@@ -22,16 +22,16 @@ echo mkdir utl/linux/ffi1660    >mkffi1660.sh
 
 echo mkdir utl/linux/BigIsis    >mkBigIsis.sh
 
-./mx seq=xls "pft='sh -x mxmake32.sh utl/linux/isis       'left(v1,size(v1)-4)' CIFFI=0 LIND=0 LIND4=0 ISISXL=0 ISISXL512=0 _FILE_OFFSET_BITS=00 _LARGEFILE64_SOURCE=0'/" lw=0 now >>mkisis.sh
-./mx seq=xls "pft='sh -x mxmake32.sh utl/linux/isis1660   'left(v1,size(v1)-4)' CIFFI=0 LIND=0 LIND4=0 ISISXL=1 ISISXL512=0 _FILE_OFFSET_BITS=00 _LARGEFILE64_SOURCE=0'/" lw=0 now >>mkisis1660.sh
-./mx seq=xls "pft='sh -x mxmake32.sh utl/linux/isisG      'left(v1,size(v1)-4)' CIFFI=0 LIND=0 LIND4=0 ISISXL=0 ISISXL512=0 _FILE_OFFSET_BITS=64 _LARGEFILE64_SOURCE=1'/" lw=0 now >>mkisisG.sh
-./mx seq=xls "pft='sh -x mxmake32.sh utl/linux/lind       'left(v1,size(v1)-4)' CIFFI=0 LIND=1 LIND4=0 ISISXL=1 ISISXL512=0 _FILE_OFFSET_BITS=00 _LARGEFILE64_SOURCE=0'/" lw=0 now >>mklind.sh
-./mx seq=xls "pft='sh -x mxmake32.sh utl/linux/lindG4     'left(v1,size(v1)-4)' CIFFI=0 LIND=1 LIND4=1 ISISXL=1 ISISXL512=0 _FILE_OFFSET_BITS=64 _LARGEFILE64_SOURCE=1'/" lw=0 now >>mklindG4.sh
+./mx seq=xls "pft='sh -x mxmake32.sh utl/linux/isis       'left(v1,size(v1)-4)' CIFFI=0 LIND=0 LIND4=0 ISISXL=0 ISISXL512=0 _FILE_OFFSET_BITS=00 _LARGEFILE64_SOURCE=0 '/" lw=0 now >>mkisis.sh
+./mx seq=xls "pft='sh -x mxmake32.sh utl/linux/isis1660   'left(v1,size(v1)-4)' CIFFI=0 LIND=0 LIND4=0 ISISXL=1 ISISXL512=0 _FILE_OFFSET_BITS=00 _LARGEFILE64_SOURCE=0 '/" lw=0 now >>mkisis1660.sh
+./mx seq=xls "pft='sh -x mxmake32.sh utl/linux/isisG      'left(v1,size(v1)-4)' CIFFI=0 LIND=0 LIND4=0 ISISXL=0 ISISXL512=0 _FILE_OFFSET_BITS=64 _LARGEFILE64_SOURCE=1 '/" lw=0 now >>mkisisG.sh
+./mx seq=xls "pft='sh -x mxmake32.sh utl/linux/lind       'left(v1,size(v1)-4)' CIFFI=0 LIND=1 LIND4=0 ISISXL=1 ISISXL512=0 _FILE_OFFSET_BITS=00 _LARGEFILE64_SOURCE=0 '/" lw=0 now >>mklind.sh
+./mx seq=xls "pft='sh -x mxmake32.sh utl/linux/lindG4     'left(v1,size(v1)-4)' CIFFI=0 LIND=1 LIND4=1 ISISXL=1 ISISXL512=0 _FILE_OFFSET_BITS=64 _LARGEFILE64_SOURCE=1 '/" lw=0 now >>mklindG4.sh
 ./mx seq=xls "pft='sh -x mxmake32.sh utl/linux/lind512    'left(v1,size(v1)-4)' CIFFI=0 LIND=1 LIND4=0 ISISXL=1 ISISXL512=1 _FILE_OFFSET_BITS=00 _LARGEFILE64_SOURCE=0'/" lw=0 now >>mklind512.sh
 ./mx seq=xls "pft='sh -x mxmake32.sh utl/linux/lind512G4  'left(v1,size(v1)-4)' CIFFI=0 LIND=1 LIND4=1 ISISXL=1 ISISXL512=1 _FILE_OFFSET_BITS=64 _LARGEFILE64_SOURCE=1'/" lw=0 now >>mklind512G4.sh
 ./mx seq=xls "pft='sh -x mxmake32.sh utl/linux/ffi        'left(v1,size(v1)-4)' CIFFI=1 LIND=1 LIND4=0 ISISXL=1 ISISXL512=0 _FILE_OFFSET_BITS=00 _LARGEFILE64_SOURCE=0'/" lw=0 now >>mkffi.sh
 ./mx seq=xls "pft='sh -x mxmake32.sh utl/linux/ffiG4      'left(v1,size(v1)-4)' CIFFI=1 LIND=1 LIND4=1 ISISXL=1 ISISXL512=0 _FILE_OFFSET_BITS=64 _LARGEFILE64_SOURCE=1'/" lw=0 now >>mkffiG4.sh
-./mx seq=xls "pft='sh -x mxmake32.sh utl/linux/ffiG4_4    'left(v1,size(v1)-4)' CIFFI=1 LIND=1 LIND4=1 ISISXL=1 ISISXL512=0 _FILE_OFFSET_BITS=64 _LARGEFILE64_SOURCE=1 MAXMFRL=4194304'/" lw=0 now >>mkffiG4_4.sh
+./mx seq=xls "pft='sh -x mxmake32.sh utl/linux/ffiG4_4    'left(v1,size(v1)-4)' CIFFI=1 LIND=1 LIND4=1 ISISXL=1 ISISXL512=0 _FILE_OFFSET_BITS=64 _LARGEFILE64_SOURCE=1 MAXMFRL=4194304 '/" lw=0 now >>mkffiG4_4.sh
 ./mx seq=xls "pft='sh -x mxmake32.sh utl/linux/ffi512     'left(v1,size(v1)-4)' CIFFI=1 LIND=1 LIND4=0 ISISXL=1 ISISXL512=1 _FILE_OFFSET_BITS=00 _LARGEFILE64_SOURCE=0'/" lw=0 now >>mkffi512.sh
 ./mx seq=xls "pft='sh -x mxmake32.sh utl/linux/ffi512G4   'left(v1,size(v1)-4)' CIFFI=1 LIND=1 LIND4=1 ISISXL=1 ISISXL512=1 _FILE_OFFSET_BITS=64 _LARGEFILE64_SOURCE=1'/" lw=0 now >>mkffi512G4.sh
 ./mx seq=xls "pft='sh -x mxmake32.sh utl/linux/ffi1660    'left(v1,size(v1)-4)' CIFFI=1 LIND=0 LIND4=0 ISISXL=1 ISISXL512=0 _FILE_OFFSET_BITS=00 _LARGEFILE64_SOURCE=0'/" lw=0 now >>mkffi1660.sh

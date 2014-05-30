@@ -91,11 +91,11 @@ char *argv[];
 	
 	    if (n1 < 80) n=n1; else n=80;
 	    
-	    memcpy(obuf+obufsize,iptr,n); obufsize+=n;
+	    memmove(obuf+obufsize,iptr,n); obufsize+=n;
 #if PC
-	    memcpy(obuf+obufsize,"\r",1); obufsize+=1;
+	    memmove(obuf+obufsize,"\r",1); obufsize+=1;
 #endif
-	    memcpy(obuf+obufsize,"\n",1); obufsize+=1;
+	    memmove(obuf+obufsize,"\n",1); obufsize+=1;
 	}
 	
 	writbsiz();

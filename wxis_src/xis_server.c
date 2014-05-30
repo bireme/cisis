@@ -513,7 +513,7 @@ extern int     dbxopt_errno;    /* dbxopen() - dbname/errno msg before fatal */
 
         /* save/notrap */
         strcpy(z_iomsg,fatal_iomsg);
-        memcpy(z_jumper,fatal_jumper,sizeof(fatal_jumper));
+        memmove(z_jumper,fatal_jumper,sizeof(fatal_jumper));
         z_errcod = fatal_errcod;
         z_xerrno = dbxopt_errno;
 
@@ -533,7 +533,7 @@ extern int     dbxopt_errno;    /* dbxopen() - dbname/errno msg before fatal */
         }
 
         /* restore/notrap */
-         memcpy(fatal_jumper,z_jumper,sizeof(fatal_jumper));
+         memmove(fatal_jumper,z_jumper,sizeof(fatal_jumper));
          strcpy(fatal_iomsg,z_iomsg);
          fatal_errcod = z_errcod;
          dbxopt_errno = z_xerrno;

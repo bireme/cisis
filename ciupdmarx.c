@@ -29,10 +29,10 @@ Gmarx/2       /receipt                 =22     |  1.1 2.1 22.1
                                               break;                      \
                                         if (left >= lmin) {               \
                                           len=left+3;                     \
-                                          memcpy(bp+left," ..",3);        \
+                                          memmove(bp+left," ..",3);        \
                                         } else {                          \
                                           len=m2+3+m3;                    \
-                                          memcpy(q,"...",3); q+=3;        \
+                                          memmove(q,"...",3); q+=3;        \
                                           while (m3--) *q++= *p++;        \
                                         }                                 \
                                     }                                     \
@@ -42,12 +42,12 @@ Gmarx/2       /receipt                 =22     |  1.1 2.1 22.1
 #define hpmovemax(hp,max,a,len)   {                                       \
                                     if (max >= 20 && len > max) {         \
                                         int m2=max/3*2,m3=max-m2-3;       \
-                                        memcpy(hp,a,m2);        hp+=m2;   \
-                                        memcpy(hp,"+++",3);     hp+=3;    \
-                                        memcpy(hp,a+len-m3,m3); hp+=m3;   \
+                                        memmove(hp,a,m2);        hp+=m2;   \
+                                        memmove(hp,"+++",3);     hp+=3;    \
+                                        memmove(hp,a+len-m3,m3); hp+=m3;   \
                                     }                                     \
                                     else {                                \
-                                        memcpy(hp,a,len); hp+=len;        \
+                                        memmove(hp,a,len); hp+=len;        \
                                     }                                     \
                                   }
 //end hpmovemax(hp,max,a,len)
@@ -193,7 +193,7 @@ Gmarx/2       /receipt                 =22     |  1.1 2.1 22.1
               q=strstr(p,"@@");
               if (q) {
                   int n=0; *q='\0'; p=q+2; while (isdigit(*p) || *p=='.') { n++; p++; }
-                  if (n>sizeof(selcode)-1) n=sizeof(selcode)-1; memcpy(selcode,q+2,n); selcode[n]='\0'; selparm=n;
+                  if (n>sizeof(selcode)-1) n=sizeof(selcode)-1; memmove(selcode,q+2,n); selcode[n]='\0'; selparm=n;
               }
               else {
                 q=strchr(p,'@');
@@ -204,7 +204,7 @@ Gmarx/2       /receipt                 =22     |  1.1 2.1 22.1
                     int n;
                     p=strchr(p,'@'); *p++='\0'; q=p; for (; *p; p++) if (*p==' ') if (*(p+1)=='=') { qb=p-1; *p='\0'; p++; break; }
                     n=strlen(q); for (; *qb != '"'; qb--) n--;
-                    if (n>sizeof(selattr)-1) n=sizeof(selattr)-1; memcpy(selattr,q,n); selattr[n]='\0'; selsize=n;
+                    if (n>sizeof(selattr)-1) n=sizeof(selattr)-1; memmove(selattr,q,n); selattr[n]='\0'; selsize=n;
                   }
                 }
               }//end selection
@@ -427,7 +427,7 @@ Gmarx/2       /receipt                 =22     |  1.1 2.1 22.1
                       for (p=fldp;       ; p++) { s++; if (*p=='>') break;          } // ancest
                       for (p=q+6; *p!='"'; p++) { if (*p==',') break; *bufp++ = *p; } // ancest,*offset.lenght
                       *bufp++='|'; *bufp++='|';
-                      memcpy(bufp,fldp+s,ilen-s);           bufp+=(ilen-s);
+                      memmove(bufp,fldp+s,ilen-s);           bufp+=(ilen-s);
                     }
                     else {
                       fldp[left]='\0'; q=strstr(fldp,"||"); fldp[left]=k;
@@ -435,11 +435,11 @@ Gmarx/2       /receipt                 =22     |  1.1 2.1 22.1
                         for (p=fldp;  p!=q  ; p++) { s++; } s+=2;                        // ancest
                         for (p=fldp; *p!='|'; p++) { if (*p==',') break; *bufp++ = *p; } // ancest,*offset.lenght
                         *bufp++='|'; *bufp++='|';
-                        memcpy(bufp,fldp+s,ilen-s);          bufp+=(ilen-s);
+                        memmove(bufp,fldp+s,ilen-s);          bufp+=(ilen-s);
                       }
                       else {
                         sprintf(bufp,"%d.%d||",itag,iocc);   bufp+=strlen(bufp);
-                        memcpy(bufp,fldp,ilen);              bufp+=ilen;
+                        memmove(bufp,fldp,ilen);              bufp+=ilen;
                       }
                     }
                 }
@@ -554,7 +554,7 @@ Gmarx/2       /receipt                 =22     |  1.1 2.1 22.1
                             if (parmindex) if (c) { //it's well formed
                                 char *op=NULL;
                                 char *q=b;       //hierarchal index stops at b instead of c
-                                oxn=1+xn; oarea[0]='<'; memcpy(oarea+1,name,xn); oarea[oxn]='\0';
+                                oxn=1+xn; oarea[0]='<'; memmove(oarea+1,name,xn); oarea[oxn]='\0';
                                 *c='\0'; q=strstr(q+1,oarea); *c='<';                                                  // <name
                                 if (q) if (q[oxn]==' ' || q[oxn]=='>') { op=q; for (; q!=c; q++) if (*q=='>') break; } // <name ..>
                                 if (op) {
@@ -613,7 +613,7 @@ Gmarx/2       /receipt                 =22     |  1.1 2.1 22.1
                                         char *ihtp=ihtptr[level]+ihtlen[level]+1;
                                         //copy header
                                         if (level>1) *ihtp++=' ';
-                                        *c1='\0'; n=strlen(b1+1); *c1='<'; memcpy(ihtp,b1+1,n); ihtptr[level]=ihtp; ihtp+=n; ihtlen[level]=n; *ihtp='\0';
+                                        *c1='\0'; n=strlen(b1+1); *c1='<'; memmove(ihtp,b1+1,n); ihtptr[level]=ihtp; ihtp+=n; ihtlen[level]=n; *ihtp='\0';
                                         ihtocc[level]=iocc;
                                         ihtpta[level]=a; ihtpla[level]=b-a+1; if (closed) ihtpla[level]--;
                                         ihtptc[level]=c; ihtptd[level]=d;
@@ -630,7 +630,7 @@ Gmarx/2       /receipt                 =22     |  1.1 2.1 22.1
                             else // nested
                             if (d) {
                               q=b;       //nested elements in b+1..c-1
-                              oxn=1+xn; oarea[0]='<'; memcpy(oarea+1,name,xn); oarea[oxn]='\0';
+                              oxn=1+xn; oarea[0]='<'; memmove(oarea+1,name,xn); oarea[oxn]='\0';
                               while (d) {  //while following closing and nested opening
                                 char *op=NULL;
                                 *c='\0'; q=strstr(q+1,oarea); *c='<';                                                  // <name
@@ -711,7 +711,7 @@ Gmarx/2       /receipt                 =22     |  1.1 2.1 22.1
                                     ba=iphbuff;
                                     //copy headers
                                     for (iphp=iphbuff, xlev=1; xlev<=level; xlev++) {
-                                      if (ihtlen[xlev]) { memcpy(iphp,ihtptr[xlev],ihtlen[xlev]); iphp+=ihtlen[xlev]; } else *iphp++='-';
+                                      if (ihtlen[xlev]) { memmove(iphp,ihtptr[xlev],ihtlen[xlev]); iphp+=ihtlen[xlev]; } else *iphp++='-';
                                     //*iphp++='.'; *iphp++=' ';
                                       *iphp++='|';
                                     }
@@ -763,19 +763,19 @@ Gmarx/2       /receipt                 =22     |  1.1 2.1 22.1
                                     }
                                     *c2=k;
 #if 1
-                                    if (p) { *(p+1)='\0'; xe=strlen(ihtba); *(p+1)=' '; memcpy(iphp,ihtba,xe);    ihtba+=(xe+1);  ihtxen-=(xe+1); }
-                                    else   {              xe=ihtxen;                    memcpy(iphp,ihtba,xe);    ihtba=NULL;     ihtxen=0;       }
+                                    if (p) { *(p+1)='\0'; xe=strlen(ihtba); *(p+1)=' '; memmove(iphp,ihtba,xe);    ihtba+=(xe+1);  ihtxen-=(xe+1); }
+                                    else   {              xe=ihtxen;                    memmove(iphp,ihtba,xe);    ihtba=NULL;     ihtxen=0;       }
 #else
                                     if (p) {
                                       if (qpcase == 2)
-                                           { *(p+1)='\0'; xe=strlen(ihtba); *(p+1)=' '; memcpy(iphp,ihtba,xe);    ihtba+=(xe+1);  ihtxen-=(xe+1); }
+                                           { *(p+1)='\0'; xe=strlen(ihtba); *(p+1)=' '; memmove(iphp,ihtba,xe);    ihtba+=(xe+1);  ihtxen-=(xe+1); }
                                       else
                                       if (qpcase == 1)
-                                           {              xe=strlen(ihtba);             memcpy(iphp,ihtba,xe);    ihtba+=(xe  );  ihtxen-=(xe  ); }
+                                           {              xe=strlen(ihtba);             memmove(iphp,ihtba,xe);    ihtba+=(xe  );  ihtxen-=(xe  ); }
                                       else
-                                           {              xe=ihtxen;                    memcpy(iphp,ihtba,xe);    ihtba=NULL;     ihtxen=0;       }
+                                           {              xe=ihtxen;                    memmove(iphp,ihtba,xe);    ihtba=NULL;     ihtxen=0;       }
                                     }
-                                    else   {              xe=ihtxen;                    memcpy(iphp,ihtba,xe);    ihtba=NULL;     ihtxen=0;       }
+                                    else   {              xe=ihtxen;                    memmove(iphp,ihtba,xe);    ihtba=NULL;     ihtxen=0;       }
 #endif
                                     if (xe) { //
                                       char *pa=iphp,*pc=iphp+xe;
@@ -1082,7 +1082,7 @@ Gmarx/2       /receipt                 =22     |  1.1 2.1 22.1
                                               if (*p==' ') { p++; n--; }
                                               *hp++='@';
                                               n--; if (closed) n--;
-                                              memcpy(hp,p,n); hp+=n;
+                                              memmove(hp,p,n); hp+=n;
                                               *hp++='|';
                                             }
 #endif

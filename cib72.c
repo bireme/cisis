@@ -223,7 +223,7 @@ int errl;
       putchar(*p);
     printf(")\n");
 #endif
-    memcpy(b7errxy,errp,errl); b7errxy[errl]='\0';
+    memmove(b7errxy,errp,errl); b7errxy[errl]='\0';
 #ifndef CICPP
 #if !WWWISIS
     longjmp(b71jumper,error);
@@ -489,9 +489,9 @@ printf("0. dbname=%s,opx=%s<== \n",b7_pfxdbn,b7_pfxopx);
                 if (usel > LE2) fatal("b7_pfx/invxtag/^u");
                 if (opxlen >= pfxl) {
                 	if (strncmp(b7_pfxopx,(const char *)pfxp,pfxl) == 0) {
-                        memcpy(b7_pfxdbn,dbnp,dbnl);
+                        memmove(b7_pfxdbn,dbnp,dbnl);
                         b7_pfxdbn[dbnl]='\0';
-                        if (usel) memcpy(b7_pfxopx,usep,usel);
+                        if (usel) memmove(b7_pfxopx,usep,usel);
 
 /* <R>  */
                         if( op[pfxl] == '"' ){
@@ -543,8 +543,8 @@ printf("0. dbname=%s,opx=%s<== \n",b7_pfxdbn,b7_pfxopx);
                     usel=DIRlen(xdir);
                     usep=subfldp(fldp,'u',&usel);
                     usel=subfldn(usep,usel);
-                    memcpy(b7_pfxdbn,dbnp,dbnl); b7_pfxdbn[dbnl]='\0';
-                    if (usel) memcpy(b7_pfxopx,usep,usel);
+                    memmove(b7_pfxdbn,dbnp,dbnl); b7_pfxdbn[dbnl]='\0';
+                    if (usel) memmove(b7_pfxopx,usep,usel);
 /* <R>  */
                     if( kp[n] == '"' ){
                     		aspas=1;
@@ -554,7 +554,7 @@ printf("0. dbname=%s,opx=%s<== \n",b7_pfxdbn,b7_pfxopx);
                     		aspas=0;
                     }
 /* </R> */
-                    memcpy(b7_pfxopx+usel,kp+n+aspas,kl-n);
+                    memmove(b7_pfxopx+usel,kp+n+aspas,kl-n);
                     b7_pfxopx[usel+kl-n]='\0';
                     found=2;
 #if INVXTRAC
@@ -596,9 +596,9 @@ printf("0. dbname=%s,opx=%s<== \n",b7_pfxdbn,b7_pfxopx);
 		    usel=DIRlen(xdir);
 		    usep=subfldp(fldp,'u',&usel);
 		    usel=subfldn(usep,usel);
-		    memcpy(b7_pfxdbn,dbnp,dbnl);
+		    memmove(b7_pfxdbn,dbnp,dbnl);
 		    b7_pfxdbn[dbnl]='\0';
-		    if (usel) memcpy(b7_pfxopx,usep,usel);
+		    if (usel) memmove(b7_pfxopx,usep,usel);
 /* <R>  */
           if( op[0] == '"' ){
           		aspas=1;
@@ -627,12 +627,12 @@ printf("0. dbname=%s,opx=%s<== \n",b7_pfxdbn,b7_pfxopx);
 	msgp=subfldp((unsigned char *)FIELDP(xdir),'m',&msgl);
 	msgl=subfldn(msgp,msgl);
 	if (msgl >= sizeof(b7_pfxmsg)) fatal("b7_pfx/invxtag/^m");
-	memcpy(b7_pfxmsg,msgp,msgl); b7_pfxmsg[msgl]='\0';
+	memmove(b7_pfxmsg,msgp,msgl); b7_pfxmsg[msgl]='\0';
 	msgl=DIRlen(xdir);
 	msgp=subfldp((unsigned char *)FIELDP(xdir),'w',&msgl);
 	msgl=subfldn(msgp,msgl);
 	if (msgl >= sizeof(b7_pfxtwx)) fatal("b7_pfx/invxtag/^w");
-	memcpy(b7_pfxtwx,msgp,msgl); b7_pfxtwx[msgl]='\0';
+	memmove(b7_pfxtwx,msgp,msgl); b7_pfxtwx[msgl]='\0';
 	msgl=DIRlen(xdir);
 	msgp=subfldp((unsigned char *)FIELDP(xdir),'x',&msgl);
 	b7_pfxmdl = (msgp) ? 1 : 0;
@@ -908,7 +908,7 @@ B7_RUNERROR:
    	sprintf(buffup,"%s.%03x",RDBname,(int)b7setno);         /* build file name for results in buffup */
 #endif /* CICPP */
    }else {
-   	memcpy(buffup,FIELDP(xdir_hmem),DIRlen(xdir_hmem));     /* or get it from irec into buffup */
+   	memmove(buffup,FIELDP(xdir_hmem),DIRlen(xdir_hmem));     /* or get it from irec into buffup */
    	buffup[DIRlen(xdir_hmem)]='\0';
    }
 
@@ -1115,10 +1115,10 @@ B7_RUNERROR:
                     	qlflen=0;
                     	if (tl_opx[b7opxlen-1] == '/') qlflen=1;
                     	if (tl_opx[b7opxlen-3] == '/') qlflen=3;
-                    	memcpy(buffup,tl_opx,dctlen);
-                    	memcpy(buffup+dctlen,tl_opx+b7opxlen-qlflen,qlflen);
+                    	memmove(buffup,tl_opx,dctlen);
+                    	memmove(buffup+dctlen,tl_opx+b7opxlen-qlflen,qlflen);
                     	b7opxlen=dctlen+qlflen;
-                    	memcpy(tl_opx,buffup,b7opxlen);
+                    	memmove(tl_opx,buffup,b7opxlen);
                     	tl_opx[b7opxlen]='\0';
                 	}
 #endif
@@ -1369,25 +1369,25 @@ B7_RUNERROR:
     /* store actual MFQTASET */
     sprintf(buffup,B7EDIT1,b7setno);
 #if CICPP
-    memcpy(FIELDP(irecp->xfieldx(MFQTASET,1)),buffup,B7UPLEN);
+    memmove(FIELDP(irecp->xfieldx(MFQTASET,1)),buffup,B7UPLEN);
 #else /* CICPP */
-    memcpy(FIELDP(fieldx(irec,MFQTASET,1)),buffup,B7UPLEN);
+    memmove(FIELDP(fieldx(irec,MFQTASET,1)),buffup,B7UPLEN);
 #endif /* CICPP */
 
     /* store actual MFQTALCC */
     sprintf(buffup,B7EDIT1,lastcc);
 #if CICPP
-    memcpy(FIELDP(irecp->xfieldx(MFQTALCC,1)),buffup,B7UPLEN);
+    memmove(FIELDP(irecp->xfieldx(MFQTALCC,1)),buffup,B7UPLEN);
 #else /* CICPP */
-    memcpy(FIELDP(fieldx(irec,MFQTALCC,1)),buffup,B7UPLEN);
+    memmove(FIELDP(fieldx(irec,MFQTALCC,1)),buffup,B7UPLEN);
 #endif /* CICPP */
 
     /* store actual MFQTHITS */
     sprintf(buffup,B7EDIT1,PDLdocs);
 #if CICPP
-    memcpy(FIELDP(irecp->xfieldx(MFQTHITS,1)),buffup,B7UPLEN);
+    memmove(FIELDP(irecp->xfieldx(MFQTHITS,1)),buffup,B7UPLEN);
 #else /* CICPP */
-    memcpy(FIELDP(fieldx(irec,MFQTHITS,1)),buffup,B7UPLEN);
+    memmove(FIELDP(fieldx(irec,MFQTHITS,1)),buffup,B7UPLEN);
 #endif /* CICPP */
 
 /*..*/
@@ -1397,9 +1397,9 @@ B7_RUNERROR:
     /* store actual MFQTHSIZ */
     sprintf(buffup,B7EDIT1,hsiz);
 #if CICPP
-    memcpy(FIELDP(irecp->xfieldx(MFQTHSIZ,1)),buffup,B7UPLEN);
+    memmove(FIELDP(irecp->xfieldx(MFQTHSIZ,1)),buffup,B7UPLEN);
 #else /* CICPP */
-    memcpy(FIELDP(fieldx(irec,MFQTHSIZ,1)),buffup,B7UPLEN);
+    memmove(FIELDP(fieldx(irec,MFQTHSIZ,1)),buffup,B7UPLEN);
 #endif /* CICPP */
 
 /*..*/
@@ -1434,7 +1434,7 @@ B7_RUNERROR:
     n=DIRlen(xdir_xcts); p=(unsigned char *)FIELDP(xdir_xcts);
     nffi=n;
     p=subfldp(p,MFQSWQTY,&nffi);
-    memcpy(p,buffup,B7UPLEN);
+    memmove(p,buffup,B7UPLEN);
 
     /* put it on disk */
     if (RECdbxp) {
@@ -1507,7 +1507,7 @@ B7_RUNERROR:
           } /* end for (; hitsleft; ) */
       } /* end if (hcase == MFNSTRING) */
       else { /* else if (hcase == MFNSTRING) */
-        memcpy(b7bufferp->area,PDLlvel,hsiz);
+        memmove(b7bufferp->area,PDLlvel,hsiz);
         memset(b7bufferp->area+hsiz,0x00,b7bufferp->bufsiz-hsiz);
       } /* end if (hcase == MFNSTRING) */
     } /* end if (!b7error) */
@@ -1523,7 +1523,7 @@ B7_RUNERROR:
         if (!b7bufferp) b7_hballoc(B7_THISP (lastmfn/8+1),&b7bufferp);
         b7bufferp->setno = b7setno;
 
-        memcpy(b7bufferp->area,PDLlvel,hsiz);
+        memmove(b7bufferp->area,PDLlvel,hsiz);
         memset(b7bufferp->area+hsiz,0x00,b7bufferp->bufsiz-hsiz);
     }
 #endif /* CIB7HITLIST */
@@ -1814,7 +1814,7 @@ LONGX setno;		/* query number */
             if (!b7bufferp) fatal("b7_hit/buffer");
             if (b7bufferp->bufsiz < hsiz) fatal("b7_hit/bufsiz");
             if (b7bufferp->setno != setno) {
-				    memcpy(filname,FIELDP(xdir_hmem),n=DIRlen(xdir_hmem));
+				    memmove(filname,FIELDP(xdir_hmem),n=DIRlen(xdir_hmem));
 				    filname[n]='\0';
                 dbxopt_fatal=0; fd=dbxopen(b7_gidbnp,filname,"");
 				    if (fd <= 0) fatal("b7_hit/open/1");
@@ -1888,9 +1888,9 @@ LONGX setno;		/* query number */
     } /* end else nord == 0 || nord > hits */
     /* store */
     sprintf(buffup,B7EDIT1,hcur);
-    memcpy(FIELDP(xdir_hcur),buffup,B7UPLEN);
+    memmove(FIELDP(xdir_hcur),buffup,B7UPLEN);
     sprintf(buffup,B7EDIT1,hmfn);
-    memcpy(FIELDP(xdir_hmfn),buffup,B7UPLEN);
+    memmove(FIELDP(xdir_hmfn),buffup,B7UPLEN);
 #if HITTRACE
  printf("b7_hit - mfn: %"_LD_"\n",mfn);
 #endif
@@ -1989,7 +1989,7 @@ printf("b7_xlkey - buf=%s (%d)\n",bufp,*opxlp);
     newlen= *opxlp;
     if (newlen > LE2) if (newlen != LE2+2 || (*bufp != '\"' && bufp[newlen-1] != '\"'))
         newlen=LE2;
-    memcpy(opx,bufp,newlen);
+    memmove(opx,bufp,newlen);
     opx[newlen]='\0';
     *opxlp = newlen;
     return(opx);
@@ -2551,7 +2551,7 @@ char *src;
 	if( !newlvel )
 		fatal( "cib72/b7_addk/realloc" );
 	memset( newlvel, 0x00, PDLsize+PDLisiz );
-	memcpy( newlvel, PDLlvel, PDLsize );
+	memmove( newlvel, PDLlvel, PDLsize );
 #if CICPP
     delete[] PDLlvel;
 #else /* CICPP */
@@ -2564,7 +2564,7 @@ char *src;
 #endif
    }
 
-   memcpy( PDLnxtp, src, PDLplen );
+   memmove( PDLnxtp, src, PDLplen );
 
    PDLleft-= PDLplen;
    PDLnxtp += PDLplen;
@@ -2617,7 +2617,7 @@ char *src;
 	if( !newlvel )
 		fatal( "cib72/b7_addk/realloc" );
 	memset( newlvel, 0x00, PDLsize+PDLisiz );
-	memcpy( newlvel, PDLlvel, PDLsize );
+	memmove( newlvel, PDLlvel, PDLsize );
 #if CICPP
     delete[] PDLlvel;
 #else /* CICPP */
@@ -2642,7 +2642,7 @@ char *src;
    if( cur != PDLnxtp )
    	memmove( cur, cur+PDLplen, PDLnxtp-cur );
 
-   memcpy( cur, src, PDLplen );
+   memmove( cur, src, PDLplen );
 
    PDLleft-=PDLplen;
    PDLnxtp += PDLplen;
@@ -2695,7 +2695,7 @@ TRMSTRU *trmp;
 	if( !newlvel )
 		fatal( "cib72/b7_addk/realloc" );
 	memset( newlvel, 0x00, PDLsize+PDLisiz );
-	memcpy( newlvel, PDLlvel, PDLsize );
+	memmove( newlvel, PDLlvel, PDLsize );
 #if CICPP
     delete[] PDLlvel;
 #else /* CICPP */

@@ -164,7 +164,7 @@ LONGX irec;
     }
     vgizmap->grngs=0;
     vgizmap->gdbnp=pattalloc((n=strlen(gizdbnp))+1);
-    memcpy(vgizmap->gdbnp,gizdbnp,n); vgizmap->gdbnp[n]='\0';
+    memmove(vgizmap->gdbnp,gizdbnp,n); vgizmap->gdbnp[n]='\0';
 
     if (rectrace)
         printf("gizmread - %s=%p=%p \n",gizdbnp,*vgizmpp,&vgizmap->nextp);
@@ -388,8 +388,8 @@ LONGX irec;
         gizmp=gizmalloc(sizeof(GIZMSTRU));
         gizmp->isize=fld1len;
         gizmp->osize=fld2len;
-        gizmp->ipatt=pattalloc(fld1len); memcpy(gizmp->ipatt,fld1p,fld1len);
-        gizmp->opatt=pattalloc(fld2len); memcpy(gizmp->opatt,fld2p,fld2len);
+        gizmp->ipatt=pattalloc(fld1len); memmove(gizmp->ipatt,fld1p,fld1len);
+        gizmp->opatt=pattalloc(fld2len); memmove(gizmp->opatt,fld2p,fld2len);
         gizmp->nextp=gizmnp;
 
         if (gizmbp)
@@ -634,7 +634,7 @@ printf("\\no gizmo - copying %c",*p); GETCHAR;
 
         else {  /* just copy it */
             sprintf((char *)batchp,"H%u %u ",tag,DIRlen(xdir)); batchp+=strlen((CONST char *)batchp);
-            memcpy(batchp,FIELDP(xdir),DIRlen(xdir)); batchp+=DIRlen(xdir);
+            memmove(batchp,FIELDP(xdir),DIRlen(xdir)); batchp+=DIRlen(xdir);
         }
 
     } /* end dir entries */
@@ -880,10 +880,10 @@ int xpn02;          /* delimiter */
     sprintf(batchp,"H%d 000000 ",xpn01); batchp+=strlen(batchp);
     fuplenp=batchp-1-6; fuplen=0; /* fuplenp points to 000000 */
     for (xdir=0, dirloop=MFRnvf; dirloop--; xdir++) {
-        memcpy(batchp,(char *)&DIRtag(xdir),SIZEOFTAG);
+        memmove(batchp,(char *)&DIRtag(xdir),SIZEOFTAG);
         batchp+=SIZEOFTAG;
         fuplen+=SIZEOFTAG;
-        memcpy(batchp,FIELDP(xdir),DIRlen(xdir));
+        memmove(batchp,FIELDP(xdir),DIRlen(xdir));
         batchp+=DIRlen(xdir);
         fuplen+=DIRlen(xdir);
         *batchp++ = xpn02;
@@ -1104,7 +1104,7 @@ if (getchar() != '\n') break;
 
     if ((dmap->ddbnp == (unsigned char *)ALLONULL))
         fatal("recdecod/ALLOC/dmap");
-    memcpy(dmap->ddbnp,FIELDP(wdir),n); dmap->ddbnp[n]='\0';
+    memmove(dmap->ddbnp,FIELDP(wdir),n); dmap->ddbnp[n]='\0';
 
     if (dectrace)
         printf("recdecod - 2. %s=%p +%"_LD_"\n",dmap->ddbnp,dmap,CORELEFT());
@@ -1151,7 +1151,7 @@ if (getchar() != '\n') break;
 #endif /* CICPP */
 
         if (wdir < 0) fatal("recdecod/internal error");
-        memcpy(datp,FIELDP(wdir),n=DIRlen(wdir)); datp[n]='\0';
+        memmove(datp,FIELDP(wdir),n=DIRlen(wdir)); datp[n]='\0';
         dmap->drng1[irng]=0;
         if (sscanf((CONST char *)datp,"%"_LD_"/%"_LD_,&xtag1,&xtag2) == 2)
             if (xtag1 >= 1 && xtag2 <= USHRT_MAX)
@@ -1190,7 +1190,7 @@ printf("+++ 1. dsfld=%s=%d \n",dmap->dsfld,dmap->dsflds);
         wdir=fieldx(wrec,wtag=DECOTAG4,wocc); wox=wocc-1;
 #endif /* CICPP */
 
-        memcpy(dmap->dsfld,FIELDP(wdir),n=DIRlen(wdir));
+        memmove(dmap->dsfld,FIELDP(wdir),n=DIRlen(wdir));
         dmap->dsfld[n]='\0';
         for (p=dmap->dsfld; *p; p++) *p=isisuctab[*p];
         if ((p=(unsigned char *)strchr((char *)dmap->dsfld,SFLDCHR)) != NULL)
@@ -1364,7 +1364,7 @@ printf("\\fldloop=%d *p=%c",fldloop,*p); GETCHAR;
                     if (*p == SFLDCHR) {
                         sfldc = *(p+1);
                         sfldlen-=2;
-                        memcpy(batchp,p,2); batchp+=2; p+=2;
+                        memmove(batchp,p,2); batchp+=2; p+=2;
                         fldloop-=2; fuplen+=2;
                     }
                 if (sfldlen == 0) continue;
@@ -1385,7 +1385,7 @@ printf("\\fldloop=%d *p=%c",fldloop,*p); GETCHAR;
                             check=0; break;
                         }
                     if (check) {
-                        memcpy(batchp,p,n=sfldlen); batchp+=n; p+=n;
+                        memmove(batchp,p,n=sfldlen); batchp+=n; p+=n;
                         fldloop-=n; fuplen+=n;
                         continue;
                     }
@@ -1436,10 +1436,10 @@ printf("\\match #%"_LD_,nmatchs); GETCHAR;
                         for (; decxdir < R2MFRnvf; decxdir++) {
                             if (dectrace) printf("/%d",R2DIRtag(decxdir));
                             q=(unsigned char *)R2FIELDP(decxdir);
-                            memcpy(batchp,q,n=R2DIRlen(decxdir));
+                            memmove(batchp,q,n=R2DIRlen(decxdir));
                             batchp+=n; fuplen+=n;
                             if (left) {
-                                memcpy(batchp,leftp,left);
+                                memmove(batchp,leftp,left);
 				batchp+=left; fuplen+=left;
                             }
                         }
@@ -1455,11 +1455,11 @@ printf("\\no match"); GETCHAR;
 #endif
 
                     if (rchar == dmap->drdlm) {
-                        memcpy(batchp,p,n=sfldlen-1); batchp+=n; p+=n+1;
+                        memmove(batchp,p,n=sfldlen-1); batchp+=n; p+=n+1;
                         fldloop-=n+1; fuplen+=n;
                     }
                     else {
-                        memcpy(batchp,p,n=sfldlen); batchp+=n; p+=n;
+                        memmove(batchp,p,n=sfldlen); batchp+=n; p+=n;
                         fldloop-=n; fuplen+=n;
                     }
 		}
@@ -1479,7 +1479,7 @@ printf("\\no match"); GETCHAR;
 
         else {  /* just copy it */
             sprintf((char *)batchp,"H%u %u ",tag,DIRlen(xdir)); batchp+=strlen((CONST char *)batchp);
-            memcpy(batchp,FIELDP(xdir),DIRlen(xdir)); batchp+=DIRlen(xdir);
+            memmove(batchp,FIELDP(xdir),DIRlen(xdir)); batchp+=DIRlen(xdir);
         }
 
     } /* end dir entries */

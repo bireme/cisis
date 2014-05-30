@@ -200,7 +200,7 @@ LONGX setno;		/* query number */
 	    if (bufleft <= 0 || bufleft > bufsiz) fatal("b6_hit/bufleft");
 	    if (lastbsize <= 0 || lastbsize>bufsiz) fatal("b6_hit/lastbsize");
 	    if (b6bufferp->block != block) {
-		memcpy(filname,FIELDP(xdir_hmem),n=DIRlen(xdir_hmem));
+		memmove(filname,FIELDP(xdir_hmem),n=DIRlen(xdir_hmem));
 		filname[n]='\0';
 		fd=dbxopen(b6_gidbnp,filname,"");
 		seek=block*bufsiz;
@@ -228,7 +228,7 @@ block=%"_LD_"\n",
 #endif
 		if (b6bufferp->block != block) {
 		    if (fd == 0) {
-			memcpy(filname,FIELDP(xdir_hmem),n=DIRlen(xdir_hmem));
+			memmove(filname,FIELDP(xdir_hmem),n=DIRlen(xdir_hmem));
 			filname[n]='\0';
 			fd=dbxopen(b6_gidbnp,filname,"");
 		    }
@@ -287,9 +287,9 @@ block=%"_LD_"\n",
 
 	    /* store */
 	    sprintf(buffup,B7EDIT1,hcur);
-	    memcpy(FIELDP(xdir_hcur),buffup,B7UPLEN);
+	    memmove(FIELDP(xdir_hcur),buffup,B7UPLEN);
 	    sprintf(buffup,B7EDIT1,hmfn);
-	    memcpy(FIELDP(xdir_hmfn),buffup,B7UPLEN);
+	    memmove(FIELDP(xdir_hmfn),buffup,B7UPLEN);
 
          } /* end else hcur == nord */
 

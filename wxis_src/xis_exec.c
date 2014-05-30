@@ -956,7 +956,7 @@ EXE_ERROR exeFieldDir(EXE_VAR *exeVar,    /* execution variables */
       sprintf(p,"%05d",VDIRtag(idx,fldDir)); p += 5;
       if (attributeType->atValue != ATVALUE_LIST) {
          *p++ = ' ';
-         memcpy(p,VFIELDP(idx,fldDir),VDIRlen(idx,fldDir)); p += VDIRlen(idx,fldDir);
+         memmove(p,VFIELDP(idx,fldDir),VDIRlen(idx,fldDir)); p += VDIRlen(idx,fldDir);
       }
       *p++ = '\n';
    } /* for */
@@ -4197,7 +4197,7 @@ void exeLoop(EXE_VAR *exeVar,          /* execution variables */
    char *taskText;               /* task text message */
 
    /* Copy scope variables */
-   memcpy(&localScopeVar,scopeVar,sizeof(SCOPE_VAR));
+   memmove(&localScopeVar,scopeVar,sizeof(SCOPE_VAR));
 
    /* Set local variables */
    localScopeVar.idxPrev = scopeVar->idxCurr;
@@ -4296,7 +4296,7 @@ void exeHL(EXE_VAR *exeVar,         /* execution variables */
    SCOPE_VAR localScopeVar;      /* local variables for sub-command */
 
    /* Copy scope variables */
-   memcpy(&localScopeVar,scopeVar,sizeof(SCOPE_VAR));
+   memmove(&localScopeVar,scopeVar,sizeof(SCOPE_VAR));
 
    /* Set local variables */
    localScopeVar.idxPrev = scopeVar->idxCurr;

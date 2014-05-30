@@ -491,7 +491,7 @@ char *defaultp;
     if (!areap)
         if ((areap=(char *)ALLOC((ALLOPARM)n+1)) == (char *)ALLONULL)
             fatal("aotmsa1/recsfldv/ALLOC");
-    memcpy(areap,p,n); areap[n]='\0';
+    memmove(areap,p,n); areap[n]='\0';
     return(areap);
 }
 

@@ -91,7 +91,7 @@ RECSTRU :: RECSTRU (CISISX *cxp,
 
  try {recmfp = (MFUNION  *) new char [recnbytes];}
  catch (BAD_ALLOC) {fatal("RECSTRU/ALLOC");}
- memcpy (recmfp,other.recmfp,recnbytes);
+ memmove (recmfp,other.recmfp,recnbytes);
  cisisxp = cxp;
  if (cisisxp == NULL)
   fatal("RECSTRU/cisisxp==NULL");
@@ -545,7 +545,7 @@ printf("recread - fd,lseek=%"_LD_",%"P_OFF_T"\n",fd,(LONG_LONG)xseek);
 #if RERTRACE
 printf("recread - msyyp=%p fd,lseek=%"P_OFF_T",%"_LD_"\n",msyyp,fd,(LONG_LONG)xseek);
 #endif
-	    memcpy(DBXmsibp,msyyp+xseek,MSBSIZ);
+	    memmove(DBXmsibp,msyyp+xseek,MSBSIZ);
 	}
         DBXmsibp->msbufn=comb;
     }
@@ -559,7 +559,7 @@ printf("recread- RECtype=%d  n1=%d  n=%d  MFX=%p  inp=%p\n",
     RECtype,n1,sizeof(M0STRU),MFX,inp);
 #endif
 	if (n1 < (n=sizeof(M0STRU))) fatal("recread/block");
-	memcpy(MFX,inp,n); /* ok */
+	memmove(MFX,inp,n); /* ok */
 #if CNV_PCBINUM
 	ConvertMST_CTLSTRUCT(MFX);
 	if (rectrace) prtcontrol(recp,DBXname);
@@ -580,7 +580,7 @@ printf("recread- RECtype=%d  n1=%d  n=%d  MFX=%p  inp=%p\n",
 	    }
 	    if (LSEEK64(fd,0L,SEEK_SET) != 0) fatal("recread/lock/lseek/ctl");
 #if CNV_PCBINUM
-	    memcpy(cnv_pcbuff,MFX,sizeof(M0STRU));
+	    memmove(cnv_pcbuff,MFX,sizeof(M0STRU));
 	    ConvertMST_CTLSTRUCT(cnv_pcbuff);
 	    if (CIWRITE(fd,cnv_pcbuff,sizeof(M0STRU)) != sizeof(M0STRU))
 #else
@@ -608,20 +608,20 @@ printf("recread- RECtype=%d  n1=%d  n=%d  MFX=%p  inp=%p\n",
     }
 
 #if CNV_PCBINUM
-    memcpy(cnv_pcbuff,inp,MSNVSPLT);
+    memmove(cnv_pcbuff,inp,MSNVSPLT);
     ConvertMST_LEADER(cnv_pcbuff,0,MSNVSPLT);
     p=inp; /* save inp */
     inp=cnv_pcbuff;
 #endif
 
 #if CNV_PCFILES
-    memcpy(MFX+0,inp+0,4); /* mfn= */		/* unibuff */
-    memcpy(MFX+4,inp+6,4); /* mfbwb= */		/* unibuff */
-    memcpy(MFX+8,inp+4,2); /* mfrl= */		/* unibuff */
-    memcpy(MFX+10,inp+10,MSNVSPLT-10);		/* unibuff */
+    memmove(MFX+0,inp+0,4); /* mfn= */		/* unibuff */
+    memmove(MFX+4,inp+6,4); /* mfbwb= */		/* unibuff */
+    memmove(MFX+8,inp+4,2); /* mfrl= */		/* unibuff */
+    memmove(MFX+10,inp+10,MSNVSPLT-10);		/* unibuff */
     if (rectrace) prtleader(recp,mfn);
 #else
-    memcpy(MFX,inp,MSNVSPLT);
+    memmove(MFX,inp,MSNVSPLT);
 #endif
 
 #if CNV_PCBINUM
@@ -675,7 +675,7 @@ printf("recread - moveok=%d  n=%d  n2=%d  p=%p \n",moveok,n,n2,p);
 
     if (n2) {
 	if (n2 <= 0) fatal("recread/n2");
-	memcpy(p,inp,n2); p+=n2; moveok+=n2;
+	memmove(p,inp,n2); p+=n2; moveok+=n2;
 #if RERTRACE
 printf("recread - moveok=%d  n=%d  n2=%d  p=%p \n",moveok,n,n2,p);
 #endif
@@ -709,7 +709,7 @@ printf("recread - fd,lseek2=%"_LD_",%"P_OFF_T"\n",fd,(LONG_LONG)xseek);
 #if RERTRACE
 printf("recread - p=%p msyyp=%p fd,lseek2=%"_LD_",%"P_OFF_T"\n",p,msyyp,fd,(LONG_LONG)xseek);
 #endif
-	    memcpy(p,msyyp+xseek,n);
+	    memmove(p,msyyp+xseek,n);
 	}
     }
 
@@ -744,13 +744,13 @@ printf("recread - p=%p msyyp=%p fd,lseek2=%"_LD_",%"P_OFF_T"\n",p,msyyp,fd,(LONG
 	    if (LSEEK64(fd,xseek,SEEK_SET) != xseek)
 		fatal("recread/lock/lseek/mfr");
 #if CNV_PCFILES
-	    memcpy(unibuff,MFX,MSNVSPLT);
-	    memcpy(MFX+0,unibuff+0,4); /* mfn= */
-	    memcpy(MFX+6,unibuff+4,4); /* mfbwb= */
-	    memcpy(MFX+4,unibuff+8,2); /* mfrl= */
+	    memmove(unibuff,MFX,MSNVSPLT);
+	    memmove(MFX+0,unibuff+0,4); /* mfn= */
+	    memmove(MFX+6,unibuff+4,4); /* mfbwb= */
+	    memmove(MFX+4,unibuff+8,2); /* mfrl= */
 #endif
 #if CNV_PCBINUM
-	    memcpy(cnv_pcbuff,MFX,MSNVSPLT);
+	    memmove(cnv_pcbuff,MFX,MSNVSPLT);
 	    ConvertMST_LEADER(cnv_pcbuff,0,MSNVSPLT);
             if (CIWRITE(fd,cnv_pcbuff,MSNVSPLT) != MSNVSPLT)
 #else
@@ -758,7 +758,7 @@ printf("recread - p=%p msyyp=%p fd,lseek2=%"_LD_",%"P_OFF_T"\n",p,msyyp,fd,(LONG
 #endif
 		fatal("recread/lock/write/mfr");
 #if CNV_PCFILES
-	    memcpy(MFX,unibuff,MSNVSPLT);
+	    memmove(MFX,unibuff,MSNVSPLT);
 #endif
 	    RECgdbl=RECgdbw=MFRmfrl;
 	    MFRmfrl=(FFI)0-MFRmfrl; /* reset */
@@ -872,7 +872,7 @@ printf("recxref - xryyp=%p mfn=%"_LD_"  newpos=%"_LD_"  lseek=%"P_OFF_T"  DBXmsm
 #endif
 		xryyp+=(xbyte);
 		n=XRBSIZ;
-                memcpy((char *)DBXxribp,xryyp,(size_t)n);
+                memmove((char *)DBXxribp,xryyp,(size_t)n);
 	    }
 #if CNV_PCBINUM
             ConvertXRF_REC((char *)DBXxribp);

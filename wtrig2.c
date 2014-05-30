@@ -546,7 +546,7 @@ if (parmtell2) parmtell2=COLLECTION_SIZE/5;
                         if (cnt >= readmaxtv) break;
                         b2a=sizeof(usi_w);
                         if (left < b2a+1) fatal("wtrig2/loadvectors/b2a/left/bin");
-                        memcpy((void *)&usi_w,fldp,b2a);
+                        memmove((void *)&usi_w,fldp,b2a);
                         fldp+=b2a; left-=b2a;
                         b2aweight=(float)usi_w/(float)USHRT_MAX;
                         p=fldp; keylen=strlen(p); b2a=0;
@@ -606,7 +606,7 @@ if (parmtell2) if (count%parmtell2 == 0) fprintf(stderr,"++ %"_LD_"/5 \n",(count
             langshits[nlangs]=(char  *)loadfile(NULL,'@',"",NULL,hitbytes,'\0');
             /* store bit string */
             xdir=fieldx(irec,TAG35,1); if (xdir < 0) fatal("wtrig2/terminverted/lang/TAG35");
-            memcpy(langshits[nlangs],FIELDP(xdir),hitbytes);
+            memmove(langshits[nlangs],FIELDP(xdir),hitbytes);
             /* store name */
             xdir=fieldx(irec,TAG34,1); if (xdir < 0) fatal("wtrig2/terminverted/lang/TAG34");
             for (p=FIELDP(xdir), left=DIRlen(xdir); left--; ) {
@@ -720,7 +720,7 @@ if (parmtell2) if (count%parmtell2 == 0) fprintf(stderr,"++ %"_LD_"/5 \n",(count
             dochidx=bsrchindex(table,tabentries,readwidth,fldp,keylen,&found);
 
             /* keep fldp */
-            memcpy(fldarea,fldp,keylen);
+            memmove(fldarea,fldp,keylen);
 
             if (found) {
                 /* similarity computation */
@@ -775,7 +775,7 @@ if (parmtell2) if (count%parmtell2 == 0) fprintf(stderr,"++ %"_LD_"/5 \n",(count
                         if (!vrecp[irecif]) {
                             recallok(irecif,MFRmfrl); /* RECHSIZE+nbytes is allocated */
                         }
-                        memcpy(vrecp[irecif],vrecp[vifrec[0]],RECHSIZE+MFRmfrl);
+                        memmove(vrecp[irecif],vrecp[vifrec[0]],RECHSIZE+MFRmfrl);
                         recp=vrecp[irecif]; /* current */
                     } /* end if !found */
                 } /* end if parmloadinverted */
@@ -817,7 +817,7 @@ if (parmtell2) if (count%parmtell2 == 0) fprintf(stderr,"++ %"_LD_"/5 \n",(count
                         left=dirp2->len;
                         if (left < n*nmfns) fatal("wtrig2/collectionterminverteddb/bin/left/1");
                         for (p=FIELDP(xdir2); left; ) {
-                            memcpy((void *)&hitmfn,p,n);
+                            memmove((void *)&hitmfn,p,n);
                             p+=n; left-=n;
                             if (left < 0) fatal("wtrig2/collectionterminverteddb/bin/left/2");
                             if (hitmfn < 1) fatal("wtrig2/collectionterminverteddb/bin/mfn invalid/1");

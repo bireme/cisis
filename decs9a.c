@@ -333,8 +333,8 @@ if (parmmyb) return(occ); /* myb - 28.04.92 */
 
 
     if (cn == 1 && (*cp == '3' || *cp == '2')) {
-        memcpy(key1,"CT?",3);
-        memcpy(key1+3,hp,hn);
+        memmove(key1,"CT?",3);
+        memmove(key1+3,hp,hn);
         p=key1; n=hn+3;
         chktag=1;
     }
@@ -346,7 +346,7 @@ if (parmmyb) return(occ); /* myb - 28.04.92 */
         return(occ);            /* NLM checks duplication */
 
     sn = 0;
-    memcpy(line,p,n); line[n]='\0';
+    memmove(line,p,n); line[n]='\0';
     if ((TERM(itrmw,decs,line))->trmrc != RCNORMAL) {
         printf("+++ mfn=%"_LD_" tag=%d key=%s -> Not found\n",
                                 MFRmfn,DIRtag(xdir),line);
@@ -367,17 +367,17 @@ if (parmmyb) return(occ); /* myb - 28.04.92 */
     prim870=0;
 
     if (DIRtag(xdir) == 870) {
-        memcpy(key2,".",1); n2=1;
-        memcpy(key2+1,p,n); n2+=n;
+        memmove(key2,".",1); n2=1;
+        memmove(key2+1,p,n); n2+=n;
         outlink(MFRmfn,1,occ,cnt,key2,n2,sn);
         prim870=1;
     }
     else
-        memcpy(key2,p,n2=n);
+        memmove(key2,p,n2=n);
 
-    memcpy(key2+n2,"/",1);
+    memmove(key2+n2,"/",1);
     if (qn)
-        memcpy(key2+n2+1,qp,qn);
+        memmove(key2+n2+1,qp,qn);
     if (DIRtag(xdir) == 870)
         outlink(MFRmfn,20,occ,cnt,key2+1,n2+1+qn-1,sn);
     outlink(MFRmfn,21,occ,cnt,key2,n2+1+qn,sn);
@@ -435,28 +435,28 @@ if (parmmyb) return(occ); /* myb */
             }
 
     if (DIRtag(xloop) == 870) {
-        memcpy(key2,".",1); n2=1;
-        memcpy(key2+1,p,n); n2+=n;
+        memmove(key2,".",1); n2=1;
+        memmove(key2+1,p,n); n2+=n;
         if (!prim870) {
             outlink(MFRmfn,1,occ,cnt,key2,n2,sn);
             prim870=1;
         }
     }
     else
-        memcpy(key2,p,n2=n);
+        memmove(key2,p,n2=n);
 
-    memcpy(key2+n2,"/",1);
+    memmove(key2+n2,"/",1);
     if (qn)
-        memcpy(key2+n2+1,qp,qn);
+        memmove(key2+n2+1,qp,qn);
     if (DIRtag(xloop) == 870)
         outlink(MFRmfn,20,occ,cnt,key2+1,n2+1+qn-1,sn);
     outlink(MFRmfn,21,occ,cnt,key2,n2+1+qn,sn);
 
 
 #if 0
-            memcpy(key2+n2,"/",1);
+            memmove(key2+n2,"/",1);
             if (qn)
-                memcpy(key2+n2+1,qp,qn);
+                memmove(key2+n2+1,qp,qn);
             outlink(MFRmfn,20,occ,cnt,key2+1,n2+1+qn-1,sn);
             if (DIRtag(xloop) == 870)
                 outlink(MFRmfn,21,occ,cnt,key2,n2+1+qn,sn);
@@ -549,13 +549,13 @@ if (parmmyb) return(occ); /* myb */
 
     primok=0; n2=0;
     if (DIRtag(xdir) == 870) {
-        memcpy(key2,".",n2=1);
+        memmove(key2,".",n2=1);
         primok=1;
     }
 
-    memcpy(key2+n2,"/",1);
+    memmove(key2+n2,"/",1);
     if (qn)
-        memcpy(key2+n2+1,qp,qn);
+        memmove(key2+n2+1,qp,qn);
     if (DIRtag(xdir) == 870)
         outlink(MFRmfn,30,occ,cnt,key2+1,n2+1+qn-1,sn);
     outlink(MFRmfn,31,occ,cnt,key2,n2+1+qn,sn);
@@ -597,8 +597,8 @@ if (parmmyb) return(occ); /* myb */
 
             if (DIRtag(xloop) == 870)
                 if (!primok) {
-                    memcpy(key1,".",1);
-                    memcpy(key1+1,key2,n2+1+qn);
+                    memmove(key1,".",1);
+                    memmove(key1+1,key2,n2+1+qn);
                     outlink(MFRmfn,31,occ,cnt,key1,n2+1+qn+1,sn);
                     primok=1;
                 }

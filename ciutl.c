@@ -198,7 +198,7 @@ char *defaultp;
         if ((areap=(char *)ALLOC((ALLOPARM)n+1)) == (char *)ALLONULL)
 #endif /* CIAPI_SOURCE */
             fatal("recfield/ALLOC");
-    memcpy(areap,p,n); areap[n]='\0';
+    memmove(areap,p,n); areap[n]='\0';
     return(areap);
 }
 #endif /* GEN_UTL */
@@ -292,7 +292,7 @@ int reccopy(CISISX *cisisxp, RECSTRU *upirec,RECSTRU *upcrec,RECSTRU *recp,LONGX
 {
     upirec->xrecord(upcrec->recdbxp->dbxname,upcrec->recmfp->m0.m0nxtmfn);         /* dbnp,etc */
     if (MFRmfrl > upirec->recnbytes ) fatal("reccopy/check/mfrl");
-    memcpy(upirec->recmfp->mx,MFX,MFRmfrl); /* mfn included */
+    memmove(upirec->recmfp->mx,MFX,MFRmfrl); /* mfn included */
     upirec->recmfp->m1.m1mfn=mfn;
     return(0);
 }
@@ -305,7 +305,7 @@ LONGX mfn;
 {
     record(upirec,VRDBname(upcrec),VMF0nxtmfn(upcrec));         /* dbnp,etc */
     if (MFRmfrl > VRECnbytes(upirec)) fatal("reccopy/check/mfrl");
-    memcpy(VMFX(upirec),MFX,MFRmfrl); /* mfn included */
+    memmove(VMFX(upirec),MFX,MFRmfrl); /* mfn included */
     VMFRmfn(upirec)=mfn;
     return(0);
 }
@@ -485,7 +485,7 @@ UBYTE *areap;
     p=subfldp(fldp,dlm,&l);
     n=subfldn(p,l);
     if (areap) {
-	memcpy(areap,p,n);
+	memmove(areap,p,n);
 	areap[n]='\0';
     }
     return(n);
@@ -657,7 +657,7 @@ unsigned short tag,occ,cnt;
   q=(unsigned char *)&cnt;
   vc[i++] = q[C1];
   vc[i++] = q[C2];
-  memcpy(pstp,vc,sizeof(POSTSTRU));
+  memmove(pstp,vc,sizeof(POSTSTRU));
 #if TRACENCODEPST
   printf("+++ encodepst: %"_LD_"/%u/%u/%u =",mfn,tag,occ,cnt);
   for (p=(unsigned char *)pstp, i=0; i<sizeof(POSTSTRU); i++) printf(" %02x",p[i]);
@@ -751,7 +751,7 @@ int trailing;
 	    while (len) if ((UCHR)(p[len-1]) <= MINLCHR) len--; else break;
 	}
     }
-    memcpy(areap,keyp+hn,len); areap[len]='\0';
+    memmove(areap,keyp+hn,len); areap[len]='\0';
 
     if (middle) {
 	/* BOB - corrige ctlchr's centrais  */

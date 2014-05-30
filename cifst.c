@@ -739,7 +739,7 @@ LONGX *qty2p;
             }
             if (!itmyok) { itmfldp++; itmfldleft--; continue; }
             if (itmyplen+1 >= MAXITMARKUPLEN)  { itmfldp++; itmfldleft--; continue; } /* return fatal error */
-            itmend[0]='<'; itmend[1]='/'; memcpy(itmend+2,itmyp+1,itmyplen-1);
+            itmend[0]='<'; itmend[1]='/'; memmove(itmend+2,itmyp+1,itmyplen-1);
             itmend[itmelen=itmyplen+1]='\0';
             if (itmend[itmelen-1] == ' ') {
                 itmend[itmelen-1]='>';  /* permite <XX> ou <XXb - AOT, 25/09/2002 */
@@ -760,7 +760,7 @@ LONGX *qty2p;
             if (itmymatch) {
                 itmfldq++; itmfldqleft--;
                 itmstriplen=itmfldleft-itmfldqleft-itmyplen-itmelen;
-                memcpy(fmtap+itmalen,itmfldp+itmyplen,itmstriplen); /* for */
+                memmove(fmtap+itmalen,itmfldp+itmyplen,itmstriplen); /* for */
                 itmalen+=itmstriplen;
                 itmfldp=itmfldq+1; itmfldleft-=(itmyplen+itmstriplen+itmelen);
             }
@@ -1142,7 +1142,7 @@ LONGX *lft2;
     if (fst_hdrt) {
       sprintf((char *)line,"^m%"_LD_"^t%u^o%u^c%u",mfn,tag,occ,cnt);
       if (left > (len=strlen((char *)line))) {
-          memcpy(p,line,len); p+=len; fst_hdru+=len;
+          memmove(p,line,len); p+=len; fst_hdru+=len;
       }
     }
     *p++='\n'; *p='\0';
@@ -1161,7 +1161,7 @@ LONGX *lft2;
 
     if (fst_a351) {
     a351[0]=fst_a351;
-    memcpy(a351+1,pfxp,(plen+1 > LE2X) ? LE2X-1 : plen);
+    memmove(a351+1,pfxp,(plen+1 > LE2X) ? LE2X-1 : plen);
     pfxp=(char *)a351; plen++;
     }
 
@@ -1173,7 +1173,7 @@ LONGX *lft2;
     if (plen0 <= 0) {
 #endif
     len=bplen;
-    memcpy(line,bpfx,len); p=line+len;
+    memmove(line,bpfx,len); p=line+len;
     }
     else
     for (p=line, len=bplen, n=0; n < bplen; n++)
@@ -1185,7 +1185,7 @@ LONGX *lft2;
     if (klen0 <= 0) {
 #endif
     n=(len+bklen > LE2X) ? LE2X-len : bklen;
-    memcpy(p,bkey,n); p+=n; len+=n;
+    memmove(p,bkey,n); p+=n; len+=n;
     }
     else
     for (n=0; n < bklen; n++, len++)
@@ -1245,7 +1245,7 @@ LONGX *lft2;
     if (fst_batchp) { /* see mx.c */
     sprintf(fst_batchp,"A%u",tag); fst_batchp+=strlen(fst_batchp);
     *fst_batchp++ = '\n';
-    memcpy(fst_batchp,line,len); fst_batchp+=len;
+    memmove(fst_batchp,line,len); fst_batchp+=len;
     if (fst_batch0) {
       sprintf(fst_batchp,"^m%"_LD_"^o%u^c%u^l%d",mfn,occ,cnt,(len <= LE1)?1:2);
       fst_batchp+=strlen(fst_batchp);
@@ -1274,7 +1274,7 @@ LONGX *lft2;
         return(-31);
     }
     link1p=(LINK1 *)lk1p;
-    memcpy(link1p->key,line,len);
+    memmove(link1p->key,line,len);
     if (len < LE1) memset(link1p->key+len,' ',LE1-len);
     encodepst(&link1p->post,mfn,tag,occ,cnt);
     (*lft1)--;
@@ -1290,7 +1290,7 @@ LONGX *lft2;
         return(-41);
     }
     link2p=(LINK2 *)lk2p;
-    memcpy(link2p->key,line,len);
+    memmove(link2p->key,line,len);
     if (len < LE2) memset(link2p->key+len,' ',LE2-len);
     encodepst(&link2p->post,mfn,tag,occ,cnt);
     (*lft2)--;
@@ -1344,14 +1344,14 @@ UCHR *uctabp;
     *p++='\0'; lrecl++;
     sprintf(p,"%8"_LD_" %5d %4d %4d ",mfn,tag,occ,cnt); p+=25; lrecl+=25;
     if (uctabp) for (q=keyp, loop=keylen; loop--; ) *p++ = uctabp[*q++];
-    else {memcpy(p,keyp,keylen); p+=keylen;}
+    else {memmove(p,keyp,keylen); p+=keylen;}
     lrecl+=keylen;
     loop = ((keylen <= LE1) ? LE1 : LE2) - keylen;
     memset(p,' ',loop); p+=loop; lrecl+=loop;
 #else
     if (cifstfix) {
     if (uctabp) for (q=(UCHR *)keyp, loop=keylen; loop--; ) *p++ = uctabp[*q++];
-    else {memcpy(p,keyp,keylen); p+=keylen;}
+    else {memmove(p,keyp,keylen); p+=keylen;}
     lrecl+=keylen;
     loop = ((keylen <= LE1) ? LE1 : LE2) - keylen;
     memset(p,' ',loop); p+=loop; lrecl+=loop;
@@ -1369,7 +1369,7 @@ UCHR *uctabp;
         lrecl+=strlen((CONST char *)p); p= &line[lrecl];
 #endif
     if (uctabp) for (q=(UCHR *)keyp, loop=keylen; loop--; ) *p++ = uctabp[*q++];
-    else {memcpy(p,keyp,keylen); p+=keylen;}
+    else {memmove(p,keyp,keylen); p+=keylen;}
     lrecl+=keylen;
 #if LINK_7544KEY
     loop = ((keylen <= LE1) ? LE1 : LE2) - keylen;
@@ -1386,12 +1386,12 @@ UCHR *uctabp;
     /* write it */
     if (!fst_fd[treecase]) /*fatal("fst_writ/fst_open");*/ return(-1);
     if (fst_fleft[x] >= lrecl) {
-    memcpy(&fst_fbuff[x][fst_ffree[x]],line,lrecl);
+    memmove(&fst_fbuff[x][fst_ffree[x]],line,lrecl);
     fst_fleft[x]-=lrecl;
     fst_ffree[x]+=lrecl;
     }
     else {
-    memcpy(&fst_fbuff[x][fst_ffree[x]],line,fst_fleft[x]);
+    memmove(&fst_fbuff[x][fst_ffree[x]],line,fst_fleft[x]);
     if (CIWRITE(fst_fd[x],fst_fbuff[x],fst_fbsiz) != fst_fbsiz) {
 #ifndef USE_ERROR_SYS
         printf("mfn/tag/occ/cnt: %"_LD_"/%d/%d/%d \n",mfn,tag,occ,cnt);
@@ -1400,7 +1400,7 @@ UCHR *uctabp;
         return(-2);
     }
     fst_ffree[x]=lrecl-fst_fleft[x];
-    memcpy(fst_fbuff[x],&line[fst_fleft[x]],fst_ffree[x]);
+    memmove(fst_fbuff[x],&line[fst_fleft[x]],fst_ffree[x]);
     fst_fleft[x]=fst_fbsiz-fst_ffree[x];
     }
     fst_fx[x]++;

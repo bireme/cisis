@@ -973,11 +973,11 @@ FFI reclen;
     if (!fpc_fd) fatal("fpcwrite/fd");
     for (p=recbufp; reclen; ) {
 	if (reclen <= fpc_left) {
-	    memcpy(&fpc_buffer[FPCBSIZ-fpc_left],p,(size_t)reclen);
+	    memmove(&fpc_buffer[FPCBSIZ-fpc_left],p,(size_t)reclen);
 	    fpc_left-=reclen;
 	    break;
 	}
-	memcpy(&fpc_buffer[FPCBSIZ-fpc_left],p,fpc_left);
+	memmove(&fpc_buffer[FPCBSIZ-fpc_left],p,fpc_left);
 	if (CIWRITE(fpc_fd,fpc_buffer,FPCBSIZ) != FPCBSIZ)
 	    fatal("fpcwrite/write");
 	reclen-=fpc_left;

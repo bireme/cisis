@@ -200,7 +200,7 @@ char *argv[];
     if (!DBXxryyp) fatal("msrt/xryyp/break");
     for (xryyp=DBXxryyp, xpos=1; ; xpos++, xryyp+=XRBSIZ) {
 #if CNV_PCBINUM
-	memcpy(cnv_pcbuff,xryyp,XRBSIZ);
+	memmove(cnv_pcbuff,xryyp,XRBSIZ);
 	ConvertXRF_REC(cnv_pcbuff);
 	if (CIWRITE(DBXxropn,cnv_pcbuff,XRBSIZ) != XRBSIZ)
 #else
@@ -307,7 +307,7 @@ LONGX mfn;
 	}
 	else {
 	    len=DIRlen(x); if (len > keysize) len=keysize;
-	    memcpy(fmtarea,FIELDP(x),len);
+	    memmove(fmtarea,FIELDP(x),len);
 	    left=keysize-len;
 	}
     }
@@ -387,7 +387,7 @@ XRPTR ptr;
 	if (LSEEK64(DBXxropn,xbyte,SEEK_SET) != xbyte)
 	    fatal("msrt/writptr/seek/break");
 #if CNV_PCBINUM
-	memcpy(cnv_pcbuff,DBXxribp,XRBSIZ);
+	memmove(cnv_pcbuff,DBXxribp,XRBSIZ);
 	ConvertXRF_REC(cnv_pcbuff);
 	if (CIWRITE(DBXxropn,cnv_pcbuff,XRBSIZ) != XRBSIZ)
 #else
@@ -474,7 +474,7 @@ printf("+++2. leu i  %"_LD_": %s",i,ibuf);
 #endif
 	    if (memcmp(ibuf,tbuf,keysize) > 0) {
 		exchptr(ij,i);
-                memcpy(tbuf,ibuf,keysize); /* t=a[ij] */
+                memmove(tbuf,ibuf,keysize); /* t=a[ij] */
 #if TRACE
 printf("+++2. copiou: %s",tbuf);
 #endif
@@ -485,7 +485,7 @@ printf("+++3. leu j  %"_LD_": %s",j,ibuf);
 #endif
 	    if(memcmp(ibuf,tbuf,keysize) < 0) {
 		exchptr(ij,j);
-                memcpy(tbuf,ibuf,keysize); /* t=a[ij] */
+                memmove(tbuf,ibuf,keysize); /* t=a[ij] */
 #if TRACE
 printf("+++3. copiou: %s",tbuf);
 #endif
@@ -495,7 +495,7 @@ printf("+++4. leu i  %"_LD_": %s",i,ibuf);
 #endif
 		if (memcmp(ibuf,tbuf,keysize) > 0) {
 		    exchptr(ij,i);
-                    memcpy(tbuf,ibuf,keysize); /* t=a[ij] */
+                    memmove(tbuf,ibuf,keysize); /* t=a[ij] */
 #if TRACE
 printf("+++4. copiou: %s",tbuf);
 #endif

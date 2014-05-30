@@ -152,7 +152,7 @@ char *argv[];
         if (strcmp(dbn1,"decs") == 0) {
 
             if(fieldx(irec1,107,1) >= 0) {
-                 memcpy(key,FIELDP(xdir),len);
+                 memmove(key,FIELDP(xdir),len);
                  key[len]='\0';
                  strcat(key," (NON MESH)");
                  for (p=key;*p; p++) *p = isisuctab[*p];
@@ -161,11 +161,11 @@ char *argv[];
                   id[0]='\0';
                   if ((xd=fieldx(irec1,106,1)) >= 0) {
                      lx=DIRlen(xd);
-                     memcpy(id,FIELDP(xd),lx);
+                     memmove(id,FIELDP(xd),lx);
                      id[lx]='\0';
                   }
                   if((strcmp(id,"p")!=0) && (strcmp(id,"s")!=0)) {
-                     memcpy(key,FIELDP(xdir),len);
+                     memmove(key,FIELDP(xdir),len);
                      key[len]='\0';
                      for (p=key, loop=len; loop--; p++) *p = isisuctab[*p];
                   } else continue;
@@ -173,7 +173,7 @@ char *argv[];
             }
         }
         else {
-             memcpy(key,FIELDP(xdir),len);
+             memmove(key,FIELDP(xdir),len);
              key[len]='\0';
              for (p=key, loop=len; loop--; p++) *p = isisuctab[*p];
            }
@@ -186,7 +186,7 @@ char *argv[];
         record(upirec,dbnout,mfn1); /* get a PDEL record */
         VMFRstatus(upirec)=ACTIVE; /* make it ACTIVE */
         sprintf(buffup,"H 1 %d ",len); batchp=buffup+strlen(buffup);
-        memcpy(batchp,key,len); batchp+=len;
+        memmove(batchp,key,len); batchp+=len;
         *batchp='\0';
         if ((p=fldupdat(upirec,buffup)) != NULL) fatal(p);
 
@@ -286,7 +286,7 @@ printf("excluindo %s %d\n",exclpfxp[n],xdir);
            continue;
         }
         if (DIRlen(xdir) > MAXCOL) fatal("MAXCOL");
-        memcpy(cats[idx][ncats],FIELDP(xdir),DIRlen(xdir));
+        memmove(cats[idx][ncats],FIELDP(xdir),DIRlen(xdir));
         cats[idx][ncats][DIRlen(xdir)] = '\0';
         ncats++;
 #if TRACE4

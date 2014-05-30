@@ -1404,7 +1404,7 @@ int b7ee_pfx;
    if (deflen > 9) deflen=9;
    *b7batchp++ = deflen + '0';
 #endif
-        memcpy(b7batchp,tokenmassp+1,deflen); b7batchp+=deflen;
+        memmove(b7batchp,tokenmassp+1,deflen); b7batchp+=deflen;
         *b7batchp++ = OPRNULL;
 
         return(p+1);

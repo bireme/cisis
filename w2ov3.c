@@ -27,7 +27,7 @@
                                  if (xtag == TAG4) continue;
                                  xlen=DIRlen(xdir); xfldp=FIELDP(xdir);
                                  sprintf(xp,"H%d %d ",xtag+3000,xlen); xp+=strlen(xp);
-                                 memcpy(xp,xfldp,xlen); xp+=xlen;
+                                 memmove(xp,xfldp,xlen); xp+=xlen;
                              }
                              //add v6-like info
                              sprintf(xp,"<%d 0>%s</%d>A%d|%"_LD_"^s%f^m%"_LD_"^h%"_LD_"|",5+3000,parmtext,5+3000,6+3000,l->mfn,l->sim,l->xxx,l->hit); xp+=strlen(xp);

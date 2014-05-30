@@ -67,10 +67,10 @@
                     }
                     if (a2b == sizeof(a2bshort)) {
                         a2bshort=(short int)value;
-                        memcpy(q,(void *)&a2bshort,a2b);
+                        memmove(q,(void *)&a2bshort,a2b);
                     } else {
                         a2blong=(LONGX)value;
-                        memcpy(q,(void *)&a2blong,a2b);
+                        memmove(q,(void *)&a2blong,a2b);
                     }
                     q+=a2b;
                 } /* end tag */

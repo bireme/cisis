@@ -379,11 +379,11 @@ N0STRU *np;
   if (treecase==0) {
     ptmp_esq1= &tmp_esq1;
     pesq1= &esq1;
-    memcpy((UCHR *)pesq1,(UCHR *)l0p,sizeof(L1STRU ));
+    memmove((UCHR *)pesq1,(UCHR *)l0p,sizeof(L1STRU ));
   } else {
     ptmp_esq2= &tmp_esq2;
     pesq2= &esq2;
-    memcpy((UCHR *)pesq2,(UCHR *)l0p,sizeof(L2STRU ));
+    memmove((UCHR *)pesq2,(UCHR *)l0p,sizeof(L2STRU ));
   }
   punt= -idxdir;
   if (punt<0) {
@@ -392,10 +392,10 @@ N0STRU *np;
   l0p=(L0STRU *)leafread(lbufp,invp,treecase,punt,0);
   if (treecase==0) {
     pdir1= &dir1;
-    memcpy((UCHR *)pdir1,(UCHR *)l0p,sizeof(L1STRU ));
+    memmove((UCHR *)pdir1,(UCHR *)l0p,sizeof(L1STRU ));
   } else {
     pdir2= &dir2;
-    memcpy((UCHR *)pdir2,(UCHR *)l0p,sizeof(L2STRU ));
+    memmove((UCHR *)pdir2,(UCHR *)l0p,sizeof(L2STRU ));
   }
   if (treecase==0) {
      ptmp_pai1=(N1STRU *)np ;
@@ -500,12 +500,12 @@ N0STRU *np;
   */
    if (treecase == 0){
       id=ptmp_pai1->ock-1;/* Ultimo elemento */
-      memcpy(ptmp_pai1->idx[id].key,ptmp_dir1->idx[0].key,keysize);
+      memmove(ptmp_pai1->idx[id].key,ptmp_dir1->idx[0].key,keysize);
       /* O punt nao precisa mudar. E o mesmo */
    }
    else {
       id=ptmp_pai2->ock-1;/* Ultimo elemento */
-      memcpy(ptmp_pai2->idx[id].key,ptmp_dir2->idx[0].key,keysize);
+      memmove(ptmp_pai2->idx[id].key,ptmp_dir2->idx[0].key,keysize);
    }
  if (treecase==0) {
   n0p=(N0STRU *)ptmp_pai1;
@@ -566,16 +566,16 @@ N0STRU *np;
        pesq1= &esq1;
        pdir1= &dir1;
        char_pesq=(UCHR *)noderead(invp,treecase,level,idxpenultimo);
-       memcpy((UCHR *)pesq1,char_pesq,sizeof(N1STRU));
+       memmove((UCHR *)pesq1,char_pesq,sizeof(N1STRU));
        char_pdir=(UCHR *)noderead(invp,treecase,level,idxultimo);
-       memcpy((UCHR *)pdir1,char_pdir,sizeof(N1STRU));
+       memmove((UCHR *)pdir1,char_pdir,sizeof(N1STRU));
   }else {
        pesq2= &esq2;
        pdir2= &dir2;
        char_pesq=(UCHR *)noderead(invp,treecase,level,idxpenultimo);
-       memcpy((UCHR *)pesq2,char_pesq,sizeof(N2STRU));
+       memmove((UCHR *)pesq2,char_pesq,sizeof(N2STRU));
        char_pdir=(UCHR *)noderead(invp,treecase,level,idxultimo);
-       memcpy((UCHR *)pdir2,char_pdir,sizeof(N2STRU));
+       memmove((UCHR *)pdir2,char_pdir,sizeof(N2STRU));
   }
   if (treecase==0) {
      ptmp_pai1=(N1STRU *)np ;
@@ -663,12 +663,12 @@ N0STRU *np;
   */
    if (treecase == 0){
       id=ptmp_pai1->ock-1;/* Ultimo elemento */
-      memcpy(ptmp_pai1->idx[id].key,ptmp_dir1->idx[0].key,keysize);
+      memmove(ptmp_pai1->idx[id].key,ptmp_dir1->idx[0].key,keysize);
       /* O punt nao precisa mudar. E o mesmo */
    }
    else {
       id=ptmp_pai2->ock-1;/* Ultimo elemento */
-      memcpy(ptmp_pai2->idx[id].key,ptmp_dir2->idx[0].key,keysize);
+      memmove(ptmp_pai2->idx[id].key,ptmp_dir2->idx[0].key,keysize);
    }
  if (treecase==0) {
   n0p=(N0STRU *)ptmp_pai1;
@@ -727,11 +727,11 @@ int treecase;
     while (idxultimo > 0) {
       np=(UCHR *)noderead(invp,treecase,level,punt);
       if (treecase==0){
-          memcpy((UCHR *)&node1,np,sizeof(N1STRU));
+          memmove((UCHR *)&node1,np,sizeof(N1STRU));
           np=(UCHR *)&node1;
       }
       else {
-          memcpy((UCHR *)&node2,np,sizeof(N2STRU));
+          memmove((UCHR *)&node2,np,sizeof(N2STRU));
           np=(UCHR *)&node2;
       }
       n1p=(N1STRU *)np;
@@ -742,12 +742,12 @@ int treecase;
       if (treecase == 0) {
          idxpenultimo=n1p->idx[ock-2].punt;
          idxultimo=n1p->idx[ock-1].punt;
-         memcpy(keep_node1,np,sizeof(N1STRU));
+         memmove(keep_node1,np,sizeof(N1STRU));
          n0local=(N0STRU *)keep_node1;
       } else {
          idxpenultimo=n2p->idx[ock-2].punt;
          idxultimo=n2p->idx[ock-1].punt;
-         memcpy(keep_node2,np,sizeof(N2STRU));
+         memmove(keep_node2,np,sizeof(N2STRU));
          n0local=(N0STRU *)keep_node2;
       }
      if (idxpenultimo < 0) { /* aponta para folha */
@@ -895,7 +895,7 @@ BOOLEAN reestrut_buff;
  ifpwrit(dbxp,(char *)ifpbuff,(LONGX )sizeof(IFPBUFFER));
 #endif /* CNV_PCBINUM */ 
  if (keep_head==TRUE && flag_current_seghead==FALSE) {
-    memcpy((UCHR *)&current_seghead,(UCHR *)ph,sizeof(IFPSTRU));
+    memmove((UCHR *)&current_seghead,(UCHR *)ph,sizeof(IFPSTRU));
     ph= &current_seghead;
     /* O header  corrente foi convertido para formato UNIX. Como
        vai continuar em memoria, precisa voltar para DOS
@@ -906,10 +906,10 @@ BOOLEAN reestrut_buff;
     flag_current_seghead=TRUE;
  }
         if (reestrut_buff==TRUE ){
-          memcpy((UCHR *)&tmp,(UCHR *)&ifpbuff->buff[gbuf],sizeof(IFPSTRU));
+          memmove((UCHR *)&tmp,(UCHR *)&ifpbuff->buff[gbuf],sizeof(IFPSTRU));
           next_blk=tmp.ifpblk;
           lifp_init_buff(ifpbuff,next_blk);
-          memcpy((UCHR *)&ifpbuff->buff[0],(UCHR *)&tmp,sizeof(IFPSTRU));
+          memmove((UCHR *)&ifpbuff->buff[0],(UCHR *)&tmp,sizeof(IFPSTRU));
           gbuf=0;
           pb=(IFPSTRU *)&ifpbuff->buff[gbuf];
       }
@@ -1141,11 +1141,11 @@ BOOLEAN first;
  if (first==FALSE) {
    ind++;
    if (treecase == 0) {
-     memcpy(n1p->idx[ind].key,key,keysize);
+     memmove(n1p->idx[ind].key,key,keysize);
      n1p->idx[ind].punt=dir;
    }
    else {
-     memcpy(n2p->idx[ind].key,key,keysize);
+     memmove(n2p->idx[ind].key,key,keysize);
      n2p->idx[ind].punt=dir;
    }
  }
@@ -1183,7 +1183,7 @@ INFO info2;
  invp=DBXifmap;
  keysize=vlex[treecase];
  if (treecase == 0) {
-   memcpy(leaf_el1.key,key,keysize);
+   memmove(leaf_el1.key,key,keysize);
    leaf_el1.info1=info1;
    leaf_el1.info2=info2;
 #if LIND
@@ -1193,7 +1193,7 @@ INFO info2;
    l1p=(L1STRU *)&l1node;
  }
  else {
-   memcpy(leaf_el2.key,key,keysize);
+   memmove(leaf_el2.key,key,keysize);
    leaf_el2.info1=info1;
    leaf_el2.info2=info2;
 #if LIND
@@ -1246,10 +1246,10 @@ INFO info2;
 #endif
  /* Retorna o primeiro item da nova pagina  ser promovido */
  if (treecase == 0) {
-    memcpy(p_b_key,l1p->idx[0].key,keysize);
+    memmove(p_b_key,l1p->idx[0].key,keysize);
  }
  else {
-    memcpy(p_b_key,l2p->idx[0].key,keysize);
+    memmove(p_b_key,l2p->idx[0].key,keysize);
  }
  *p_b_punt= -leafnumber;  /* numero da nova folha inserida */
  return(TRUE);
@@ -1294,11 +1294,11 @@ PUNT *p_punt;
  no1=init_node_el1;
  no2=init_node_el2;
  if (treecase == 0){
-   memcpy(no1.key,b_key,keysize);
+   memmove(no1.key,b_key,keysize);
    no1.punt=b_punt;
  }
  else {
-   memcpy(no2.key,b_key,keysize);
+   memmove(no2.key,b_key,keysize);
    no2.punt=b_punt;
  }
  n1p=(N1STRU *)n0p;
@@ -1344,10 +1344,10 @@ PUNT *p_punt;
 #endif
  /* Retorna o primeiro item da nova pagina  ser promovido */
  if (treecase == 0) {
-    memcpy(p_key,n1p->idx[0].key,keysize);
+    memmove(p_key,n1p->idx[0].key,keysize);
  }
  else {
-    memcpy(p_key,n2p->idx[0].key,keysize);
+    memmove(p_key,n2p->idx[0].key,keysize);
  }
  *p_punt=nodenumber;                   /* numero da folha definida  ??*/
  return(TRUE);
@@ -1375,7 +1375,7 @@ int treecase;
      nos nos dos indices.
   */
   for (level=0; level<=topo && promoted==TRUE; level++){
-     memcpy(key,p_b_key,keysize);
+     memmove(key,p_b_key,keysize);
      key_punt=p_b_punt;
      n0p=(N0STRU *)&(load_idx[treecase].idx_node[level]);
 #if TRACELOAD
@@ -1390,7 +1390,7 @@ int treecase;
 	/* se houve promocao ate a raiz cria outra raiz           */
 	/* o ultimo o elemento retirado da pilha a raiz           */
   if (promoted==TRUE){
-    memcpy(key,p_b_key,keysize);
+    memmove(key,p_b_key,keysize);
     load_idx[treecase].top++;
     topo=load_idx[treecase].top;
     if (topo>=MAX_TREE_LEVEL) fatal("MAX_TREE_LEVEL/overflow");
@@ -1401,7 +1401,7 @@ int treecase;
      printf("\n[Vai virar raiz]Vai promover para node=%"_LD_" keypunt=%"_LD_" key=%s",
 				n0p,key_punt,tkey);
 #endif
-    memcpy(key,p_b_key,keysize);
+    memmove(key,p_b_key,keysize);
     key_punt=p_b_punt;
     lifp_create_root(invp,n0p,last_root,(char *)key,key_punt,treecase,FALSE);
   }
@@ -1553,7 +1553,7 @@ static void lifp_storepst()
      totp=npst;
      if (flag_first_seghead==FALSE ) {
         lifp_upd_pst_header(ph,off_h,nxtb,nxtp,totp,segp,segc);
-        memcpy((UCHR *)pf,(UCHR *)ph,sizeof(IFPSTRU));
+        memmove((UCHR *)pf,(UCHR *)ph,sizeof(IFPSTRU));
         flag_first_seghead=TRUE;
         flag_current_seghead=FALSE; /*19-02-95*/
         off_f=off_h;
@@ -1590,7 +1590,7 @@ static void lifp_storepst()
    idxpst=idxpst+IDXHEADSIZE;
    }
     get_room_for(PSTSIZE,KEEP_HEADERS);
-    memcpy((UCHR *)&pb->ifprec[idxpst],&pst,sizeof(POSTSTRU));
+    memmove((UCHR *)&pb->ifprec[idxpst],&pst,sizeof(POSTSTRU));
     idxpst=idxpst+PSTSIZE;
     npst++;
 }
@@ -1896,7 +1896,7 @@ for ( nfile=0;nfile<2;nfile++) {
 #if UNIX
 #if CIIFLFIX
      if (ciiflfix) {
-	 memcpy(keyp,mpep,mpei=vlex[nfile]); mpep+=mpei;
+	 memmove(keyp,mpep,mpei=vlex[nfile]); mpep+=mpei;
 	 if (ciiflfim) {
 	    mpex=sscanf(mpep," %8"_LD_,&mfn); mpex+=3; mpetag=mpeocc=mpecnt=1;
 	 } else
@@ -1908,7 +1908,7 @@ for ( nfile=0;nfile<2;nfile++) {
 #endif
      /*mpex=sscanf(mpep,"%8"_LD_" %5"_LD_" %4"_LD_" %4"_LD_" ",&mfn,&mpetag,&mpeocc,&mpecnt);*/
 	 mpex=sscanf(mpep,"%8"_LD_" %5d %4d %4d ",&mfn,&mpetag,&mpeocc,&mpecnt);
-	 memcpy(keyp,mpep+25,vlex[nfile]);
+	 memmove(keyp,mpep+25,vlex[nfile]);
 #if CIIFLFIX
      }
 #endif
@@ -1916,7 +1916,7 @@ for ( nfile=0;nfile<2;nfile++) {
 			/* por %"_LD_" para mpetag,mpeocc,mpecnt - AOT 21/05/98 */
      /* mpex=sscanf(mpep+1,"%8"_LD_" %5"_LD_" %4"_LD_" %4"_LD_" ",&mfn,&mpetag,&mpeocc,&mpecnt); */
      mpex=sscanf(mpep+1,"%8"_LD_" %5d %4d %4d ",&mfn,&mpetag,&mpeocc,&mpecnt);
-     memcpy(keyp,mpep+25,vlex[nfile]);
+     memmove(keyp,mpep+25,vlex[nfile]);
 #endif /* UNIX */
      if (mpex != 4) {
 #if CICPP || IFLOADFUN
@@ -1942,10 +1942,10 @@ for ( nfile=0;nfile<2;nfile++) {
 #endif /* CICPP */
       if (dirread < 0) fatal("ciifl/fieldx/tagkey");
       if (*(FIELDP(dirread)) - '1' > nfile) break;
-      memcpy(keyp,FIELDP(dirread)+2,vlex[nfile]);
+      memmove(keyp,FIELDP(dirread)+2,vlex[nfile]);
       keyp[vlex[nfile]] = '\0';
 
-      memcpy(auxread,FIELDP(dirread)+2+vlex[nfile],postsize);
+      memmove(auxread,FIELDP(dirread)+2+vlex[nfile],postsize);
       auxread[postsize] = '\0';
 	 	sscanf(auxread,"|%8"_LD_"|%5"_LD_"|%4"_LD_"|%4"_LD_,&mfn,&xtag,&xocc,&xcnt);
 		tag = (unsigned short)xtag;
@@ -1969,7 +1969,7 @@ for ( nfile=0;nfile<2;nfile++) {
 #if CIIFLFIX
        if (ciiflfix) {
 	if (fgets(fixline,sizeof(fixline),fkeys) == NULL) break;
-	memcpy(keyp,fixline,n=vlex[nfile]); keyp[n]='\0';
+	memmove(keyp,fixline,n=vlex[nfile]); keyp[n]='\0';
 	if (ciiflfim) {
 	    mpex=sscanf(fixline+n," %8"_LD_,&mfn); mpex+=3; tag=occ=cnt=1;
 	}
@@ -2023,10 +2023,10 @@ for ( nfile=0;nfile<2;nfile++) {
 #endif /* CICPP */
       if (dirread < 0) fatal("ciifl/fieldx/tagkey");
       if (*(FIELDP(dirread)) - '1' > nfile) break;
-      memcpy(keyp,FIELDP(dirread)+2,vlex[nfile]);
+      memmove(keyp,FIELDP(dirread)+2,vlex[nfile]);
       keyp[vlex[nfile]] = '\0';
 
-      memcpy(auxread,FIELDP(dirread)+2+vlex[nfile],postsize);
+      memmove(auxread,FIELDP(dirread)+2+vlex[nfile],postsize);
       auxread[postsize] = '\0';
 	 	sscanf(auxread,"|%8"_LD_"|%5"_LD_"|%4"_LD_"|%4"_LD_,&mfn,&xtag,&xocc,&xcnt);
 		tag = (unsigned short)xtag;
@@ -2034,7 +2034,7 @@ for ( nfile=0;nfile<2;nfile++) {
 		cnt = (unsigned short)xcnt;
     } /* RP - 30/11/98 */
 #endif /* MPE || UNIX */
-       xbobl=strlen((CONST char *)keyp); memcpy(xbobk,keyp,xbobl); xbobk[xbobl]='\0';
+       xbobl=strlen((CONST char *)keyp); memmove(xbobk,keyp,xbobl); xbobk[xbobl]='\0';
        xbobn=bobkey(xbobk,xbobl,(char *)keyp,LE2,1,1,1);
        lifp_trans_key(keyp,xbobn,&treecase);
        if (ciiflfix) if (ciiflfim) tag=occ=cnt=0; /* AOT 27/09/2001 */
@@ -2131,7 +2131,7 @@ for ( nfile=0;nfile<2;nfile++) {
 	   printf("\n Rec:%"_LD_" Key:%s",nlido,keyp);
 #endif
      strcpy((char *)key_ant_loc,(CONST char *)keyp);
-     memcpy((char *)&pst_ant,(char *)&pst,sizeof(POSTSTRU));
+     memmove((char *)&pst_ant,(char *)&pst,sizeof(POSTSTRU));
   }/*while*/
 #if LIND
     iyp_storlast(nregs[nfile],key_ant_loc,pstflag);
@@ -2480,7 +2480,7 @@ printf("+++add#%d=%s=%s\n",xif,TRMkey,keyp);
 printf("+++pst#%d %s#%"_LD_"=%"_LD_"%d,%d,%d\n",xif,keyp,TRMpost,mfn,tag,occ,cnt);
 #endif
 
-       xbobl=strlen((CONST char *)keyp); memcpy(xbobk,keyp,xbobl); xbobk[xbobl]='\0';
+       xbobl=strlen((CONST char *)keyp); memmove(xbobk,keyp,xbobl); xbobk[xbobl]='\0';
        xbobn=bobkey(xbobk,xbobl,keyp,LE2,1,1,1);
        lifp_trans_key(keyp,xbobn,&treecase);
 
@@ -2515,7 +2515,7 @@ printf("+++pst#%d %s#%"_LD_"=%"_LD_"%d,%d,%d\n",xif,keyp,TRMpost,mfn,tag,occ,cnt
 
      nregs[nfile]++;
      strcpy((char *)key_ant_loc,keyp);
-     memcpy((char *)&pst_ant,(char *)&pst,sizeof(POSTSTRU));
+     memmove((char *)&pst_ant,(char *)&pst,sizeof(POSTSTRU));
 
 	        if (pstflag == IFUPDICT) break;
 		

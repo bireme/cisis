@@ -414,7 +414,7 @@ for (xp=gizmp->ipatt, n=gizmp->isize; n--; xp++) printf("%c",*xp); GETCHAR;
 #if TRACEG3
 printf("\\match %d -> %d chars",gizmp->isize,gizmp->osize); GETCHAR;
 #endif
-                    memcpy(batchp,gizmp->opatt,gizmp->osize);
+                    memmove(batchp,gizmp->opatt,gizmp->osize);
                     batchp+=gizmp->osize;
                     fuplen+=gizmp->osize;
                     gizmp->nused++;
@@ -424,7 +424,7 @@ printf("\\match %d -> %d chars",gizmp->isize,gizmp->osize); GETCHAR;
 #if TRACEG3
 printf("\\no match - copying %c",*p); GETCHAR;
 #endif
-                    memcpy(batchp,q,wl);
+                    memmove(batchp,q,wl);
                     batchp+=wl;
                     fuplen+=wl;
                 }
@@ -437,7 +437,7 @@ printf("\\no match - copying %c",*p); GETCHAR;
 
         else {  /* just copy it */
             sprintf(batchp,"H%u %u ",tag,DIRlen(xdir)); batchp+=strlen(batchp);
-            memcpy(batchp,FIELDP(xdir),DIRlen(xdir)); batchp+=DIRlen(xdir);
+            memmove(batchp,FIELDP(xdir),DIRlen(xdir)); batchp+=DIRlen(xdir);
         }
 
     } /* end dir entries */

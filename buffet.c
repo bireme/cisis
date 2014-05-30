@@ -31,7 +31,7 @@
                                         int n;
                                         //copy to headers
                                         *c1='\0'; n=strlen(b1+1); *c1='<';  
-                                        if (n>ihtleft) n=ihtleft; if (level>1) *ihtp++=' '; memcpy(ihtp,b1+1,n); ihtptr[level-1]=ihtp; ihtp+=n; ihtlen[level-1]=n; *ihtp='\0'; 
+                                        if (n>ihtleft) n=ihtleft; if (level>1) *ihtp++=' '; memmove(ihtp,b1+1,n); ihtptr[level-1]=ihtp; ihtp+=n; ihtlen[level-1]=n; *ihtp='\0'; 
                                         ihtptr[level]=NULL; ihtlen[level]=0;
                                         //text
                                         *c='\0'; a2=strstr(ba,oarea2);  if (a2) if (a2[oxn2]==' ' || a2[oxn2]=='>') b2=strchr(a2,'>'); *c='<';  // <text ..>
@@ -40,7 +40,7 @@
                                           int n;
                                           //copy to headtxt
                                           *c2='\0'; n=strlen(b2+1); *c2='<'; 
-                                          if (n>ihtleft) n=ihtleft; *ihtp++=' '; memcpy(ihtp,b2+1,n); ihtptr[level]=ihtp; ihtp+=n; ihtlen[level]=n; *ihtp='\0'; 
+                                          if (n>ihtleft) n=ihtleft; *ihtp++=' '; memmove(ihtp,b2+1,n); ihtptr[level]=ihtp; ihtp+=n; ihtlen[level]=n; *ihtp='\0'; 
                                           //text ptr: ers. ers. ers. txt.I/  ers. ers. ers. txt.II/  ers. ers. ers. txtIII/ 
                                           ihtba=headers[0];
                                           ihtxen=n+1+m;
@@ -61,10 +61,10 @@
                                               break;               
                                         if (left >= lmin) {        
                                           len=left+3;              
-                                          memcpy(bp+left," ..",3); 
+                                          memmove(bp+left," ..",3); 
                                         } else {                   
                                           len=m2+3+m3;             
-                                          memcpy(q,"...",3); q+=3; 
+                                          memmove(q,"...",3); q+=3; 
                                           while (m3--) *q++= *p++; 
                                         }                          
                                     }                              

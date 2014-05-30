@@ -205,7 +205,7 @@
 #if QUOTE2X
                     for (x=fldp; *x; x++) if (*x == '"') *x='!'; /* aspas para debug */
 #endif
-                    memcpy(xarea,fldp,left); xarea[left]='\0';
+                    memmove(xarea,fldp,left); xarea[left]='\0';
                     /* */
                     mbysize=left;
                     memset(flag,(int)' ',mbysize); flag[mbysize]='\0';
@@ -256,7 +256,7 @@
                     //hdatap=q;
                     if (opclog == 1) {
                       sprintf(q,"\nmask|% 9"_LD_"|",(LONGX)DIRlen(xdir));                             hlen+=strlen(q);   q+=strlen(q);
-                      memcpy(q,flag,mbysize); hlen+=mbysize; q+=mbysize;
+                      memmove(q,flag,mbysize); hlen+=mbysize; q+=mbysize;
                     }
 
 
@@ -320,7 +320,7 @@
                                sprintf(q,"\n% 9"_LD_"|% 9"_LD_"|% 9"_LD_"|% 9"_LD_"|% 9"_LD_"|%s|%s|",MFRmfn,(LONGX)vgoff+1,(LONGX)strlen(ws),nwords+1,pmfn,swif,ws);        hlen+=strlen(q);   q+=strlen(q);
                                if (opclog==6) {
                                  sprintf(q,"% 9"_LD_"|",(LONGX)ilw[nwords]);                                                                                hlen+=strlen(q);   q+=strlen(q);
-                                 memcpy(q,infldp,ilw[nwords]);                                                                                         hlen+=ilw[nwords]; q+=ilw[nwords];
+                                 memmove(q,infldp,ilw[nwords]);                                                                                         hlen+=ilw[nwords]; q+=ilw[nwords];
                                }
                               }
 
@@ -347,15 +347,15 @@
                                    int xdir;
                                    if (opcdcs) {
                                      xdir=fieldx(swirec,(int)tag20,1); /* occ 1 */
-                                     if (xdir >= 0) { memcpy(v20,FIELDP(xdir),DIRlen(xdir)); v20[DIRlen(xdir)]='\0'; }
+                                     if (xdir >= 0) { memmove(v20,FIELDP(xdir),DIRlen(xdir)); v20[DIRlen(xdir)]='\0'; }
                                    }
                                    else if (opclink) {
                                      xdir=fieldx(swirec,(int)tag02,1);
-                                     if (xdir >= 0) { memcpy(v02,FIELDP(xdir),DIRlen(xdir)); v02[DIRlen(xdir)]='\0'; }
+                                     if (xdir >= 0) { memmove(v02,FIELDP(xdir),DIRlen(xdir)); v02[DIRlen(xdir)]='\0'; }
                                      v03=v02+strlen(v02)+1; *v03='\0';
                                      if (tag03) {
                                        xdir=fieldx(swirec,(int)tag03,1);
-                                       if (xdir >= 0) { memcpy(v03,FIELDP(xdir),DIRlen(xdir)); v03[DIRlen(xdir)]='\0'; }
+                                       if (xdir >= 0) { memmove(v03,FIELDP(xdir),DIRlen(xdir)); v03[DIRlen(xdir)]='\0'; }
                                      }
                                      if (!*v03) if (*v02=='<') {
                                        char *x;
@@ -378,36 +378,36 @@
 
                                if (opcdcs==1) {
                                 sprintf(q,"<a href=\"%s%s%s%06"_LD_"\">",dcs11,dcslang,dcs12,pmfn);           hlen+=strlen(q);   q+=strlen(q);
-                                memcpy(q,infldp,ilw[nwords]);                                             hlen+=ilw[nwords]; q+=ilw[nwords];
+                                memmove(q,infldp,ilw[nwords]);                                             hlen+=ilw[nwords]; q+=ilw[nwords];
                                 sprintf(q,"</a>");                                                        hlen+=strlen(q);   q+=strlen(q);
                                }
                                else
                                if (opcdcs==2) {
                                 sprintf(q,"<a href=\"%s&tree_id=%s\">",dcs21,v20);                        hlen+=strlen(q);   q+=strlen(q);
-                                memcpy(q,infldp,ilw[nwords]);                                             hlen+=ilw[nwords]; q+=ilw[nwords];
+                                memmove(q,infldp,ilw[nwords]);                                             hlen+=ilw[nwords]; q+=ilw[nwords];
                                 sprintf(q,"</a>");                                                        hlen+=strlen(q);   q+=strlen(q);
                                }
                                else
                                if (opcdcs==3) {
                                 sprintf(q,"<decs mfn=\"%06"_LD_"\" tree_id=\"%s\">",pmfn,v20);                hlen+=strlen(q);   q+=strlen(q);
-                                memcpy(q,infldp,ilw[nwords]);                                             hlen+=ilw[nwords]; q+=ilw[nwords];
+                                memmove(q,infldp,ilw[nwords]);                                             hlen+=ilw[nwords]; q+=ilw[nwords];
                                 sprintf(q,"</decs>");                                                     hlen+=strlen(q);   q+=strlen(q);
                                }
                                else
                                if (opcmark) {
                                 sprintf(q,"<%s key=\"%s\" mfn=\"%"_LD_"\">",markp,ws,pmfn);                   hlen+=strlen(q);   q+=strlen(q);
-                                memcpy(q,infldp,ilw[nwords]);                                             hlen+=ilw[nwords]; q+=ilw[nwords];
+                                memmove(q,infldp,ilw[nwords]);                                             hlen+=ilw[nwords]; q+=ilw[nwords];
                                 sprintf(q,"</%s>",markp);                                                 hlen+=strlen(q);   q+=strlen(q);
                                }
                                else
                                if (opclink) {
                                 sprintf(q,"%s",v02);                                                      hlen+=strlen(q);   q+=strlen(q);
-                                memcpy(q,infldp,ilw[nwords]);                                             hlen+=ilw[nwords]; q+=ilw[nwords];
+                                memmove(q,infldp,ilw[nwords]);                                             hlen+=ilw[nwords]; q+=ilw[nwords];
                                 sprintf(q,"%s",v03);                                                      hlen+=strlen(q);   q+=strlen(q);
                                }
                                else { /* opcout default is <swif></swif> */
                                 sprintf(q,"<%s key=\"%s\" mfn=\"%"_LD_"\">",swif,ws,pmfn);                    hlen+=strlen(q);   q+=strlen(q);
-                                memcpy(q,infldp,ilw[nwords]);                                             hlen+=ilw[nwords]; q+=ilw[nwords];
+                                memmove(q,infldp,ilw[nwords]);                                             hlen+=ilw[nwords]; q+=ilw[nwords];
                                 sprintf(q,"</%s>",swif);                                                  hlen+=strlen(q);   q+=strlen(q);
                                }
 
@@ -425,7 +425,7 @@
                         off=vwoff[nwords]; fldp=vwfldp[nwords]; left=vwleft[nwords];
                       }
                       else if (infldp) {
-                        if (opcout) { memcpy(q,infldp,ilw[0]);                                            hlen+=ilw[0]; q+=ilw[0]; }
+                        if (opcout) { memmove(q,infldp,ilw[0]);                                            hlen+=ilw[0]; q+=ilw[0]; }
                         off=vwoff[0]; fldp=vwfldp[0]; left=vwleft[0];
                       }
 

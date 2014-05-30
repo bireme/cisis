@@ -52,7 +52,7 @@ int xalign;
         *movp++ = movtmp[mv43];                \
         moved+=4;
 #define movx(sourcep,len)                       \
-        memcpy(movp,sourcep,(size_t)len);       \
+        memmove(movp,sourcep,(size_t)len);       \
         movp+=len;                              \
         moved+=len;
 /*
@@ -420,12 +420,12 @@ UWORD reclen;
     putuxxrf(mfn,mst_nxtmfb,mst_nxtmfp-1);
     for (p=mst_record; reclen; ) {
         if (reclen <= mst_left) {
-            memcpy(&mst_buffer[MSBSIZ-mst_left],p,(size_t)reclen);
+            memmove(&mst_buffer[MSBSIZ-mst_left],p,(size_t)reclen);
             mst_left-=reclen;
             mst_nxtmfp+=reclen;
             break;
         }
-        memcpy(&mst_buffer[MSBSIZ-mst_left],p,mst_left);
+        memmove(&mst_buffer[MSBSIZ-mst_left],p,mst_left);
         if (CIWRITE(mst_fd,mst_buffer,MSBSIZ) < MSBSIZ) fatal("putuxmst/write");
         reclen-=mst_left;
         p+=mst_left;
@@ -472,14 +472,14 @@ int comp;
     UWORD moved;
 
     if (mfn < 0L) if (xrf_towrit) {
-        for (moved=0, movp=xrf_buffer, n=XRBSIZ; n; n-=4) {memcpy(x,movp,4); mov4(moved,movp,x[0]);}
+        for (moved=0, movp=xrf_buffer, n=XRBSIZ; n; n-=4) {memmove(x,movp,4); mov4(moved,movp,x[0]);}
         if (CIWRITE(xrf_fd,xrf_buffer,XRBSIZ) != XRBSIZ) fatal("putuxxrf/write");
         if (xrxp->xrxrpos < 0) return;
 
         xrxp->xrxrpos = -xrf_lastblock;
         xrftiv = (0)*XRXDIVIDE + (0);                   /* EOF pointer */
         for (n=0; n < XRMAXTIV; ) xrxp->xrmfptr[n++]=xrftiv;
-        for (moved=0, movp=xrf_buffer, n=XRBSIZ; n; n-=4) {memcpy(x,movp,4); mov4(moved,movp,x[0]);}
+        for (moved=0, movp=xrf_buffer, n=XRBSIZ; n; n-=4) {memmove(x,movp,4); mov4(moved,movp,x[0]);}
         if (CIWRITE(xrf_fd,xrf_buffer,XRBSIZ) != XRBSIZ) fatal("putuxxrf/write");
         return;
     }
@@ -511,14 +511,14 @@ int comp;
     }
     
     /* thispos > xrf_block */
-    for (moved=0, movp=xrf_buffer, n=XRBSIZ; n; n-=4) {memcpy(x,movp,4); mov4(moved,movp,x[0]);}
+    for (moved=0, movp=xrf_buffer, n=XRBSIZ; n; n-=4) {memmove(x,movp,4); mov4(moved,movp,x[0]);}
     if (CIWRITE(xrf_fd,xrf_buffer,XRBSIZ) != XRBSIZ) fatal("putuxxrf/write");
     xrftiv=(-1)*XRXDIVIDE + (0);                        /* PDEL pointer */
     for (n=0; n < XRMAXTIV; ) xrxp->xrmfptr[n++]=xrftiv;
     while (++xrf_block < thispos) {
         xrxp->xrxrpos = xrf_block;
         if (xrf_block == xrf_lastblock) fatal("putuxxrf/lastblock");
-        for (moved=0, movp=xrf_buffer, n=XRBSIZ; n; n-=4) {memcpy(x,movp,4); mov4(moved,movp,x[0]);}
+        for (moved=0, movp=xrf_buffer, n=XRBSIZ; n; n-=4) {memmove(x,movp,4); mov4(moved,movp,x[0]);}
         if (CIWRITE(xrf_fd,xrf_buffer,XRBSIZ) != XRBSIZ) fatal("putuxxrf/write");
     }
     xrxp->xrxrpos = xrf_block;

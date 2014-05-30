@@ -130,7 +130,7 @@ char *p;
 
     sprintf(line,"%03d [",error); lp=line+5;
     len=strlen(p); if (len > 40) len=40;
-    memcpy(lp,p,len);
+    memmove(lp,p,len);
     sprintf(lp+len,"]");
     
     fatal(line);
@@ -172,7 +172,7 @@ char stop2;
         /*word[x] = line[x]*/;
 
     word=(char *) malloc(sizeof(char) * (x + 1));
-    memcpy(word,line,x); word[x] = '\0';
+    memmove(word,line,x); word[x] = '\0';
 
     if(line[x]) ++x;
     y=0;
@@ -485,16 +485,16 @@ char *taghpfxp;
 	    ut=atoi(p1);
 	    if (ut > 0) {
 		sprintf(p,"H%"_LD_" %"_LD_" ",(LONGX)ut,(LONGX)uv); p+=strlen(p);
-		memcpy(p,entries[x].valp,uv); p+=uv;
+		memmove(p,entries[x].valp,uv); p+=uv;
 		*p='\0';
 	        continue;
 	    }
 	}
 	sprintf(p,"H%"_LD_" %"_LD_" ",(LONGX)taghxsub,(LONGX)2+un+2+uv); p+=strlen(p);
 	*p++=SFLDCHR; *p++=NAMHXSUB;
-	memcpy(p,entries[x].namp,un); p+=un;
+	memmove(p,entries[x].namp,un); p+=un;
 	*p++=SFLDCHR; *p++=VALHXSUB;
-	memcpy(p,entries[x].valp,uv); p+=uv;
+	memmove(p,entries[x].valp,uv); p+=uv;
 	*p='\0';
     }
     for (x=0; x < nentries; x++) {
@@ -836,9 +836,9 @@ char *cicgi_p;
 	uv=strlen(entries[iex].valp);
 	sprintf(p,"H%"_LD_" %"_LD_" ",(LONGX)TAGHXSUB,(LONGX)2+un+2+uv); p+=strlen(p);
 	*p++=SFLDCHR; *p++=NAMHXSUB;
-	memcpy(p,entries[iex].namp,un); p+=un;
+	memmove(p,entries[iex].namp,un); p+=un;
 	*p++=SFLDCHR; *p++=VALHXSUB;
-	memcpy(p,entries[iex].valp,uv); p+=uv;
+	memmove(p,entries[iex].valp,uv); p+=uv;
 	*p='\0';
     }
     if (*buffup) fldupdat(irec,buffup);
@@ -867,7 +867,7 @@ char *cicgi_p;
     for (iex=0; iex < nentries; iex++) {
 	un=strlen(entries[iex].namp);
 	sprintf(p,"H%"_LD_" %"_LD_" ",(LONGX)TAGHXNAM,(LONGX)un); p+=strlen(p);
-	memcpy(p,entries[iex].namp,un); p+=un;
+	memmove(p,entries[iex].namp,un); p+=un;
 	*p='\0';
     }
     if (*buffup) fldupdat(irec,buffup);
@@ -878,7 +878,7 @@ char *cicgi_p;
 	uv=strlen(entries[iex].valp);
 	xtag = (tagged) ? xtags[iex] : TAGHXVAL;
 	sprintf(p,"H%"_LD_" %"_LD_" ",(LONGX)xtag,(LONGX)uv); p+=strlen(p);
-	memcpy(p,entries[iex].valp,uv); p+=uv;
+	memmove(p,entries[iex].valp,uv); p+=uv;
 	*p='\0';
     }
     if (*buffup) fldupdat(irec,buffup);
@@ -1043,13 +1043,13 @@ if (cgitrace) for (srchi=0; srchi < srchsrch; srchi++) printf("--- 1. %d/%"_LD_"
 	    /* trap cisis fatal() */
 	    f2_xerrno=dbxopt_errno; /* dbxopen/errno */
 	    strcpy(f2_iomsg,fatal_iomsg);
-	    memcpy(f2_jumper,fatal_jumper,sizeof(fatal_jumper));
+	    memmove(f2_jumper,fatal_jumper,sizeof(fatal_jumper));
 	    f2_errcod=fatal_errcod;
 	    strcpy(fatal_iomsg,"trap");
 	    rc = setjmp(fatal_jumper);
 	    if (rc != 0) {
 	        retc=fatal_errcod;
-		memcpy(fatal_jumper,f2_jumper,sizeof(fatal_jumper));
+		memmove(fatal_jumper,f2_jumper,sizeof(fatal_jumper));
 		strcpy(fatal_iomsg,f2_iomsg);
 		fatal_errcod=f2_errcod;
 		dbxopt_errno=f2_xerrno;
@@ -1419,7 +1419,7 @@ if (cgitrace) for (srchi=0; srchi < srchsrch; srchi++) printf("--- 3. %d/%"_LD_"
 	    memset(VMFX(upirec),0x00,LEADER);
 	    VMFRmfn(upirec)=1L; VMFRmfrl(upirec)=VMFRbase(upirec)=LEADER;
 #endif
-	    memcpy(VMFX(upirec),VMFX(irec),VMFRmfrl(irec));
+	    memmove(VMFX(upirec),VMFX(irec),VMFRmfrl(irec));
 	    VMFRmfn(upirec)=VMF0nxtmfn(upcrec);
 	    
 	    if (q2) if (fldupdat(upirec,q2)) fatal(p);
@@ -1548,7 +1548,7 @@ if (cgitrace) for (srchi=0; srchi < srchsrch; srchi++) printf("--- 3. %d/%"_LD_"
                         } else xnby++;
                     if (xnby) {
 		        sprintf(xwp,"H%"_LD_" %"_LD_" ",xlv,xnby); xwp+=strlen(xwp);
-			memcpy(xwp,xbp,(size_t)xnby); xwp+=xnby; *xwp='\0';
+			memmove(xwp,xbp,(size_t)xnby); xwp+=xnby; *xwp='\0';
                     }
                     xbp = q;
                 }
@@ -1576,9 +1576,9 @@ if (cgitrace) for (srchi=0; srchi < srchsrch; srchi++) printf("--- 3. %d/%"_LD_"
 		    if (gizmp->nused == 0) continue;
 		    sprintf(q,"A%"_LD_"#%"_LD_"#",(lv+10),gizmp->nused); q+=strlen(q);
 		    sprintf(q,"H%"_LD_" %d ",(lv+1),gizmp->isize);   q+=strlen(q);
-		    memcpy(q,gizmp->ipatt,n=gizmp->isize);       q+=n;
+		    memmove(q,gizmp->ipatt,n=gizmp->isize);       q+=n;
 		    sprintf(q,"H%"_LD_" %d ",(lv+2),gizmp->osize);   q+=strlen(q);
-		    memcpy(q,gizmp->opatt,n=gizmp->osize);       q+=n;
+		    memmove(q,gizmp->opatt,n=gizmp->osize);       q+=n;
 		    sprintf(q,"A%"_LD_"#%d#",(lv+31),gizmp->isize);  q+=strlen(q);
 		    sprintf(q,"A%"_LD_"#%d#",(lv+32),gizmp->osize);
 		    fldupdat(irec,buffup);

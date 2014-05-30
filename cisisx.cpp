@@ -311,17 +311,17 @@ CISISX :: CISISX (unsigned char *parm_isisactab,
 
  // set up the upper case charaters table
  if (parm_isisuctab)
-  memcpy(isisuctab,parm_isisuctab,sizeof(isisuctab));
+  memmove(isisuctab,parm_isisuctab,sizeof(isisuctab));
  else
-  memcpy(isisuctab,init_isisuctab,sizeof(isisuctab));
+  memmove(isisuctab,init_isisuctab,sizeof(isisuctab));
 
  isiswctot=0;
 
  // set up the alphabetic charaters table
  if (parm_isisactab)
-  memcpy(isisactab,parm_isisactab,sizeof(isisactab));
+  memmove(isisactab,parm_isisactab,sizeof(isisactab));
  else
-  memcpy(isisactab,init_isisactab,sizeof(isisactab));
+  memmove(isisactab,init_isisactab,sizeof(isisactab));
  memset(isiswctab,0x00,sizeof(isiswctab));
  for (isiswctot=0; isisactab[isiswctot]; isiswctot++)
   isiswctab[isisactab[isiswctot]]=1;

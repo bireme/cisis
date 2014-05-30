@@ -718,7 +718,7 @@ typedef struct isohstru {
 #endif
         n=lenfld-1;
             sprintf((char *)batchp,(CONST char *)"H%d %d ",tagfld,n);  batchp+=strlen((CONST char *)batchp);
-        memcpy(batchp,isi_buffin+basead+locfld,n); batchp+=n;
+        memmove(batchp,isi_buffin+basead+locfld,n); batchp+=n;
     }
     *batchp = '\0';
 
@@ -788,7 +788,7 @@ printf("1. '%s'\n",isi_buffin);
 #if PC
     if (*nextbufp == 0x1A) return(EOF);
 #endif
-    memcpy(isi_buffin,nextbufp,LENLEN);
+    memmove(isi_buffin,nextbufp,LENLEN);
 #if TRACISI
 isi_buffin[LENLEN]='\0';
 printf("2. '%s'\n",isi_buffin);
@@ -848,14 +848,14 @@ printf("n=%d  \n",n);
 #if TRACISI
 printf("n=%d k=%d moving %d \n",n,k,j);
 #endif
-            memcpy(isi_buffin+k,isi_buffin+k+2,j);
+            memmove(isi_buffin+k,isi_buffin+k+2,j);
             k+=isi_lrfix; n-=2;
         }
         }
 #else
         if (isi_buffin[k] == '\n') {
         j=n-k-1;
-        memcpy(isi_buffin+k,isi_buffin+k+1,j);
+        memmove(isi_buffin+k,isi_buffin+k+1,j);
         k+=isi_lrfix; n-=1;
         }
 #endif

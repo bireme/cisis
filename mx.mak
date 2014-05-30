@@ -14,7 +14,7 @@ MAXMFRL=0
 
 #CICONF1 = -DCIFFI=$(CIFFI) -DLIND=$(LIND) -DISISXL=$(ISISXL) -DISISXL512=$(ISISXL512) -DLINDLUX=$(LINDLUX) -DPROCXSLT=$(PROCXSLT)
 CICONF1 = -DCIFFI=$(CIFFI) -DLIND=$(LIND) -DLIND4=$(LIND4) -DISISXL=$(ISISXL) -DISISXL512=$(ISISXL512) -DLINDLUX=$(LINDLUX) -DPROCXSLT=$(PROCXSLT) -D_FILE_OFFSET_BITS=$(_FILE_OFFSET_BITS) -D_LARGEFILE64_SOURCE=$(_LARGEFILE64_SOURCE) -DSIXTY_FOUR=$(SIXTY_FOUR) -DSUPERISIS=$(SUPERISIS) -DMAXMFRL=$(MAXMFRL)
-CICONF2 = -DCIWTF=1 -DINCPROCX=1 -DINCPRECX=1 -DEXCFMCGI=0 -DEXCFMXML=0
+CICONF2 = -DCIWTF=1 -DINCPROCX=1 -DINCPRECX=1 -DEXCFMCGI=0 -DEXCFMXML=0 -D_GLIBC_VERSIONED_SOURCE
 
 CC = cc
 
@@ -33,7 +33,7 @@ CCOPTS = -c $(CCFLAGS) $(CICONF1) $(CICONF2)
 # Link
 mx: mx.o mxaot.o ifloadao.o ciifl.o cisisx.o mxrun.o mxrel.o mxtxt.o mxbol.o cib71.o cib72.o cifm1.o cifm2.o cifm3.o cidbx.o cigiz.o cirec.o ciupd.o citrm.o ciupi.o ciiso.o ciutl.o cifst.o ciifu.o cicgi.o
 	echo ld mx..
-	$(CC) $(CCLIBS) -o mx mx.o mxaot.o ifloadao.o ciifl.o cisisx.o mxrun.o mxrel.o mxtxt.o mxbol.o cib71.o cib72.o cifm1.o cifm2.o cifm3.o cidbx.o cigiz.o cirec.o ciupd.o citrm.o ciupi.o ciiso.o ciutl.o cifst.o ciifu.o cicgi.o
+	$(CC) -o mx mx.o mxaot.o ifloadao.o ciifl.o cisisx.o mxrun.o mxrel.o mxtxt.o mxbol.o cib71.o cib72.o cifm1.o cifm2.o cifm3.o cidbx.o cigiz.o cirec.o ciupd.o citrm.o ciupi.o ciiso.o ciutl.o cifst.o ciifu.o cicgi.o $(CCLIBS)
 
 mx.o: mx.c cisis.h
 	echo mx..

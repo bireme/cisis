@@ -290,16 +290,16 @@ char *argv[];
         }
         else
             if (*p == '/') {                            /* => .../ */
-                qualcase=1; memcpy(qualkey,p,n3=1); qualkey[n3]='\0';
+                qualcase=1; memmove(qualkey,p,n3=1); qualkey[n3]='\0';
                 n2-=n3;
             }
             else if (n2 >= 5 && *(p-2) == '/') {        /* => .../xx */
-                qualcase=2; memcpy(qualkey,p-2,n3=3); qualkey[n3]='\0';
+                qualcase=2; memmove(qualkey,p-2,n3=3); qualkey[n3]='\0';
                 n2-=n3;
             }
 
 
-        memcpy(meshkey,meshp,n2); meshkey[n2]='\0';
+        memmove(meshkey,meshp,n2); meshkey[n2]='\0';
         TERM(itrm,decs,meshkey);
 
         if ((++count % xtell) == 0)
@@ -555,12 +555,12 @@ getchar();
 
 
     if (prefcase)
-        memcpy(keynew,prefkey,n1);
+        memmove(keynew,prefkey,n1);
 
-    memcpy(keynew+n1,hp,hn);
+    memmove(keynew+n1,hp,hn);
 
     if (qualcase)
-        memcpy(keynew+n1+hn,qualkey,n3);
+        memmove(keynew+n1+hn,qualkey,n3);
 
     outlink(MFRmfn,1,occ,cnt,keynew,n1+hn+n3,sn);
 
@@ -569,10 +569,10 @@ getchar();
     sprintf(batchp,"%06"_LD_"|",MFRmfn); batchp+=strlen(batchp);
 
     if (n2 >= LE2) {
-        memcpy(batchp,meshkey,LE2); batchp+=LE2;
+        memmove(batchp,meshkey,LE2); batchp+=LE2;
     }
     else {
-        memcpy(batchp,meshkey,n2); batchp+=n2;
+        memmove(batchp,meshkey,n2); batchp+=n2;
         for (loop=LE2-n2; loop--; ) *batchp++ = ' ';
     }
     *batchp++ = '|';
@@ -593,28 +593,28 @@ getchar();
     batchp+=strlen(batchp);
 
     if (hn >= LE2) {
-        memcpy(batchp,hp,LE2); batchp+=LE2;
+        memmove(batchp,hp,LE2); batchp+=LE2;
     }
     else {
-        memcpy(batchp,hp,hn); batchp+=hn;
+        memmove(batchp,hp,hn); batchp+=hn;
         for (loop=LE2-hn; loop--; ) *batchp++ = ' ';
     }
     *batchp++ = '|';
 
     if (n1 >= 2) {
-        memcpy(batchp,prefkey,2); batchp+=2;
+        memmove(batchp,prefkey,2); batchp+=2;
     }
     else {
-        memcpy(batchp,prefkey,n1); batchp+=n1;
+        memmove(batchp,prefkey,n1); batchp+=n1;
         for (loop=2-n1; loop--; ) *batchp++ = ' ';
     }
     *batchp++ = '|';
 
     if (n3 >= 3) {
-        memcpy(batchp,qualkey,3); batchp+=3;
+        memmove(batchp,qualkey,3); batchp+=3;
     }
     else {
-        memcpy(batchp,qualkey,n3); batchp+=n3;
+        memmove(batchp,qualkey,n3); batchp+=n3;
         for (loop=3-n3; loop--; ) *batchp++ = ' ';
     }
     *batchp++ = '|';
@@ -628,7 +628,7 @@ printf("sn=%d strlen=%d lreclx=%d\n%s.",sn,strlen(buffup),lreclx,buffup);
         fatal("genlk1/write");
 
 #if OUTONISIS
-    memcpy(key2,hp,hn); key2[hn]='\0';
+    memmove(key2,hp,hn); key2[hn]='\0';
     if (fldupdat(irecout,"D*") != NULL) fatal("fldupdat/init");
     VMFRmfn(irecout)=MFRmfn; etc;
 #endif

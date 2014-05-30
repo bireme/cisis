@@ -328,7 +328,7 @@ printf("TRMl1buf.pos=%d TRMl2buf.pos=%d\n",TRMl1buf.pos,TRMl2buf.pos);
 	else
 	    break;
     if (len > LE2) len=LE2;
-    memcpy(TRMkey,keyp,len);
+    memmove(TRMkey,keyp,len);
     memset(TRMkey+len,' ',LE2-len); TRMkey[LE2]='\0';
 #if TRMTRACE
 printf("term - len=%d  TRMkey='%s'(%d)\n",len,TRMkey,strlen(TRMkey));
@@ -348,7 +348,7 @@ printf("term - treecase=%d  n1=%d  tc2=%d  n2=%d\n",treecase,n1,tc2,n2);
     TRMrc=trmread(trmp,treecase,&k1p); TRMlidxp(treecase)=k1p;
 
 #if TRXTRACE
-memcpy(area,k1p,n1); area[n1]='\0';
+memmove(area,k1p,n1); area[n1]='\0';
 printf("term - TRMrc=%d (em %d)  k1p=%p=%s\n",TRMrc,treecase,k1p,area);
 #endif
 
@@ -367,7 +367,7 @@ printf("term - TRMrc=%d (em %d)  k1p=%p=%s\n",TRMrc,treecase,k1p,area);
 	rc2=trmread(trmp,tc2,&k2p); TRMlidxp(tc2)=k2p;
 
 #if TRXTRACE
-memcpy(area,k2p,n2); area[n2]='\0';
+memmove(area,k2p,n2); area[n2]='\0';
 printf("term - TRMrc=%d (em %d)  k2p=%p=%s\n",TRMrc,tc2,k2p,area);
 #endif
 	if (rc2 == RCNORMAL) {
@@ -377,9 +377,9 @@ printf("term - TRMrc=%d (em %d)  k2p=%p=%s\n",TRMrc,tc2,k2p,area);
 	else {
             n=strncmp((CONST char *)k1p,(CONST char *)k2p,LE1);             /* min */
 #if TRXTRACE
-memcpy(area,k1p,n1); area[n1]='\0';
+memmove(area,k1p,n1); area[n1]='\0';
 printf("term - n=%d[%d-%d] p/ strncmp(%s,",n,*k1p,*k2p,area);
-memcpy(area,k2p,n2); area[n2]='\0';
+memmove(area,k2p,n2); area[n2]='\0';
 printf("%s,%d)\n",area,LE1);
 #endif
 	    if (n == 0) {		/* AOT/HB - 08/04/97 */
@@ -387,12 +387,12 @@ printf("%s,%d)\n",area,LE1);
 	    }
 
 	    if (n <= 0) {
-		memcpy(TRMkey,k1p,n1);         /* k1p is less than k2p */
+		memmove(TRMkey,k1p,n1);         /* k1p is less than k2p */
 		TRMlcase=treecase;
 		kn=n1;
 	    }
 	    else {
-		memcpy(TRMkey,k2p,n2);         /* k2p is less than k1p */
+		memmove(TRMkey,k2p,n2);         /* k2p is less than k1p */
 		TRMlcase=tc2;
 		TRMrc=rc2; kn=n2;
 	    }
@@ -516,14 +516,14 @@ printf("trmread - np->pos=%"_LD_"  np=%p  wp=%p\n",(LONGX)np->pos,np,wp);
 	    break;
 	}
 #if TRRTRACE
-memcpy(area,wp,idxksiz); area[idxksiz]='\0';
+memmove(area,wp,idxksiz); area[idxksiz]='\0';
 printf("trmread - key > %s\n",area);
 #endif
     }
     punt= (treecase) ? ((N2IDXE *)wp)->punt : ((N1IDXE *)wp)->punt;
     liv=invp->cn[treecase].liv;
 #if TRRTRACE
-memcpy(area,wp,idxksiz); area[idxksiz]='\0';
+memmove(area,wp,idxksiz); area[idxksiz]='\0';
 printf("trmread - key em %s\n",area);
 printf("trmread - treecase=%d  em level=%d  punt=%"_LD_"  liv=%d\n",
     treecase,0,(LONGX)punt,liv);
@@ -538,13 +538,13 @@ printf("trmread - treecase=%d  em level=%d  punt=%"_LD_"  liv=%d\n",
 		break;
 	    }
 #if TRRTRACE
-memcpy(area,wp,idxksiz); area[idxksiz]='\0';
+memmove(area,wp,idxksiz); area[idxksiz]='\0';
 printf("trmread - key > %s\n",area);
 #endif
 	}
 	punt= (treecase) ? ((N2IDXE *)wp)->punt : ((N1IDXE *)wp)->punt;
 #if TRRTRACE
-memcpy(area,wp,idxksiz); area[idxksiz]='\0';
+memmove(area,wp,idxksiz); area[idxksiz]='\0';
 printf("trmread - key em %s\n",area);
 printf("trmread - treecase=%d  em level=%d  punt=%"_LD_"\n",
     treecase,level,(LONGX)punt);
@@ -630,7 +630,7 @@ if (trmtrace) {
 	}
     }
 #if TRRTRACE /* 1 */
-memcpy(area,wp,idxksiz); area[idxksiz]='\0';
+memmove(area,wp,idxksiz); area[idxksiz]='\0';
 printf("trmread - folha=%s  kk=%d  l/k=%d/%d\n",area,kk,lidxesiz,idxksiz);
 #endif
     if (kk > 0) {
@@ -638,16 +638,16 @@ printf("trmread - folha=%s  kk=%d  l/k=%d/%d\n",area,kk,lidxesiz,idxksiz);
 	rp=NULL;
 	for (n=lp->ock; --n; TRMliock(treecase)++) {            /* vl.l */
 #if ALPTRACE
-memcpy(area,wp,idxksiz); area[idxksiz]='\0';
+memmove(area,wp,idxksiz); area[idxksiz]='\0';
 printf("trmread - folxx=%s  kk=%d  l/k=%d/%d\n",area,kk,lidxesiz,idxksiz);
 #endif
 	    wp+=lidxesiz;
 #if ALPTRACE
-memcpy(area,wp,idxksiz); area[idxksiz]='\0';
+memmove(area,wp,idxksiz); area[idxksiz]='\0';
 printf("trmread - folyy=%s  kk=%d  l/k=%d/%d\n",area,kk,lidxesiz,idxksiz);
 #endif
 #if SAMTRACE
-memcpy(area,wp,idxksiz); area[idxksiz]='\0';
+memmove(area,wp,idxksiz); area[idxksiz]='\0';
 printf("trmread - wp=%s  kk=%d [%d]\n",area,kk,TRMliock(treecase));
 #endif
 	    if (*wp <= MINLCHR) {                               /* vm.m */
@@ -657,7 +657,7 @@ printf("trmread - wp=%s  kk=%d [%d]\n",area,kk,TRMliock(treecase));
 	    }
             kk=strncmp((CONST char *)kp,(CONST char *)wp,idxksiz);
 #if TRRTRACE /* 1 */
-memcpy(area,wp,idxksiz); area[idxksiz]='\0';
+memmove(area,wp,idxksiz); area[idxksiz]='\0';
 printf("trmread - wp=%s  kk=%d [%d]\n",area,kk,TRMliock(treecase));
 #endif
 	    if (kk == 0) {
@@ -717,7 +717,7 @@ else {
 	rp=wp;
     *retkeyp=rp;
 #if TRRTRACE
-memcpy(area,*retkeyp,idxksiz); area[idxksiz]='\0';
+memmove(area,*retkeyp,idxksiz); area[idxksiz]='\0';
 printf("trmread - rc=%d  *retkeyp=%s[%d]\n",rc,area,TRMliock(treecase));
 #endif
     return(rc);
@@ -895,7 +895,7 @@ printf("[%d]\n",TRMliock(1));
 	kp=k2p;                         /* k2p is less than k1p */
 	kn=LE2; lcase=1;
     }
-    memcpy(TRMkey,kp,kn); *(TRMkey+kn)='\0';
+    memmove(TRMkey,kp,kn); *(TRMkey+kn)='\0';
     TRMrc = (*TRMkey == *highv) ? RCEOF : RCNORMAL;
     TRMlcase=lcase;
     TRMlidxp(0)=k1p;

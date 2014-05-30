@@ -295,7 +295,7 @@ char *argv_main[];
     /* set ansiuc & ansiac
     */
 #if 1  /* ANSITABS */
-    memcpy(isisuctab,ansiuctab,sizeof(ansiuctab));
+    memmove(isisuctab,ansiuctab,sizeof(ansiuctab));
     memset(isiswctab,0x00,256);
     for (isiswctot=0; ansiactab[isiswctot]; isiswctot=isiswctot+1) isiswctab[ansiactab[isiswctot]]=1;
 #endif /* 0000 */
@@ -921,7 +921,7 @@ getchar();
             if (dirp->tag == TAG351) {
 
                 /* tabulate it */
-                memcpy(area,FIELDP(xdir),dirp->len); area[dirp->len]='\0';
+                memmove(area,FIELDP(xdir),dirp->len); area[dirp->len]='\0';
                 v351=atoi(area);
                 if (1/*parmgroup*/)  {
 #if 1 /*V02BAK9J*/ /* v0.2bak9j */
@@ -957,13 +957,13 @@ getchar();
                             p=FIELDP(xdir);
                             if (*p == 'C' or *p == 'D') { /* ... */
                                 if ((len=dirp->len) > glen) len=glen;
-                                memcpy(x20,p,len);
+                                memmove(x20,p,len);
                                 if (len < glen) memset(x20+len,' ',glen-len)
                                 for (found=0, i=0; i<n20; i++)
                                     if (memcmp(x20,v20[i],parmgrouplen1) == 0) { found=1; break; }
                                 if (!found) {
                                     if (n20 >= MAXN20) fatal("aotmsa2/TA/mydecs/MAXN20");
-                                    memcpy(v20[n20++],x20,parmgrouplen);
+                                    memmove(v20[n20++],x20,parmgrouplen);
                                 }
                             } /* end 'C' or 'D' */
                         } /* end tag == TAG020 */
@@ -1375,10 +1375,10 @@ decs data fields
         nbreak=0;
         p=recfield(v2992,irec,2992,1,""); /* 1st mesh C/D */
         if (memcmp(vbreak[0],p+0,3)) {
-            memcpy(vbreak[0],p+0,3); nbreak+=1; *vbreak[1]='\0';
+            memmove(vbreak[0],p+0,3); nbreak+=1; *vbreak[1]='\0';
         }
         if (memcmp(vbreak[1],p+4,3)) {
-            memcpy(vbreak[1],p+4,3); nbreak+=2;
+            memmove(vbreak[1],p+4,3); nbreak+=2;
         }
 
         if (nbreak) {
@@ -1807,7 +1807,7 @@ typedef struct outfreqF_sort_entry {
             recfield(buffup,drec,TAG020,1,""); if (!*buffup) fatal("aotmsa2/rutfreqF/decs/TAG020");
             catlen=strlen(buffup); if (catlen>sizeof(sortp->categ)) buffup[catlen=sizeof(sortp->categ)]='\0';
             memset(buffup+catlen,(int)' ',sizeof(sortp->categ)-catlen);
-            memcpy(sortp->categ,buffup,sizeof(sortp->categ));
+            memmove(sortp->categ,buffup,sizeof(sortp->categ));
         } else memset(sortp->categ,(int)' ',sizeof(sortp->categ));
         sortp->null[0]='\0';
         sortp->v351=v351;
@@ -1822,9 +1822,9 @@ typedef struct outfreqF_sort_entry {
         for (j=i+1; j<ntabs; j++) {
             jp=sort_tab+j;
             if (memcmp((void *)ip,(void *)jp,keylen) > 0) {
-                memcpy((void *)sort_tmp,(void *)ip,      sizeof(OUTFREQF_SORT_ENTRY));
-                memcpy((void *)ip      ,(void *)jp,      sizeof(OUTFREQF_SORT_ENTRY));
-                memcpy((void *)jp      ,(void *)sort_tmp,sizeof(OUTFREQF_SORT_ENTRY));
+                memmove((void *)sort_tmp,(void *)ip,      sizeof(OUTFREQF_SORT_ENTRY));
+                memmove((void *)ip      ,(void *)jp,      sizeof(OUTFREQF_SORT_ENTRY));
+                memmove((void *)jp      ,(void *)sort_tmp,sizeof(OUTFREQF_SORT_ENTRY));
             }
         }
     }
@@ -1982,7 +1982,7 @@ proc=/* if v1991[1]<v1991[2] then 'a2221|out|' fi */
         sortp->frelTTxA   = (docsTOTxA   > 0) ? sortp->docsTTxA   / (float)docsTOTxA   : 0;   /* v1991[1] = frelTTxA = docs de TT em xA / docs de xA */
         sortp->frelTTamdl = (docsTOTamdl > 0) ? sortp->docsTTamdl / (float)docsTOTamdl : 0;   /* v1991[2] = frelTTamdl = docs de TT em amdl / docs de amdl */
         sortp->pesoTTxA   = (sortp->frelTTamdl > 0)  ? sortp->frelTTxA   / sortp->frelTTamdl  : 0;   /* v2991[1] = frelTTxA / frelTTamdl */
-        //memcpy(sortp->pesoTTxAout,(frelTTxA < frelTTamdl)?"out":"  ",sizeof(sortp->pesoTTxA)); /* if v1991[1]<v1991[2] then 'a2221|out|' fi */
+        //memmove(sortp->pesoTTxAout,(frelTTxA < frelTTamdl)?"out":"  ",sizeof(sortp->pesoTTxA)); /* if v1991[1]<v1991[2] then 'a2221|out|' fi */
         /* */
         sprintf(sortp->x2991,"%10.3f",999999.999-sortp->pesoTTxA);
         sprintf(sortp->xrankF,"%6"_LD_,tabcntArankF[v351]); /* key */
@@ -1998,9 +1998,9 @@ proc=/* if v1991[1]<v1991[2] then 'a2221|out|' fi */
         for (j=i+1; j<ntabs; j++) {
             jp=sort_tab+j;
             if (memcmp((void *)ip,(void *)jp,keylen) > 0) {
-                memcpy((void *)sort_tmp,(void *)ip,      sizeof(OUTFREQW_SORT_ENTRY));
-                memcpy((void *)ip      ,(void *)jp,      sizeof(OUTFREQW_SORT_ENTRY));
-                memcpy((void *)jp      ,(void *)sort_tmp,sizeof(OUTFREQW_SORT_ENTRY));
+                memmove((void *)sort_tmp,(void *)ip,      sizeof(OUTFREQW_SORT_ENTRY));
+                memmove((void *)ip      ,(void *)jp,      sizeof(OUTFREQW_SORT_ENTRY));
+                memmove((void *)jp      ,(void *)sort_tmp,sizeof(OUTFREQW_SORT_ENTRY));
             }
         }
     }
@@ -2119,7 +2119,7 @@ LONGX *gtabcntA;
 
 typedef struct outfreqD_sort_entry {
 //    char x2992[10];
-    char x2992_cat[1]; /* memcpy(,,1) */
+    char x2992_cat[1]; /* memmove(,,1) */
     char x2993[10];
     char x2992[MAXCATLEN+1];
     char xrankF[6];
@@ -2197,7 +2197,7 @@ typedef struct outfreqD_sort_entry {
                     if (*p == 'C' || *p == 'D') ; else fatal("aotmsa2/rutfreqD/TAG022/CD");
                     len=dirp->len; if (len>=sizeof(sortp->x2992)) len=sizeof(sortp->x2992)-1;
                     strncpy(sortp->x2992,p,len); sortp->x2992[len]='\0';
-                    memcpy(sortp->x2992_cat,p,1); /* memcpy(,,1) */
+                    memmove(sortp->x2992_cat,p,1); /* memmove(,,1) */
                     break;
                 }
           }
@@ -2213,9 +2213,9 @@ typedef struct outfreqD_sort_entry {
         for (j=i+1; j<ntabs; j++) {
             jp=sort_tab+j;
             if (memcmp((void *)ip,(void *)jp,keylen) > 0) {
-                memcpy((void *)sort_tmp,(void *)ip,      sizeof(OUTFREQD_SORT_ENTRY));
-                memcpy((void *)ip      ,(void *)jp,      sizeof(OUTFREQD_SORT_ENTRY));
-                memcpy((void *)jp      ,(void *)sort_tmp,sizeof(OUTFREQD_SORT_ENTRY));
+                memmove((void *)sort_tmp,(void *)ip,      sizeof(OUTFREQD_SORT_ENTRY));
+                memmove((void *)ip      ,(void *)jp,      sizeof(OUTFREQD_SORT_ENTRY));
+                memmove((void *)jp      ,(void *)sort_tmp,sizeof(OUTFREQD_SORT_ENTRY));
             }
         }
     }
@@ -2226,7 +2226,7 @@ typedef struct outfreqD_sort_entry {
     for (sortp=sort_tab, tabD=tabfreqD, mfn=1L; mfn<=ntabs; mfn++, sortp++, tabD++) {
         tabD->v351=sortp->v351;
 //        tabD->delta=sortp->delta;
-        memcpy(tabD->delca,sortp->x2992,MAXCATLEN);
+        memmove(tabD->delca,sortp->x2992,MAXCATLEN);
         tabD->gmfn=sortp->gmfn;
         tabcntArankD[sortp->v351]=mfn;
     }
@@ -2337,7 +2337,7 @@ char *defaultp;
     if (!areap)
         if ((areap=(char *)ALLOC((ALLOPARM)n+1)) == (char *)ALLONULL)
             fatal("aotmsa2/recsfldv/ALLOC");
-    memcpy(areap,p,n); areap[n]='\0';
+    memmove(areap,p,n); areap[n]='\0';
     return(areap);
 }
 

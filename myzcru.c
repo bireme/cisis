@@ -81,7 +81,7 @@ char *movpsb_p;
         moved+=4;
 
 #define movx(sourcep,len)                       \
-        memcpy(movp,sourcep,(size_t)len);       \
+        memmove(movp,sourcep,(size_t)len);       \
         movp+=len;                              \
         moved+=len;
 
@@ -300,7 +300,7 @@ for (treecase=tree1; treecase <= tree2; treecase++) {
                 for (eq=0; eq < keylen; eq++)
                     if (keyp[eq] != prevkey[eq]) break;
             }
-            memcpy(prevkey,keyp,lex);
+            memmove(prevkey,keyp,lex);
 
             if (show) {
                 fprintf(fpx,"%3d|%3d|",eq,keylen);
@@ -313,7 +313,7 @@ for (treecase=tree1; treecase <= tree2; treecase++) {
             *lzkp++ = (unsigned char)eq;
             *lzkp++ = (unsigned char)keylen;
 
-            memcpy(lzkp,keyp+eq,ne=keylen-eq);
+            memmove(lzkp,keyp+eq,ne=keylen-eq);
             lzkp+=ne;
 
             lzsize+=2;          /* eq+keylen */
@@ -484,7 +484,7 @@ for (treecase=tree1; treecase <= tree2; treecase++) {
     for (treecase=0; treecase < 2; treecase++) {
 	if (parmtrace) printf("+++ ordf=%d \n",invp->cn[treecase].ordf);
 #if PCCTRACE
- memcpy(mov_record,&(invp->cn[treecase]),moved=CNBSIZ);
+ memmove(mov_record,&(invp->cn[treecase]),moved=CNBSIZ);
  putpcinv(moved);
 #endif
         movp=mov_record; moved=0;

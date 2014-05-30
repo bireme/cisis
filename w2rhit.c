@@ -36,7 +36,7 @@
                         left=dirp2->len;
                         if (left < n*nmfns) fatal("wtrig2/colxdb/bin/left/1");
                         for (p=FIELDP(xdir2); left; ) {
-                            memcpy((void *)&hitmfn,p,n);
+                            memmove((void *)&hitmfn,p,n);
                             p+=n; left-=n;
                             if (left < 0) fatal("wtrig2/colxdb/bin/left/2");
                             if (hitmfn < 1) fatal("wtrig2/colxdb/bin/mfn invalid/1");

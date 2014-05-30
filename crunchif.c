@@ -57,7 +57,7 @@ int xalign;
         *movp++ = movtmp[mv43];                \
         moved+=4;
 #define movx(sourcep,len)            \
-        memcpy(movp,sourcep,(size_t)len);       \
+        memmove(movp,sourcep,(size_t)len);       \
         movp+=len;                              \
         moved+=len;
 
@@ -577,7 +577,7 @@ IFPHEAD *hdrp;
     mov4(hdrp->ifpsegp);           /* gdb .ifp ifpsegp */
     mov4(hdrp->ifpsegc);           /* gdb .ifp ifpsegc */
 
-    memcpy((char *)hdrp,hdrarea,sizeof(IFPHEAD));
+    memmove((char *)hdrp,hdrarea,sizeof(IFPHEAD));
 }
 
 LONGX cru_posting(parmtrace,trmp,nord,fd)
@@ -650,11 +650,11 @@ UWORD reclen;
     char *p;
     for (p=inv_record; reclen; ) {
         if (reclen <= inv_left) {
-            memcpy(&inv_buffer[BUFSZX-inv_left],p,(size_t)reclen);
+            memmove(&inv_buffer[BUFSZX-inv_left],p,(size_t)reclen);
             inv_left-=reclen;
             break;
         }
-        memcpy(&inv_buffer[BUFSZX-inv_left],p,inv_left);
+        memmove(&inv_buffer[BUFSZX-inv_left],p,inv_left);
         if (CIWRITE(inv_fd,inv_buffer,BUFSZX) < BUFSZX) fatal("putpcinv/write");
         reclen-=inv_left;
         p+=inv_left;

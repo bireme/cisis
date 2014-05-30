@@ -136,13 +136,13 @@ n,umb,key1,lang,type,key2,prefkey,qualkey,key1l,key2l,prefl,quall);
         key1[key1l]='\0'; key2[key2l]='\0';
         prefkey[prefl]='\0'; qualkey[quall]='\0';
 #endif NOW
-        memcpy(keyaut,            prefkey,prefl);
-        memcpy(keyaut+prefl,      key1,key1l);
-        memcpy(keyaut+prefl+key1l,qualkey,quall);
+        memmove(keyaut,            prefkey,prefl);
+        memmove(keyaut+prefl,      key1,key1l);
+        memmove(keyaut+prefl+key1l,qualkey,quall);
                keyaut[prefl+key1l+quall]='\0';
-        memcpy(keyiox,            prefkey,prefl);
-        memcpy(keyiox+prefl,      key2,key2l);
-        memcpy(keyiox+prefl+key2l,qualkey,quall);
+        memmove(keyiox,            prefkey,prefl);
+        memmove(keyiox+prefl,      key2,key2l);
+        memmove(keyiox+prefl+key2l,qualkey,quall);
                keyiox[prefl+key2l+quall]='\0';
 	if ((++count % xtell) == 0)
 	    fprintf(stderr,"+++ %"_LD_" %s%s%s %d,%d,%d [%c,%c]\n",

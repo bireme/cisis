@@ -111,7 +111,7 @@
                         if (*x=='\r' || *x=='\n') len--;
                         else *y++= *x;
                   }
-                  else memcpy(xarea,fldp,len);
+                  else memmove(xarea,fldp,len);
                 }
                 xarea[len]='\0';
             }

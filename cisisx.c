@@ -257,7 +257,7 @@ char *typ;
     }
 #endif
 #if CNV_PCBINUM
-	    memcpy(cnv_pcbuff,m0area,sizeof(M0STRU));
+	    memmove(cnv_pcbuff,m0area,sizeof(M0STRU));
 	    ConvertMST_CTLSTRUCT(cnv_pcbuff);
 	    if (CIWRITE(DBXmsopn,cnv_pcbuff,sizeof(M0STRU)) != sizeof(M0STRU))
 #else
@@ -306,7 +306,7 @@ char *typ;
     }
 #endif
 #if CNV_PCBINUM
-	    memcpy(cnv_pcbuff,m0area,sizeof(M0STRU));
+	    memmove(cnv_pcbuff,m0area,sizeof(M0STRU));
 	    ConvertMST_CTLSTRUCT(cnv_pcbuff);
 	    if (CIWRITE(DBXmsopn,cnv_pcbuff,sizeof(M0STRU)) != sizeof(M0STRU))
 #else
@@ -444,7 +444,7 @@ void dbxinit()                                                        /*
     if (dbxcipok) {
 #if GETACUTABANSI
             if (strcmp(p,"ansi") == 0) {
-                memcpy(isisuctab,ansiuctab,256/*sizeof(ansiuctab)*/);
+                memmove(isisuctab,ansiuctab,256/*sizeof(ansiuctab)*/);
             } else {
 #endif
                 if (!loaductb(NULL,isisuctab,p)) fatal("dbxinit/uctab");
@@ -859,7 +859,7 @@ int *extlenp;          				/*  */
     /* setup returning value */
     naml=strlen(ginamp);
     if (naml >= sizeof(dbxgikey)) naml=sizeof(dbxgikey)-1;
-    memcpy(dbxgikey,ginamp,naml); dbxgikey[naml]='\0';
+    memmove(dbxgikey,ginamp,naml); dbxgikey[naml]='\0';
 
     extp="";
     for (p=dbxgikey+naml-1, n=naml; n; p--, n--) {
@@ -876,7 +876,7 @@ int *extlenp;          				/*  */
     if (!gidbnp) return(dbxgikey);
 
     /* alloc&load dbxgicip */
-    memcpy(tmpgikey,dbxgikey,naml);
+    memmove(tmpgikey,dbxgikey,naml);
     tmpgikey[naml-strlen(extp)]='\0';
     keepndbx=ndbxs; dbxp=dbxstorp((*gidbnp)?gidbnp:tmpgikey);
     if (dbxp) {
@@ -943,10 +943,10 @@ int *extlenp;          				/*  */
 			}
 			if (!fnp) fnp=dbxgikey;
 			fnl=strlen(p);
-			memcpy(tmpgikey,fnp,fnl); tmpgikey[fnl]='\0';
+			memmove(tmpgikey,fnp,fnl); tmpgikey[fnl]='\0';
 			if (fnl+n >= sizeof(dbxgikey)) n=sizeof(dbxgikey)-fnl-1;
-		        memcpy(dbxgikey,q,n);
-		        memcpy(dbxgikey+n,tmpgikey,fnl);
+		        memmove(dbxgikey,q,n);
+		        memmove(dbxgikey+n,tmpgikey,fnl);
                         dbxgikey[n+fnl]='\0';
 
 #if DBGTRACE
@@ -1042,7 +1042,7 @@ char argchar;
 
     keyl=strlen(argkp);
     if (keyl >= sizeof(dbxcikey)) keyl=sizeof(dbxcikey)-1;
-    retp=(UBYTE *)memcpy(dbxcikey,argkp,keyl); retp[keyl]='\0';
+    retp=(UBYTE *)memmove(dbxcikey,argkp,keyl); retp[keyl]='\0';
 
 #if CIPAR /* CIPAR */
 
@@ -1100,7 +1100,7 @@ getchar();
 #endif
 		if (line[n] == argchar) {
 		    retp=(UBYTE *)
-                        memcpy(dbxcikey,line+(n+1),strlen((CONST char *)line+n)); /*'\0'*/
+                        memmove(dbxcikey,line+(n+1),strlen((CONST char *)line+n)); /*'\0'*/
 		    dbxcipok=1;
 		    break;
 		}
@@ -1116,8 +1116,8 @@ getchar();
 		    if (line[xl-1] != '*')  continue;
 		    p1++; p1++;
 		    line[xl-1]='\0';
-                    retp=(UBYTE *)memcpy(dbxcikey,p1,n=strlen((CONST char *)p1));
-                    memcpy(dbxcikey+n,p2,strlen((CONST char *)p2)+1); /*'\0'*/
+                    retp=(UBYTE *)memmove(dbxcikey,p1,n=strlen((CONST char *)p1));
+                    memmove(dbxcikey+n,p2,strlen((CONST char *)p2)+1); /*'\0'*/
 		    dbxcipok=1;
 		    break;
 		}
@@ -1292,7 +1292,7 @@ char lf2x;
     if (at && *atp != at) {
     	len=strlen(atp);
     	if (len >= asize) len=asize-1;
-    	memcpy(areap,atp,len); areap[len]='\0';
+    	memmove(areap,atp,len); areap[len]='\0';
     }
     else {
         p=(unsigned char *)atp; if (at) p++;
@@ -1399,7 +1399,7 @@ int *nstws;
 	ap=apstart+LE1+1;
 	}
 #else
-	memcpy(ap,line,len);
+	memmove(ap,line,len);
 	ap+=LE1+1;
 #endif /* CI_WINISIS */
 	(*nstws)++;
@@ -1904,7 +1904,7 @@ LONGX parmtell;
 	    if (LSEEK64(DBXxropn,xbyte,SEEK_SET) != xbyte)
 		fatal("recreset/recwxref/seek");
 #if CNV_PCBINUM
-	    memcpy(cnv_pcbuff,&xrftiv,XRPTRSIZ);
+	    memmove(cnv_pcbuff,&xrftiv,XRPTRSIZ);
 	    ConvertXRF_PTR(cnv_pcbuff);
 	    if (CIWRITE(DBXxropn,cnv_pcbuff,XRPTRSIZ) != XRPTRSIZ)
 #else
@@ -2697,12 +2697,12 @@ printf("noderead - read em %p (punt=%"_LD_")\n",p,punt);
     up=unp->idxchars;
     for (n=0; n < TWORDN; n++, up+=sizeof(PUNT))
 	if (treecase) {
-	    memcpy(n2p->idx[n].key,up,LE2); up+=LE2;
-	    memcpy(&(n2p->idx[n].punt),up,sizeof(PUNT));
+	    memmove(n2p->idx[n].key,up,LE2); up+=LE2;
+	    memmove(&(n2p->idx[n].punt),up,sizeof(PUNT));
 	}
 	else {
-	    memcpy(n1p->idx[n].key,up,LE1); up+=LE1;
-	    memcpy(&(n1p->idx[n].punt),up,sizeof(PUNT));
+	    memmove(n1p->idx[n].key,up,LE1); up+=LE1;
+	    memmove(&(n1p->idx[n].punt),up,sizeof(PUNT));
 	}
 #else /* CNV_PCFILES */
     if (CIREAD(fd,p,nodesize) != nodesize) fatal("noderead/read");
@@ -2799,7 +2799,7 @@ printf("leafread - lxn=%d\n",invp->iflxn);
 	if (punt > invp->luxpages[treecase]) fatal("leafread/punt");
 	if ((lp=invp->luxvpagp[treecase][punt]) == NULL) fatal("leafread/lux");
 	if (lbufp) {
-	    memcpy(lbufp,lp,(treecase)?L2BSIZ:L1BSIZ);
+	    memmove(lbufp,lp,(treecase)?L2BSIZ:L1BSIZ);
 	    return((L0STRU *)lbufp);
 	}
 	return(lp);
@@ -2897,7 +2897,7 @@ printf("leafread - invp=%p  treecase=%d  punt=%"_LD_"\n",
 printf("leafread - lybasep[%d][%"_LD_"]=%p  p=%p  lp=%p\n",
   treecase,(punt-1L),invp->lybasep[treecase],p,lp);
 #endif
-	    memcpy(lbufp,p,lbufsiz);                    /* use */
+	    memmove(lbufp,p,lbufsiz);                    /* use */
 #if CNV_PCBINUM
 	    if (treecase) ConvertL02_REC(lbufp);
 	             else ConvertL01_REC(lbufp);
@@ -2938,14 +2938,14 @@ printf("leafread - xbytes=%"P_OFF_T" punt=%"_LD_" lbufsiz=%d \n",(LONG_LONG)xbyt
     up=unp->idxchars;
     for (n=0; n < TWORDF; n++)
 	if (treecase) {
-	    memcpy(l2p->idx[n].key,up,LE2); up+=LE2;
-	    memcpy(&(l2p->idx[n].info1),up,sizeof(PUNT)); up+=sizeof(PUNT);
-	    memcpy(&(l2p->idx[n].info2),up,sizeof(PUNT)); up+=sizeof(PUNT);
+	    memmove(l2p->idx[n].key,up,LE2); up+=LE2;
+	    memmove(&(l2p->idx[n].info1),up,sizeof(PUNT)); up+=sizeof(PUNT);
+	    memmove(&(l2p->idx[n].info2),up,sizeof(PUNT)); up+=sizeof(PUNT);
 	}
 	else {
-	    memcpy(l1p->idx[n].key,up,LE1); up+=LE1;
-	    memcpy(&(l1p->idx[n].info1),up,sizeof(PUNT)); up+=sizeof(PUNT);
-	    memcpy(&(l1p->idx[n].info2),up,sizeof(PUNT)); up+=sizeof(PUNT);
+	    memmove(l1p->idx[n].key,up,LE1); up+=LE1;
+	    memmove(&(l1p->idx[n].info1),up,sizeof(PUNT)); up+=sizeof(PUNT);
+	    memmove(&(l1p->idx[n].info2),up,sizeof(PUNT)); up+=sizeof(PUNT);
 	}
 #else /* LEAFCNV_PCFILES */
 	    xbytes=((off_t)(punt-1L))*lbufsiz;
@@ -2997,7 +2997,7 @@ if (trmtrace) {
 		lzxkp = (unsigned char *)lzxleaf.keys;
 		lzx1p = (L1IDXE *)(L1STRU *)lp->idxchars;
 		lzx2p = (L2IDXE *)(L2STRU *)lp->idxchars;
-		memcpy(lzx0k,lzxkp+1+1,(treecase)?LE2:LE1);
+		memmove(lzx0k,lzxkp+1+1,(treecase)?LE2:LE1);
 		/* decompress existing terms */
 		for (iock=0; iock < lzxleaf.ock; iock++) {
 		    lzxeq = (int)*lzxkp++; /* eq */
@@ -3005,15 +3005,15 @@ if (trmtrace) {
 		    lzxne = lzxkl-lzxeq;
 		    if (treecase) {
 			if (lzxeq+lzxne > LE2) fatal("leafread/ztree/LE2");
-			memcpy(p=lzx2p->key,lzx0k,lzxeq); p+=lzxeq;
-			memcpy(p,lzxkp,lzxne); p+=lzxne;
+			memmove(p=lzx2p->key,lzx0k,lzxeq); p+=lzxeq;
+			memmove(p,lzxkp,lzxne); p+=lzxne;
 			memset(p,' ',LE2-lzxkl);
 			lzx2p->info1 = lzxleaf.info1[iock];
 			lzx2p->info2 = lzxleaf.info2[iock];
 #if LIND
 			lzx2p->info3info4.info3 = lzxleaf.info3[iock];
 #endif
-			memcpy(lzx0k,lzx2p->key,LE2);
+			memmove(lzx0k,lzx2p->key,LE2);
 if (trmtrace) {
   printf("+++ %2d|%3d|%3d|",iock,lzxeq,lzxne+lzxeq);
   for (p=lzx2p->key; lzxkl--; p++) printf("%c",*p);
@@ -3023,15 +3023,15 @@ if (trmtrace) {
 		    }
 		    else {
 			if (lzxeq+lzxne > LE1) fatal("leafread/ztree/LE1");
-			memcpy(p=lzx1p->key,lzx0k,lzxeq); p+=lzxeq;
-			memcpy(p,lzxkp,lzxne); p+=lzxne;
+			memmove(p=lzx1p->key,lzx0k,lzxeq); p+=lzxeq;
+			memmove(p,lzxkp,lzxne); p+=lzxne;
 			memset(p,' ',LE1-lzxkl);
 			lzx1p->info1 = lzxleaf.info1[iock];
 			lzx1p->info2 = lzxleaf.info2[iock];
 #if LIND
 			lzx1p->info3info4.info3 = lzxleaf.info3[iock];
 #endif
-			memcpy(lzx0k,lzx1p->key,LE1);
+			memmove(lzx0k,lzx1p->key,LE1);
 if (trmtrace) {
   printf("+++ %2d|%3d|%3d|",iock,lzxeq,lzxne+lzxeq);
   for (p=lzx1p->key; lzxkl--; p++) printf("%c",*p);
@@ -3079,11 +3079,11 @@ if (trmtrace) {
 #if SAMEL
 	if (invp->iflxn) {
 	    lxi=lxx-1;
-	    memcpy(lxlbufp,lbufp,sizeof(L0STRU));       /* move */
+	    memmove(lxlbufp,lbufp,sizeof(L0STRU));       /* move */
 	    if (treecase) {
 		l2p=(L2STRU *)lxlbufp; lxl2p=(LXL2STRU *)lbufp; klen=LE2;
 		for (loop=0; n--; loop++) {
-		    memcpy(l2p->idx[loop].key,lxl2p->key[loop],klen);
+		    memmove(l2p->idx[loop].key,lxl2p->key[loop],klen);
 		    l2p->idx[loop].info1=lxl2p->idx[lxi][loop].info1;
 		    l2p->idx[loop].info2=lxl2p->idx[lxi][loop].info2;
 #if LIND
@@ -3095,7 +3095,7 @@ if (trmtrace) {
 	    else {
 		l1p=(L1STRU *)lxlbufp; lxl1p=(LXL1STRU *)lbufp; klen=LE1;
 		for (loop=0; n--; loop++) {
-		    memcpy(l1p->idx[loop].key,lxl1p->key[loop],klen);
+		    memmove(l1p->idx[loop].key,lxl1p->key[loop],klen);
 		    l1p->idx[loop].info1=lxl1p->idx[lxi][loop].info1;
 		    l1p->idx[loop].info2=lxl1p->idx[lxi][loop].info2;
 #if LIND
@@ -3251,7 +3251,7 @@ printf("postread - invp=%p  addr=%"P_OFF_T"/%d  xbufp=%p  xp=%p  fd=%d \n",
 #if TRYTRACE
 printf("postread - iybasep=%p  p=%p\n",invp->iybasep,p);
 #endif
-	    memcpy(xbufp,p,xbufsiz);
+	    memmove(xbufp,p,xbufsiz);
 #if !LIND
 #if TRYTRACE
 printf("postread - blk=%"_LD_" \n",xp->ifpblk);

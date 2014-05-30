@@ -319,11 +319,11 @@ LONGX iix;
      auxpop = pop();                                                  \
      if (!fmterror)                                                   \
      {                                                                \
-      op2=(stack_node *)memcpy(&op2_node,auxpop,sizeof(stack_node));  \
+      op2=(stack_node *)memmove(&op2_node,auxpop,sizeof(stack_node));  \
       auxpop = pop();                                                 \
       if (!fmterror)                                                  \
       {                                                               \
-       op1=(stack_node *)memcpy(&op1_node,auxpop,sizeof(stack_node)); \
+       op1=(stack_node *)memmove(&op1_node,auxpop,sizeof(stack_node)); \
        if (op1->classe!=op2->classe || op1->classe != logical)        \
         inter_error(" Program error two logical operands expected");  \
        else                                                           \
@@ -810,9 +810,9 @@ void retrieve_determine_class()
 #endif /* CICPP */
 {
  auxpop = pop(); IFERR_RET;
- op2=(stack_node *)memcpy(&op2_node,auxpop,sizeof(stack_node));
+ op2=(stack_node *)memmove(&op2_node,auxpop,sizeof(stack_node));
  auxpop = pop(); IFERR_RET;
- op1=(stack_node *)memcpy(&op1_node,auxpop,sizeof(stack_node));
+ op1=(stack_node *)memmove(&op1_node,auxpop,sizeof(stack_node));
  if (op1->classe==string && op2->classe==string){new_class=string;}
   else
   { if ( (op1->classe==integer||op1->classe==float_n ||
@@ -993,26 +993,26 @@ void restore_context()
 
       /*restore  the  context */
      auxpop = pop(); IFERR_RET;
-     top=(stack_node *)memcpy(&top_node,auxpop,sizeof(stack_node));
+     top=(stack_node *)memmove(&top_node,auxpop,sizeof(stack_node));
      is_not_of_class(top->classe,ptr);
      IFERR_RET;
      out=top->op.address;
      address_out=out;
 
      auxpop = pop(); IFERR_RET;
-     top=(stack_node *)memcpy(&top_node,auxpop,sizeof(stack_node));
+     top=(stack_node *)memmove(&top_node,auxpop,sizeof(stack_node));
      is_not_of_class(top->classe,l_w);
      IFERR_RET;
      lw_inter=top->op.l;
 
      auxpop = pop(); IFERR_RET;
-     top=(stack_node *)memcpy(&top_node,auxpop,sizeof(stack_node));
+     top=(stack_node *)memmove(&top_node,auxpop,sizeof(stack_node));
      is_not_of_class(top->classe,xindex);
      if (fmt_error) return;
      pout=top->op.i;
 
      auxpop = pop(); IFERR_RET;
-     top=(stack_node *)memcpy(&top_node,auxpop,sizeof(stack_node));
+     top=(stack_node *)memmove(&top_node,auxpop,sizeof(stack_node));
      is_not_of_class(top->classe,next_cc);
      IFERR_RET;
       nextcc=top->op.l;
@@ -1637,12 +1637,12 @@ int dd;
                 slen2--;
             }
         }
-        memcpy(sfieldvalue,FIELDP(dd),slen2);
+        memmove(sfieldvalue,FIELDP(dd),slen2);
         sprintf(sfieldvalue+slen2,"+++");
         if (fmttrace) printf("%s MAX_SFIELD=%"_LD_"\n",sfieldvalue+slen2,slen2);
     }
     else {
-        memcpy(sfieldvalue,FIELDP(dd),slen);
+        memmove(sfieldvalue,FIELDP(dd),slen);
         sfieldvalue[slen]='\0';
     }
     if (fmttrace)
@@ -1897,25 +1897,25 @@ void    fmt_fim_grupos_vfields()
 {
   /* Implementacao de continue 17-7-94 */
   auxpop = pop(); IFERR_RET;
-  op1=(stack_node *)memcpy(&op1_node,auxpop,sizeof(stack_node));
+  op1=(stack_node *)memmove(&op1_node,auxpop,sizeof(stack_node));
   is_not_of_class(op1->classe,integer);
   IFERR_RET;
   continue_rgroup_maxocc=op1->op.i ;
 
   auxpop = pop(); IFERR_RET;
-  op1=(stack_node *)memcpy(&op1_node,auxpop,sizeof(stack_node));
+  op1=(stack_node *)memmove(&op1_node,auxpop,sizeof(stack_node));
   is_not_of_class(op1->classe,logical);
   IFERR_RET;
   must_repeat=op1->op.boolean ;
 
   auxpop = pop(); IFERR_RET;
-  op1=(stack_node *)memcpy(&op1_node,auxpop,sizeof(stack_node));
+  op1=(stack_node *)memmove(&op1_node,auxpop,sizeof(stack_node));
   is_not_of_class(op1->classe,integer);
   IFERR_RET;
   next_rep_occ=op1->op.i ;
 
   auxpop = pop(); IFERR_RET;
-  op1=(stack_node *)memcpy(&op1_node,auxpop,sizeof(stack_node));
+  op1=(stack_node *)memmove(&op1_node,auxpop,sizeof(stack_node));
   is_not_of_class(op1->classe,logical);
   IFERR_RET;
   rep_group=op1->op.boolean ;
@@ -2059,7 +2059,7 @@ void fmt_comum_ref_beg()
 void FMTSTRU :: fmt_comum_ref_end(void)
 {
       auxpop = pop(); IFERR_RET;
-      top=(stack_node *)memcpy(&top_node,auxpop,sizeof(stack_node));
+      top=(stack_node *)memmove(&top_node,auxpop,sizeof(stack_node));
       is_not_of_class(top->classe,type_recstru);
       IFERR_RET;
 #if BEFORE990414
@@ -2076,7 +2076,7 @@ void fmt_comum_ref_end()
 {
  LONGX trec;
       auxpop = pop(); IFERR_RET;
-      top=(stack_node *)memcpy(&top_node,auxpop,sizeof(stack_node));
+      top=(stack_node *)memmove(&top_node,auxpop,sizeof(stack_node));
       is_not_of_class(top->classe,long_n);
       IFERR_RET;
       trec=top->op.l;
@@ -2861,7 +2861,7 @@ while (fim_pgm==false){
  case jumpf:
   {
    auxpop = pop(); IFERR_GOTO;
-   top=(stack_node *)memcpy(&top_node,auxpop,sizeof(stack_node));
+   top=(stack_node *)memmove(&top_node,auxpop,sizeof(stack_node));
    is_not_of_class(top->classe,logical);
    IFERR_GOTO;
    if(top->op.boolean==false) ni=(l_code *) iadd(ni);
@@ -2873,7 +2873,7 @@ while (fim_pgm==false){
  case jumpt:
   {
    auxpop = pop(); IFERR_GOTO;
-   top=(stack_node *)memcpy(&top_node,auxpop,sizeof(stack_node));
+   top=(stack_node *)memmove(&top_node,auxpop,sizeof(stack_node));
    is_not_of_class(top->classe,logical);
    IFERR_GOTO;
 
@@ -2904,7 +2904,7 @@ while (fim_pgm==false){
  case not_op:
   {
    auxpop = pop(); IFERR_GOTO;
-   op1=(stack_node *)memcpy(&op1_node,auxpop,sizeof(stack_node));
+   op1=(stack_node *)memmove(&op1_node,auxpop,sizeof(stack_node));
    is_not_of_class(op1->classe,logical);
    IFERR_GOTO;
    elem.classe=logical;
@@ -3213,9 +3213,9 @@ case slash_spac:
   case contains:
   {
    auxpop = pop(); IFERR_GOTO;
-   op2=(stack_node *)memcpy(&op2_node,auxpop,sizeof(stack_node));
+   op2=(stack_node *)memmove(&op2_node,auxpop,sizeof(stack_node));
    auxpop = pop(); IFERR_GOTO;
-   op1=(stack_node *)memcpy(&op1_node,auxpop,sizeof(stack_node));
+   op1=(stack_node *)memmove(&op1_node,auxpop,sizeof(stack_node));
    elem.classe=logical;
    if (op1->classe!=op2->classe || op1->classe!=string)
      {inter_error("Invalid operands for ':' operator ");
@@ -3236,9 +3236,9 @@ case slash_spac:
   case instr_end:
   {
    auxpop = pop(); IFERR_GOTO;
-   op2=(stack_node *)memcpy(&op2_node,auxpop,sizeof(stack_node));
+   op2=(stack_node *)memmove(&op2_node,auxpop,sizeof(stack_node));
    auxpop = pop(); IFERR_GOTO;
-   op1=(stack_node *)memcpy(&op1_node,auxpop,sizeof(stack_node));
+   op1=(stack_node *)memmove(&op1_node,auxpop,sizeof(stack_node));
    if (op1->classe!=op2->classe || op1->classe!=string)
      {inter_error("Invalid operands for 'instr' operator ");
       IFERR_GOTO;
@@ -3261,9 +3261,9 @@ case slash_spac:
    int lng,xn;
    char *tt;
    auxpop = pop(); IFERR_GOTO;
-   op2=(stack_node *)memcpy(&op2_node,auxpop,sizeof(stack_node));
+   op2=(stack_node *)memmove(&op2_node,auxpop,sizeof(stack_node));
    auxpop = pop(); IFERR_GOTO;
-   op1=(stack_node *)memcpy(&op1_node,auxpop,sizeof(stack_node));
+   op1=(stack_node *)memmove(&op1_node,auxpop,sizeof(stack_node));
    if (op1->classe!=string || !is_numeric(op2->classe)){
       inter_error("Invalid operands for ':' operator ");
       IFERR_GOTO;
@@ -3320,19 +3320,19 @@ case slash_spac:
    char *tt;
    if (infoi(ni)==mid_end){
      auxpop = pop(); IFERR_GOTO;
-     op3=(stack_node *)memcpy(&op3_node,auxpop,sizeof(stack_node));
+     op3=(stack_node *)memmove(&op3_node,auxpop,sizeof(stack_node));
      auxpop = pop(); IFERR_GOTO;
-     op2=(stack_node *)memcpy(&op2_node,auxpop,sizeof(stack_node));
+     op2=(stack_node *)memmove(&op2_node,auxpop,sizeof(stack_node));
      auxpop = pop(); IFERR_GOTO;
-     op1=(stack_node *)memcpy(&op1_node,auxpop,sizeof(stack_node));
+     op1=(stack_node *)memmove(&op1_node,auxpop,sizeof(stack_node));
    }
    if (infoi(ni)==ss_end) {
      auxpop = pop(); IFERR_GOTO;
-     op1=(stack_node *)memcpy(&op3_node,auxpop,sizeof(stack_node));
+     op1=(stack_node *)memmove(&op3_node,auxpop,sizeof(stack_node));
      auxpop = pop(); IFERR_GOTO;
-     op3=(stack_node *)memcpy(&op2_node,auxpop,sizeof(stack_node));
+     op3=(stack_node *)memmove(&op2_node,auxpop,sizeof(stack_node));
      auxpop = pop(); IFERR_GOTO;
-     op2=(stack_node *)memcpy(&op1_node,auxpop,sizeof(stack_node));
+     op2=(stack_node *)memmove(&op1_node,auxpop,sizeof(stack_node));
    }
    if (op1->classe!=string || !is_numeric(op2->classe) ||
                               !is_numeric(op3->classe )){
@@ -3383,11 +3383,11 @@ case slash_spac:
    /* sintaxe: REPLACE(strtorep,strfrom,strto)     */
     nx=0;
    auxpop = pop(); IFERR_GOTO;
-   op3=(stack_node *)memcpy(&op3_node,auxpop,sizeof(stack_node));
+   op3=(stack_node *)memmove(&op3_node,auxpop,sizeof(stack_node));
    auxpop = pop(); IFERR_GOTO;
-   op2=(stack_node *)memcpy(&op2_node,auxpop,sizeof(stack_node));
+   op2=(stack_node *)memmove(&op2_node,auxpop,sizeof(stack_node));
    auxpop = pop(); IFERR_GOTO;
-   op1=(stack_node *)memcpy(&op1_node,auxpop,sizeof(stack_node));
+   op1=(stack_node *)memmove(&op1_node,auxpop,sizeof(stack_node));
    if (op1->classe!=string || op2->classe!=string  ||
                               op3->classe!=string ){
       inter_error("Invalid operands for 'replace' function ");
@@ -3545,7 +3545,7 @@ case slash_spac:
    case read_mfn:
    {
     auxpop = pop(); IFERR_GOTO;
-    top=(stack_node *)memcpy(&top_node,auxpop,sizeof(stack_node));
+    top=(stack_node *)memmove(&top_node,auxpop,sizeof(stack_node));
     ref_mfn_number=fmt_cnv_to_long(top);
     /* se mfn=0; nao ha registro para formatar
        precisa ignorar todas as instrucoes relativas ao formato do ref
@@ -3556,7 +3556,7 @@ case slash_spac:
     literal[0]=null_char;
     if ((LONGX )iadd(ni) ==1L){
           auxpop = pop(); IFERR_GOTO;
-          top=(stack_node *)memcpy(&top_node,auxpop,sizeof(stack_node));
+          top=(stack_node *)memmove(&top_node,auxpop,sizeof(stack_node));
           strcpy(literal, (char *) top->op.s );
  /*A06 Nao realoquei porque o nome do dbn tem que ser menor que 255*/
     }else strcpy(literal, firstdbnp);
@@ -3676,7 +3676,7 @@ case slash_spac:
      new_dbname=NULL;
      if ((LONGX )iadd(ni) ==1L){
           auxpop = pop(); IFERR_GOTO;
-          top=(stack_node *)memcpy(&top_node,auxpop,sizeof(stack_node));
+          top=(stack_node *)memmove(&top_node,auxpop,sizeof(stack_node));
           new_dbname=top->op.s; /* antes copiava para outra area*/
      }
 
@@ -3828,7 +3828,7 @@ into a calendar time with the same format used by the time function.
         { /* valor do numero gerado da pilha  */
          fd_value[0]=null_char;
      auxpop = pop(); IFERR_GOTO;
-     top=(stack_node *)memcpy(&top_node,auxpop,sizeof(stack_node));
+     top=(stack_node *)memmove(&top_node,auxpop,sizeof(stack_node));
      is_numeric(top->classe);
      IFERR_GOTO;
          lw_inter=(LONGX)top->op.l;
@@ -3858,7 +3858,7 @@ into a calendar time with the same format used by the time function.
      char *tmpch;
      fd_value[0]=null_char;
      auxpop = pop(); IFERR_GOTO;
-     top=(stack_node *)memcpy(&top_node,auxpop,sizeof(stack_node));
+     top=(stack_node *)memmove(&top_node,auxpop,sizeof(stack_node));
      is_numeric(top->classe);
      IFERR_GOTO;
      float_exp_value =  fmt_cnv_to_float(top);
@@ -3884,7 +3884,7 @@ into a calendar time with the same format used by the time function.
      fd_value[0]=null_char;
                    /* AOT - Correcao SVD 21/08/90 */
      auxpop = pop(); IFERR_GOTO;
-     top=(stack_node *)memcpy(&top_node,auxpop,sizeof(stack_node));
+     top=(stack_node *)memmove(&top_node,auxpop,sizeof(stack_node));
          is_not_of_class(top->classe,long_n);
          IFERR_GOTO;
      is_numeric(top->classe);
@@ -3892,7 +3892,7 @@ into a calendar time with the same format used by the time function.
          dec_places=(int)top->op.l;
 
      auxpop = pop(); IFERR_GOTO;
-     top=(stack_node *)memcpy(&top_node,auxpop,sizeof(stack_node));
+     top=(stack_node *)memmove(&top_node,auxpop,sizeof(stack_node));
          is_not_of_class(top->classe,long_n);
          IFERR_GOTO;
      is_numeric(top->classe);
@@ -3901,7 +3901,7 @@ into a calendar time with the same format used by the time function.
 
 
      auxpop = pop(); IFERR_GOTO;
-     top=(stack_node *)memcpy(&top_node,auxpop,sizeof(stack_node));
+     top=(stack_node *)memmove(&top_node,auxpop,sizeof(stack_node));
      is_numeric(top->classe);
      IFERR_GOTO;
      float_exp_value =  fmt_cnv_to_float(top);
@@ -4149,11 +4149,11 @@ into a calendar time with the same format used by the time function.
      rr=0;
      /* pattern ou valor numerico */
      auxpop = pop(); IFERR_GOTO;
-     op1=(stack_node *)memcpy(&op1_node,auxpop,sizeof(stack_node));
+     op1=(stack_node *)memmove(&op1_node,auxpop,sizeof(stack_node));
 
      /* como deve ser interpretado o operador 1 */
      auxpop = pop(); IFERR_GOTO;
-     op2=(stack_node *)memcpy(&op2_node,auxpop,sizeof(stack_node));
+     op2=(stack_node *)memmove(&op2_node,auxpop,sizeof(stack_node));
      is_not_of_class(op2->classe,long_n);
       IFERR_GOTO;
      tmp_ptr= &out[0];
@@ -4291,7 +4291,7 @@ into a calendar time with the same format used by the time function.
    case str_cat:
    {
    auxpop = pop(); IFERR_GOTO;
-   top=(stack_node *)memcpy(&top_node,auxpop,sizeof(stack_node));
+   top=(stack_node *)memmove(&top_node,auxpop,sizeof(stack_node));
    is_not_of_class(top->classe,string);
    IFERR_GOTO;
    out_put_str(out,outsize, &pout,lw_inter,0,0, &nextcc,top->op.s);
@@ -4313,7 +4313,7 @@ into a calendar time with the same format used by the time function.
 
 /*   nextcc=deve_ser o ultimo chamado; */
    auxpop = pop(); IFERR_GOTO;
-   top=(stack_node *)memcpy(&top_node,auxpop,sizeof(stack_node));
+   top=(stack_node *)memmove(&top_node,auxpop,sizeof(stack_node));
    is_not_of_class(top->classe,string);
    IFERR_GOTO;
 #if DEB_FLOAT
@@ -4427,7 +4427,7 @@ into a calendar time with the same format used by the time function.
   {
 /*
          auxpop = pop(); IFERR_GOTO;
-        top=(stack_node *)memcpy(&top_node,auxpop,sizeof(stack_node));
+        top=(stack_node *)memmove(&top_node,auxpop,sizeof(stack_node));
         is_not_of_class(top->classe,string)
         IFERR_GOTO;
 */

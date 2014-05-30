@@ -14,7 +14,7 @@ MAXMFRL=0
 
 CICONF1 = -DCIFFI=$(CIFFI) -DLIND=$(LIND) -DLIND4=$(LIND4) -DISISXL=$(ISISXL) -DISISXL512=$(ISISXL512) -DLINDLUX=$(LINDLUX) -DPROCXSLT=$(PROCXSLT) -D_FILE_OFFSET_BITS=$(_FILE_OFFSET_BITS) -D_LARGEFILE64_SOURCE=$(_LARGEFILE64_SOURCE) -DSIXTY_FOUR=$(SIXTY_FOUR) -DSUPERISIS=$(SUPERISIS) -DMAXMFRL=$(MAXMFRL)
 #CICONF1 = -DCIFFI=$(CIFFI) -DLIND=$(LIND) -DISISXL=$(ISISXL) -DISISXL512=$(ISISXL512) -DLINDLUX=$(LINDLUX)
-CICONF2 = -DCIWTF=0 -DINCPROCX=0 -DINCPRECX=0 -DEXCFMCGI=0 -DEXCFMXML=1
+CICONF2 = -DCIWTF=0 -DINCPROCX=0 -DINCPRECX=0 -DEXCFMCGI=0 -DEXCFMXML=1 -D_GLIBC_VERSIONED_SOURCE
 
 CC = cc
 CCFLAGS = -funsigned-char -Wall
@@ -23,7 +23,7 @@ CCOPTS = -c $(CCFLAGS) $(CICONF1) $(CICONF2)
 
 mxget: mxget.o cifm1.o cifm2.o cifm3.o cidbx.o cigiz.o cirec.o ciupd.o citrm.o ciutl.o cicgi.o
 	echo ld mxget..
-	$(CC) $(CCLIBS) -o mxget mxget.o cifm1.o cifm2.o cifm3.o cidbx.o cigiz.o cirec.o ciupd.o citrm.o ciutl.o cicgi.o
+	$(CC) -o mxget mxget.o cifm1.o cifm2.o cifm3.o cidbx.o cigiz.o cirec.o ciupd.o citrm.o ciutl.o cicgi.o $(CCLIBS)
 
 mxget.o: mxget.c cisis.h
 	echo mxget..

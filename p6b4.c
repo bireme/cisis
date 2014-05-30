@@ -144,7 +144,7 @@ LONGX buffuplen=0;
 			QVW[g1]=W;
          /* monta boolqryp */
          if (boolqryp[0]) *bp++ = '+'; /* OR */
-         memcpy(bp,areaval,DIRlen(diridx)); bp+=DIRlen(diridx); *bp='\0';
+         memmove(bp,areaval,DIRlen(diridx)); bp+=DIRlen(diridx); *bp='\0';
 
 		}
 

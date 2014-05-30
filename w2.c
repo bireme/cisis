@@ -104,7 +104,7 @@ int trigcoll (int cmd, WTFUN_ARRAY *awtfp, char *parmstring, char *reply)
 
 #if FATRAPWT
      /* save/notrap */
-     strcpy(z_iomsg,fatal_iomsg); memcpy(z_jumper,fatal_jumper,sizeof(fatal_jumper)); z_errcod=fatal_errcod; 
+     strcpy(z_iomsg,fatal_iomsg); memmove(z_jumper,fatal_jumper,sizeof(fatal_jumper)); z_errcod=fatal_errcod; 
      z_xerrno=dbxopt_errno; 
      /* trap cisis fatal() */
      strcpy(fatal_iomsg,"trap");
@@ -117,7 +117,7 @@ int trigcoll (int cmd, WTFUN_ARRAY *awtfp, char *parmstring, char *reply)
              sprintf(reply,"<error type=\"fatal\" in=\"trigcoll\" code=\"%d\">%s</error>\n",fatal_errcod,fatal_iomsg);
          }
          /* restore/notrap */  //strcpy(fatal_iomsg,""); 
-    	 memcpy(fatal_jumper,z_jumper,sizeof(fatal_jumper)); strcpy(fatal_iomsg,z_iomsg); 
+    	 memmove(fatal_jumper,z_jumper,sizeof(fatal_jumper)); strcpy(fatal_iomsg,z_iomsg); 
          fatal_errcod=z_errcod; 
          dbxopt_errno=z_xerrno;
          return (-1);
@@ -157,7 +157,7 @@ int trigcoll (int cmd, WTFUN_ARRAY *awtfp, char *parmstring, char *reply)
         /* setup collection in [0] */
             WTFUN_XWT *xxwtp=wtnew(cmd);                 // new coll
             if (!xxwtp) return -1;
-            memcpy(xxwtp,xwtp,sizeof(WTFUN_XWT));        // copy parms
+            memmove(xxwtp,xwtp,sizeof(WTFUN_XWT));        // copy parms
             xwtp=xxwtp;                                  // set current 
             coll=awtfp->nwtfs;                           // coll#
             awtfp->vwtfp[coll]=xwtp;                     // wtfp
@@ -215,12 +215,12 @@ int trigcoll (int cmd, WTFUN_ARRAY *awtfp, char *parmstring, char *reply)
 
 #if ALLOWUPCASE
     /* load proper uppercase */
-    memcpy(isisuctab,xisisuctab,sizeof(xisisuctab));
-    memcpy(isiswctab,xisiswctab,sizeof(xisiswctab)); 
+    memmove(isisuctab,xisisuctab,sizeof(xisisuctab));
+    memmove(isiswctab,xisiswctab,sizeof(xisiswctab)); 
     isiswctot=xisiswctot;
 #else
     // default is ansi
-    memcpy(isisuctab,ansiuctab,256/*sizeof(ansiuctab)*/);
+    memmove(isisuctab,ansiuctab,256/*sizeof(ansiuctab)*/);
     for (isiswctot=0; ansiactab[isiswctot]; isiswctot=isiswctot+1) isiswctab[ansiactab[isiswctot]]=1;       
 #endif
 
@@ -436,7 +436,7 @@ int trigcoll (int cmd, WTFUN_ARRAY *awtfp, char *parmstring, char *reply)
 
 #if FATRAPWT
      /* restore/notrap */  //strcpy(fatal_iomsg,""); 
-     memcpy(fatal_jumper,z_jumper,sizeof(fatal_jumper)); strcpy(fatal_iomsg,z_iomsg); fatal_errcod=z_errcod; dbxopt_errno=z_xerrno;
+     memmove(fatal_jumper,z_jumper,sizeof(fatal_jumper)); strcpy(fatal_iomsg,z_iomsg); fatal_errcod=z_errcod; dbxopt_errno=z_xerrno;
 #endif
 
     /* end doc

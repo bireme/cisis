@@ -228,7 +228,7 @@ UINT n;
 		    if (wlen < lentabx[itabx]) wlen++;
 		    else break;
 		sprintf(batchp,"H%d %d ",itabx+1,wlen); batchp+=strlen(batchp);
-		memcpy(batchp,wptr,wlen);
+		memmove(batchp,wptr,wlen);
 		batchp+=wlen;
                 wptr+=lentabx[itabx];
 

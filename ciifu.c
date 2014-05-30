@@ -262,7 +262,7 @@ UCHR *lfitem;
   L2IDXE  *lfi2;
   INFO info1,info2;
   keysize = vlex[treecase];
-  memcpy (str, lfitem, keysize );
+  memmove (str, lfitem, keysize );
   str[keysize]='\0';
   if (treecase == 0) {
      lfi1 = (L1IDXE *)lfitem;
@@ -591,7 +591,7 @@ if (idx_curr_inp==UNDEFINED ){
 }
 verif_grava_rec(dbxp,idx_curr_inp);
 blk_inp++;
-memcpy(PREG(idx_curr_inp),postread(pbuf,invp,blk_inp,0),IFBSIZ);
+memmove(PREG(idx_curr_inp),postread(pbuf,invp,blk_inp,0),IFBSIZ);
 idxpst_inp=0;
 }
 /*-----------------------------------------------------------------*/
@@ -631,7 +631,7 @@ void next_input_seg()
    }
  }
 verif_grava_rec(dbxp,idx_curr_inp);
-memcpy(PREG(idx_curr_inp),postread(pbuf,invp,nxtb_inp,0),IFBSIZ);
+memmove(PREG(idx_curr_inp),postread(pbuf,invp,nxtb_inp,0),IFBSIZ);
 /* Verifica se apos a leitura o first e segh voltaram a apontar para
    o mesmo bloco e estao apontando para posicoes diferentes na memoria
 */
@@ -699,12 +699,12 @@ int *ja_inseriu;
    x=memcmp(source,ppst,sizeof(POSTSTRU));
  }else x=1;
  if (*ja_inseriu==TRUE || x<0){
-         memcpy(dest,source,sizeof(POSTSTRU));
+         memmove(dest,source,sizeof(POSTSTRU));
          STATUS(idx_curr_out)=MODIFIED;
      next_output_element();
      next_input_element();
  }else {
-     memcpy(dest,ppst,sizeof(POSTSTRU));
+     memmove(dest,ppst,sizeof(POSTSTRU));
          STATUS(idx_curr_out)=MODIFIED;
      *ja_inseriu=TRUE;
      if (x==0)
@@ -734,9 +734,9 @@ void insere_posting(idx_ifprec,idx,ppst)
    p=PSTADDR(pifp,idx);
    x= memcmp(p,ppst,sizeof(POSTSTRU));
    if (x>0) {
-     memcpy(&tmp,p,sizeof(POSTSTRU));
-     memcpy(p,ppst,sizeof(POSTSTRU));
-     memcpy(ppst,&tmp,sizeof(POSTSTRU));
+     memmove(&tmp,p,sizeof(POSTSTRU));
+     memmove(p,ppst,sizeof(POSTSTRU));
+     memmove(ppst,&tmp,sizeof(POSTSTRU));
          STATUS(idx_ifprec)=MODIFIED;
    }else
     if (x==0 && dupl_msg==FALSE){
@@ -828,7 +828,7 @@ INFO segc;
    pcur_blk_out=PREG(idx_curr_out);
  }else {
         x=postread(pbuf,invp,nxtb_out,0);
-        memcpy(pcur_blk_out,x,IFBSIZ);
+        memmove(pcur_blk_out,x,IFBSIZ);
         STATUS(idx_curr_out)=NOT_MODIFIED;
     }
  if (nxtp_out+IDXHEADSIZE+PSTSIZE > MAXIDXPST) {
@@ -952,7 +952,7 @@ fiquem segmentos com poucos psotings
 /* limpa resto do vetor de saida */
     while (dep < segc_out) {
       out=PSTADDR( (PREG(idx_curr_out)),(int)idxpst_out);
-      memcpy(out,pinitpst,sizeof(POSTSTRU));
+      memmove(out,pinitpst,sizeof(POSTSTRU));
       STATUS(idx_curr_out)=MODIFIED;
       np++;
       dep++;
@@ -1021,7 +1021,7 @@ POSTSTRU *ppst;
  }
  /* Insere o ultimo elemento */
  p=PSTADDR( (PREG(idx_curr_inp)),(int)idxpst_inp);
- memcpy(p,ppst,sizeof(POSTSTRU));
+ memmove(p,ppst,sizeof(POSTSTRU));
  STATUS(idx_curr_inp)=MODIFIED;
 #if CNV_PCBINUM
  /*hh*/
@@ -1112,7 +1112,7 @@ INFO *blk,*off;
   nxtb_inp=0;
   create_new_segment(1,1);
   out=PSTADDR( (PREG(idx_curr_out)) ,(int)idxpst_out);
-  memcpy(out,ppst,sizeof(POSTSTRU));
+  memmove(out,ppst,sizeof(POSTSTRU));
   *blk=nxtb_out;
   *off=nxtp_out;
   STATUS(idx_curr_out)=MODIFIED;
@@ -1184,20 +1184,20 @@ LONGX oqtylk2;
 /* Processa arvore do tipo 2*/
  for (p=olnk2p; oqtylk2--; p+=sizeof(LINK2)) {
 #if TRACEOPT
-       memcpy(reg,p,sizeof(LINK2));
+       memmove(reg,p,sizeof(LINK2));
        printf("\n Old :%s",reg);
 #endif
     qty=qtylk2;
     achou=FALSE;
     for (q=lnk2p; qty-- && achou==FALSE; q+=sizeof(LINK2)){
 #if TRACEOPT
-       memcpy((char *)reg,q,sizeof(LINK2));
+       memmove((char *)reg,q,sizeof(LINK2));
        printf("\n  New:%s",reg);
 #endif
            if (memcmp(p,q,sizeof(LINK2))==0) {
 /*
-         memcpy(p,(char *)branco,sizeof(LINK2)) ;
-         memcpy(q,(char *)branco,sizeof(LINK2)) ;
+         memmove(p,(char *)branco,sizeof(LINK2)) ;
+         memmove(q,(char *)branco,sizeof(LINK2)) ;
 */
           *p='\0';
           *q='\0';
@@ -1241,20 +1241,20 @@ LONGX oqtylk1;
 /* Processa arvore do tipo 1*/
  for (p=olnk1p; oqtylk1--; p+=sizeof(LINK1)) {
 #if TRACEOPT
-       memcpy(reg,p,sizeof(LINK1));
+       memmove(reg,p,sizeof(LINK1));
        printf("\n Old :%s",reg);
 #endif
     qty=qtylk1;
     achou=FALSE;
     for (q=lnk1p; qty-- && achou==FALSE; q+=sizeof(LINK1)){
 #if TRACEOPT
-       memcpy(reg,q,sizeof(LINK1));
+       memmove(reg,q,sizeof(LINK1));
        printf("\n  New:%s",reg);
 #endif
            if (memcmp(p,q,sizeof(LINK1))==0) {
 /*
-	 memcpy(p,(char *)branco,sizeof(LINK1)) ;
-         memcpy(q,(char *)branco,sizeof(LINK1)) ;
+	 memmove(p,(char *)branco,sizeof(LINK1)) ;
+         memmove(q,(char *)branco,sizeof(LINK1)) ;
 */
           *p='\0';
           *q='\0';
@@ -1316,9 +1316,9 @@ LONGX tell;
 	 if (tell>0) printf("\n=====> Delecao oqtylk1=%"_LD_,oqtylk1);
 #endif
 	 for (p1=(LINK1 *)olnk1p; oqtylk1--; p1++ /* LINK1 */) {
-		memcpy(keyp,p1->key,vlex[treecase]);
+		memmove(keyp,p1->key,vlex[treecase]);
 		keyp[vlex[treecase]]='\0';
-		memcpy((char *)&pst, &(p1->post),POSTSIZE);
+		memmove((char *)&pst, &(p1->post),POSTSIZE);
 		/* para futuro: Ignora entradas em branco */
 #if TRACEhh
 		printf("\n-----------------------------------------------\n");
@@ -1334,9 +1334,9 @@ LONGX tell;
 	 if (tell>0) printf("\n=====> Insercao qtylk1=%"_LD_,qtylk1);
 #endif
 	 for (p1=(LINK1 *)lnk1p; qtylk1--; p1++ /* LINK1 */) {
-		memcpy(keyp,p1->key,vlex[treecase]);
+		memmove(keyp,p1->key,vlex[treecase]);
 		keyp[vlex[treecase]]='\0';
-		memcpy((char *)&pst, &(p1->post),POSTSIZE);
+		memmove((char *)&pst, &(p1->post),POSTSIZE);
 #if TRACEhh
 		printf("\n------------------------------------ %"_LD_"\n",nlidos);
 		upif_print_msg((POSTSTRU *)&pst,"Tree[0] Inserindo...");
@@ -1353,9 +1353,9 @@ LONGX tell;
 	 if (tell>0) printf("\n=====> Delecao oqtylk2=%"_LD_,oqtylk2);
 #endif
 	 for (p2=(LINK2 *)olnk2p; oqtylk2--; p2++ /* LINK2 */) {
-		memcpy(keyp,p2->key,vlex[treecase]);
+		memmove(keyp,p2->key,vlex[treecase]);
 		keyp[vlex[treecase]]='\0';
-		memcpy((char *)&pst, &(p2->post),POSTSIZE);
+		memmove((char *)&pst, &(p2->post),POSTSIZE);
 		/* para futuro: Ignora entradas em branco */
 #if TRACEhh
 		printf("\n-----------------------------------------------\n");
@@ -1371,9 +1371,9 @@ LONGX tell;
 	 if (tell>0) printf("\n=====> Insercao qtylk2=%"_LD_,qtylk2);
 #endif
 	 for (p2=(LINK2 *)lnk2p; qtylk2--; p2++ /* LINK2 */) {
-		memcpy(keyp,p2->key,vlex[treecase]);
+		memmove(keyp,p2->key,vlex[treecase]);
 		keyp[vlex[treecase]]='\0';
-		memcpy((char *)&pst, &(p2->post),POSTSIZE);
+		memmove((char *)&pst, &(p2->post),POSTSIZE);
 #if TRACEhh
 		printf("\n-----------------------------------------------\n");
 		upif_print_msg((POSTSTRU *)&pst,"Tree[1] Inserindo...");
@@ -1450,7 +1450,7 @@ if (deleted!=TRUE)
   while (npst_read_in_seg <= segp_inp-1){
         inp = PSTADDR( (PREG(idx_curr_inp)) ,(int)idxpst_inp);
         out = PSTADDR( (PREG(idx_curr_out)) ,(int)idxpst_out);
-        memcpy(out,inp,sizeof(POSTSTRU));
+        memmove(out,inp,sizeof(POSTSTRU));
         STATUS(idx_curr_out)=MODIFIED;
     next_input_element();
         next_output_element();
@@ -1459,7 +1459,7 @@ if (deleted!=TRUE)
 			      a parte que nao vai mudar de valor
 			    */
 	   idx_curr_out=CURR_OUT;
-	   memcpy( PREG(idx_curr_out),PREG(idx_curr_inp),sizeof(IFPSTRU));
+	   memmove( PREG(idx_curr_out),PREG(idx_curr_inp),sizeof(IFPSTRU));
 	}
    }
    verif_grava_rec(dbxp,idx_curr_out);
@@ -1706,7 +1706,7 @@ if (shtest[0]=='.') system(shtest+1);
 	       case REC_PHYS_DEL:      RECrc=RCPDEL; break;
 	     }
 	if (RECrc == RCNORMAL || RECrc == RCLDEL)
-	    memcpy(MFX,mst->getrecbuf(),mst->getreclen());
+	    memmove(MFX,mst->getrecbuf(),mst->getreclen());
 #else /* USE_GDBFMT */
 	recp->xrecord(mdbnp,mfn);
 #endif /* USE_GDBFMT */

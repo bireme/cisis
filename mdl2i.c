@@ -531,7 +531,7 @@ putchar('\n');
 	    }
 	    if (urecs == 1) {
 	        dpareal=DIRlen(dpxdir); if (dpareal > 4) dpareal=4;
-		memcpy(dparea,FIELDP(dpxdir),dpareal); dparea[dpareal]='\0';
+		memmove(dparea,FIELDP(dpxdir),dpareal); dparea[dpareal]='\0';
 	    }
         }
 
@@ -561,7 +561,7 @@ NEWREC_LAB:
 	        if (n1 == EOF) marclast++;
         	fprintf(fplog,"|%"_LD_"|ur=%"_LD_"|lr=%"_LD_"\n",dpurecs,marcfirst,marclast);
 		dpareal=DIRlen(dpxdir); if (dpareal > 4) dpareal=4;
-		memcpy(dparea,FIELDP(dpxdir),dpareal); dparea[dpareal]='\0';
+		memmove(dparea,FIELDP(dpxdir),dpareal); dparea[dpareal]='\0';
 		dpurecs=0L;
                 marcfirst=marclast + 1;
 
@@ -737,13 +737,13 @@ int xbufsize;
 
     if (nxleft >= xbufsize) {
         nx=xbufsize;
-	memcpy(xbuf,&buffin[ixleft],xbufsize);
+	memmove(xbuf,&buffin[ixleft],xbufsize);
         nxleft-=xbufsize;
         ixleft+=xbufsize;
     }
     else {
         nx=nxleft;
-	memcpy(xbuf,&buffin[ixleft],nx);
+	memmove(xbuf,&buffin[ixleft],nx);
 	nxleft=read(fx,buffin,MBUFSIZ);
         ixleft=0;
         if (nx+nxleft) {
@@ -754,7 +754,7 @@ int xbufsize;
                 fprintf(stderr,"nx: %d\n",nx);
 		fatal("readxaot/more bytes expected");
             }
-	    memcpy(&xbuf[nx],buffin,n);
+	    memmove(&xbuf[nx],buffin,n);
             nx+=n;
             nxleft-=n;
             ixleft+=n;

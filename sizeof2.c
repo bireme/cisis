@@ -233,7 +233,7 @@ void main(int arc,
   ali1.x1 = 771;
   ali1.x1a = 289360691352306692L;
   ali1.x2 = 1285;
-  memcpy(ali1.ch2, &val, 7);
+  memmove(ali1.ch2, &val, 7);
 
   memset(&ali2, 0x00, sizeof(ali2));
   ali2.ch1 = 1;
@@ -241,7 +241,7 @@ void main(int arc,
   ali2.x1 = 771;
   ali2.x1a = 289360691352306692L;
   ali2.x2 = 1285;
-  memcpy(ali2.ch2, &val, 7);
+  memmove(ali2.ch2, &val, 7);
 
   memset(&ali4, 0x00, sizeof(ali4));
   ali4.ch1 = 1;
@@ -249,7 +249,7 @@ void main(int arc,
   ali4.x1 = 771;
   ali4.x1a = 289360691352306692L;
   ali4.x2 = 1285;
-  memcpy(ali4.ch2, &val, 7);
+  memmove(ali4.ch2, &val, 7);
 
   memset(&ali8, 0x00, sizeof(ali8));
   ali8.ch1 = 1;
@@ -257,7 +257,7 @@ void main(int arc,
   ali8.x1 = 771;
   ali8.x1a = 289360691352306692L;
   ali8.x2 = 1285;
-  memcpy(ali8.ch2, &val, 7);
+  memmove(ali8.ch2, &val, 7);
 
   memset(&ali2X, 0x00, sizeof(ali2X));
   ali2X.ch1 = 1;
@@ -265,7 +265,7 @@ void main(int arc,
   ali2X.x1 = 771;
   ali2X.x1a = 289360691352306692L;
   ali2X.x2 = 1285;
-  memcpy(ali2X.ch2, &val, 7);
+  memmove(ali2X.ch2, &val, 7);
 
   memset(&ali4X, 0x00, sizeof(ali4X));
   ali4X.ch1 = 1;
@@ -273,7 +273,7 @@ void main(int arc,
   ali4X.x1 = 771;
   ali4X.x1a = 289360691352306692L;
   ali4X.x2 = 1285;
-  memcpy(ali4X.ch2, &val, 7);
+  memmove(ali4X.ch2, &val, 7);
 
   memset(&ali8X, 0x00, sizeof(ali8X));
   ali8X.ch1 = 1;
@@ -281,7 +281,7 @@ void main(int arc,
   ali8X.x1 = 771;
   ali8X.x1a = 289360691352306692L;
   ali8X.x2 = 1285;
-  memcpy(ali8X.ch2, &val, 7);
+  memmove(ali8X.ch2, &val, 7);
 
   memset(&paali8X, 0x00, sizeof(paali8X));
   paali8X.ch1 = 1;
@@ -289,7 +289,7 @@ void main(int arc,
   paali8X.x1 = 771;
   paali8X.x1a = 289360691352306692L;
   paali8X.x2 = 1285;
-  memcpy(paali8X.ch2, &val, 7);
+  memmove(paali8X.ch2, &val, 7);
 
   memset(&ali8Xpa, 0x00, sizeof(ali8Xpa));
   ali8Xpa.ch1 = 1;
@@ -297,7 +297,7 @@ void main(int arc,
   ali8Xpa.x1 = 771;
   ali8Xpa.x1a = 289360691352306692L;
   ali8Xpa.x2 = 1285;
-  memcpy(ali8Xpa.ch2, &val, 7);
+  memmove(ali8Xpa.ch2, &val, 7);
 
   memset(&pa, 0x00, sizeof(pa));
   pa.ch1 = 1;
@@ -305,7 +305,7 @@ void main(int arc,
   pa.x1 = 771;
   pa.x1a = 289360691352306692L;
   pa.x2 = 1285;
-  memcpy(pa.ch2, &val, 7);
+  memmove(pa.ch2, &val, 7);
 
   memset(&paX, 0x00, sizeof(paX));
   paX.ch1 = 1;
@@ -313,7 +313,7 @@ void main(int arc,
   paX.x1 = 771;
   paX.x1a = 289360691352306692L;
   paX.x2 = 1285;
-  memcpy(paX.ch2, &val, 7);
+  memmove(paX.ch2, &val, 7);
 
   memset(&cnstru_packed, 0x00, sizeof(cnstru_packed));
   cnstru_packed.idtype = 257;

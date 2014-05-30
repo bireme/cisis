@@ -110,7 +110,7 @@ char *envp;
              if (jd_n >= MAXJDS) ; //fatal("MAXJDS");
              else {
                  if (nlen > LE2) nlen=LE2;
-                 memcpy(jd_name[jd_n],namp,nlen); 
+                 memmove(jd_name[jd_n],namp,nlen); 
                  jd_name[jd_n][nlen]='\0';
                  jd_pgmp[jd_n]=(FMT_CODE *)NULL;
                  if (fmt_gener(&jd_pgmp[jd_n],specp)) ; //fatal(specp+fmt_errof);            
@@ -130,7 +130,7 @@ char *envp;
              if (jdv_n >= MAXJVS) ; //fatal("MAXJVS");
              else {
                  if (nlen > LE2) nlen=LE2;
-                 memcpy(jdv_name[jdv_n],namp,nlen); 
+                 memmove(jdv_name[jdv_n],namp,nlen); 
                  jdv_name[jdv_n][nlen]='\0';
                  jdv_pgmp[jdv_n]=(FMT_CODE *)NULL;
                  if (fmt_gener(&jdv_pgmp[jdv_n],specp)) ; //fatal(specp+fmt_errof);            

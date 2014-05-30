@@ -21,7 +21,7 @@ int w2rcox ( int cmd, WTFUN_ARRAY *awtfp, int coll )
             langshits[nlangs]=(char  *)loadfile(NULL,'@',"",NULL,hitbytes,'\0');
             /* store bit string */
             xdir=fieldx(ifrec,TAG35,1); if (xdir < 0) fatal("wtrig2/terminverted/lang/TAG35");
-            memcpy(langshits[nlangs],FIELDP(xdir),hitbytes);
+            memmove(langshits[nlangs],FIELDP(xdir),hitbytes);
             /* store name */
             xdir=fieldx(ifrec,TAG34,1); if (xdir < 0) fatal("wtrig2/terminverted/lang/TAG34");
             for (p=FIELDP(xdir), left=DIRlen(xdir); left--; ) {

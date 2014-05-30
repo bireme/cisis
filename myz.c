@@ -234,7 +234,7 @@ char *argv[];
                 for (eq=0; eq < keylen; eq++)
                     if (keyp[eq] != prevkey[eq]) break;
             }
-            memcpy(prevkey,keyp,lex);
+            memmove(prevkey,keyp,lex);
             
             if (show) {
                 fprintf(fpx,"%3d|%3d|",eq,keylen);
@@ -247,7 +247,7 @@ char *argv[];
             *lzkp++ = (unsigned char)eq;
             *lzkp++ = (unsigned char)keylen;
 
-            memcpy(lzkp,keyp+eq,ne=keylen-eq);
+            memmove(lzkp,keyp+eq,ne=keylen-eq);
             lzkp+=ne;
 
             lzsize+=2;          /* eq+keylen */

@@ -277,7 +277,7 @@ char *dbnp;
                     fldp=subfldp(VFIELDP(booltlir,xdir),'y',&fldl);
                     fldl=subfldn(fldp,fldl);
                     if (fldl) {
-                        memcpy(mx_bup,fldp,fldl);
+                        memmove(mx_bup,fldp,fldl);
                         mx_bup[fldl]='\0';
                         invsetup(mx_bup,parmload,parmload,parmload);
                     }

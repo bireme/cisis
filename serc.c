@@ -245,7 +245,7 @@ putenv("QUERY_STRING=wtrig2=on&cipar=similar/jdlilacs.cip&collection=lilrelff&te
                 npairs++;
                 //
                 np[nlen]='\0';                        // Nam dlm
-                vlen=len-nlen-2-2;                    // memcpy
+                vlen=len-nlen-2-2;                    // memmove
                 if (debug) printf("+++ pair %d: %s[%d+%d,%d,%d]<br />\n",npairs,hhp,y,len,nlen,vlen);
                 if (vlen < 0) fatal("serc/vlen");
 
@@ -295,7 +295,7 @@ putenv("QUERY_STRING=wtrig2=on&cipar=similar/jdlilacs.cip&collection=lilrelff&te
                   //move wtrig2/other parms - w2p0.c now discart non-w2 parms
                   if (wtmsg) {
                       if (!vlen) { sprintf(x," %s" ,np); x+=strlen(x); }
-                      else       { sprintf(x," %s=",np); x+=strlen(x); memcpy(x,vp,vlen); x+=vlen; }
+                      else       { sprintf(x," %s=",np); x+=strlen(x); memmove(x,vp,vlen); x+=vlen; }
                   }
                   else if (debug) printf("+++ pair %d: %s[%d+%d,%d,%d] - ignored <br />\n",npairs,hhp,y,len,nlen,vlen);
                   
@@ -328,10 +328,10 @@ putenv("QUERY_STRING=wtrig2=on&cipar=similar/jdlilacs.cip&collection=lilrelff&te
            char *x=wtmsg+strlen(wtmsg);
            message=wtmsg;           
            if (txt1vlen) {
-             sprintf(x," text1="); x+=strlen(x); memcpy(x,txt1vp,txt1vlen); x+=txt1vlen; *x='\0';
+             sprintf(x," text1="); x+=strlen(x); memmove(x,txt1vp,txt1vlen); x+=txt1vlen; *x='\0';
            }
            if (txtvlen) {
-             sprintf(x," text=" ); x+=strlen(x); memcpy(x,txtvp,txtvlen);   x+=txtvlen;  *x='\0';
+             sprintf(x," text=" ); x+=strlen(x); memmove(x,txtvp,txtvlen);   x+=txtvlen;  *x='\0';
            }
        } /* end wtmsg */
 

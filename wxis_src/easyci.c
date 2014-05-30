@@ -82,7 +82,7 @@ void eci_rec_copy(LONGX to,      /* target record index */
 
    /* 1 */
     VRECrc(to) = VRECrc(from);
-    memcpy(VMFX(to),VMFX(from),VMFRmfrl(from));
+    memmove(VMFX(to),VMFX(from),VMFRmfrl(from));
 }
 /* ============================================================ eci_rec_free */
 void eci_rec_free(LONGX idx) /* record index */
@@ -711,7 +711,7 @@ BOOLEAN eci_export_iso2709_marc(FILE *export_fp,    /* export file pointer */
    for (flddir = 0; flddir < VMFRnvf(idx); flddir++) {
       tag = VDIRtag(idx,flddir);
       if (tag >= ISO_MARC_TAG) if (tag <= ISO_MARC_TAG+ISOHSIZE) continue;
-      memcpy(p,VFIELDP(idx,flddir),VDIRlen(idx,flddir));
+      memmove(p,VFIELDP(idx,flddir),VDIRlen(idx,flddir));
       p += VDIRlen(idx,flddir);
       *p++ = ISO_MARCFLDSEP;
    } /* for */
@@ -776,7 +776,7 @@ BOOLEAN eci_export_iso2709(FILE *export_fp, /* export file pointer */
    /* .......................................................... data fields */
    *p++ = ISO_FLDSEP;
    for (flddir = 0; flddir < VMFRnvf(idx); flddir++) {
-      memcpy(p,VFIELDP(idx,flddir),VDIRlen(idx,flddir));
+      memmove(p,VFIELDP(idx,flddir),VDIRlen(idx,flddir));
       p += VDIRlen(idx,flddir);
       *p++ = ISO_FLDSEP;
    } /* for */

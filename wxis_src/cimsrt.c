@@ -43,7 +43,7 @@ void cms_writptr(LONGX mfn,
         if (LSEEK64(DBXxropn,xbyte,SEEK_SET) != xbyte)
             fatal("msrt/writptr/seek/break");
 #if CNV_PCBINUM
-        memcpy(cnv_pcbuff,DBXxribp,XRBSIZ);
+        memmove(cnv_pcbuff,DBXxribp,XRBSIZ);
         ConvertXRF_REC(cnv_pcbuff);
         if (CIWRITE(DBXxropn,cnv_pcbuff,XRBSIZ) != XRBSIZ)
 #else
@@ -128,7 +128,7 @@ void cms_getkey(char *buff,
     if (keyField) {
 
       i = fieldx(idx,(int)keyField,1);
-      memcpy(buff,VFIELDP(idx,i),VDIRlen(idx,i));
+      memmove(buff,VFIELDP(idx,i),VDIRlen(idx,i));
       *(buff+VDIRlen(idx,i)) = '\0';
 
    } else {
@@ -196,16 +196,16 @@ void cms_sort_list(LONGX regsin,
             cms_getkey(ibuf,buf_size,idx,i,keysize,fmtgen,pgmp,keyField);
             if (memcmp(ibuf,tbuf,keysize) > 0) {
                 cms_exchptr(ij,i,idx);
-                memcpy(tbuf,ibuf,keysize); /* t=a[ij] */
+                memmove(tbuf,ibuf,keysize); /* t=a[ij] */
             }
             cms_getkey(ibuf,buf_size,idx,j,keysize,fmtgen,pgmp,keyField);
             if (memcmp(ibuf,tbuf,keysize) < 0) {
                 cms_exchptr(ij,j,idx);
-                memcpy(tbuf,ibuf,keysize); /* t=a[ij] */
+                memmove(tbuf,ibuf,keysize); /* t=a[ij] */
                 cms_getkey(ibuf,buf_size,idx,i,keysize,fmtgen,pgmp,keyField);
                 if (memcmp(ibuf,tbuf,keysize) > 0) {
                     cms_exchptr(ij,i,idx);
-                    memcpy(tbuf,ibuf,keysize); /* t=a[ij] */
+                    memmove(tbuf,ibuf,keysize); /* t=a[ij] */
                 }
             }
             while (TRUE) {
@@ -314,7 +314,7 @@ BOOLEAN cms_sort(char *db,
     if (!DBXxryyp) fatal("msrt/xryyp/break");
     for (xryyp = DBXxryyp; ; xryyp+=XRBSIZ) {
 #if CNV_PCBINUM
-        memcpy(cnv_pcbuff,xryyp,XRBSIZ);
+        memmove(cnv_pcbuff,xryyp,XRBSIZ);
         ConvertXRF_REC(cnv_pcbuff);
         if (CIWRITE(DBXxropn,cnv_pcbuff,XRBSIZ) != XRBSIZ)
 #else

@@ -135,7 +135,7 @@ int recfgetxml(char *xmlfile, char *ibuf, unsigned ibufsiz, char *obuf, unsigned
             if (*iptr == '\n') { iptr++; n1--; eol=1; }
             if (jn) {
                 if (j+jn >= obufsiz) jn=(obufsiz-1)-j;
-                memcpy(obuf+j,jptr,jn); j+=jn;
+                memmove(obuf+j,jptr,jn); j+=jn;
             }
             if (eol) {
                 char *p,*p0;
@@ -220,7 +220,7 @@ int recfgetxml(char *xmlfile, char *ibuf, unsigned ibufsiz, char *obuf, unsigned
                     }
 
                     if (len >= ubu) fatal("len >= ubu");
-                    memcpy(batchp,p0,len); batchp+=len;
+                    memmove(batchp,p0,len); batchp+=len;
                     ubu-=len;
 
                     if (closeFound) {
@@ -322,7 +322,7 @@ int recfgetseq(char *seqfile, char c, int parmseqlog, char *ibuf, unsigned ibufs
             if (*iptr == '\n') { iptr++; n1--; eol=1; }
             if (jn) {
                 if (j+jn >= obufsiz) jn=(obufsiz-1)-j;
-                memcpy(obuf+j,jptr,jn); j+=jn;
+                memmove(obuf+j,jptr,jn); j+=jn;
             }
             if (eol) {
                 int tag=1;
@@ -335,7 +335,7 @@ int recfgetseq(char *seqfile, char c, int parmseqlog, char *ibuf, unsigned ibufs
                     if (len) {
                         if (len >= ubu) len=0;
                         sprintf(batchp,"H%d %d ",tag,len); batchp+=(u=strlen(batchp));
-                        memcpy(batchp,p0,len+1); batchp+=len;
+                        memmove(batchp,p0,len+1); batchp+=len;
                         ubu-=(u+len);
                     }
                 }
@@ -375,16 +375,16 @@ writbsiz()                                                          /*
     int loop;
 
     if (n2free >= obufsize) {
-        memcpy(bufout+i2free,obuf,obufsize);
+        memmove(bufout+i2free,obuf,obufsize);
         n2free-=obufsize;
         i2free+=obufsize;
     }
     else {
-        memcpy(bufout+i2free+,obuf,n2free);
+        memmove(bufout+i2free+,obuf,n2free);
         n2=write(f2,bufout,MBUFSIZ);
         if (n2 < MBUFSIZ) erro("writbsiz - ","erro na gravacao");
         i2free=obufsize-n2free;
-        memcpy(bufout,obuf+n2free,i2free);
+        memmove(bufout,obuf+n2free,i2free);
         n2free=MBUFSIZ-i2free;
     }
 }
@@ -1721,7 +1721,7 @@ mfn=     1
         vprmp[nprms]->plen=strlen(p);
         if ((vprmp[nprms]->p=(char *)ALLOC((ALLOPARM)(vprmp[nprms]->plen+1)))
                                 == (char *)ALLONULL) fatal("ALLOC/prm/p");
-        memcpy(vprmp[nprms]->p,p,vprmp[nprms]->plen+1); /* '\0' */
+        memmove(vprmp[nprms]->p,p,vprmp[nprms]->plen+1); /* '\0' */
 
         p=vprmp[nprms++]->p;
 
@@ -2059,7 +2059,7 @@ mfn=     1
 
         if (strncmp(p,"uctab?",6) == 0 || strncmp(p,"uctab=",6) == 0) {
             if (strcmp(p+6,"ansi") == 0) {
-                memcpy(isisuctab,ansiuctab,256/*sizeof(ansiuctab)*/);
+                memmove(isisuctab,ansiuctab,256/*sizeof(ansiuctab)*/);
             } else {
                 /* loaductb(mi_gidbnp,isisuctab,p+6); */
                 if (!loaductb(mi_gidbnp,isisuctab,p+6)) fatal(p); /* AOT, 02/04/2001 */
@@ -2415,7 +2415,7 @@ mfn=     1
             *line='\0';
             for (q=p+5, n=0; *q; q++, n++)
                 if (*q == '?' || *q == '=') {
-                    memcpy(line,p+5,n); line[n]='\0';
+                    memmove(line,p+5,n); line[n]='\0';
                     break;
                 }
             if (!*line || !*(q+1))
@@ -2449,7 +2449,7 @@ mfn=     1
         if (strncmp(p,"convert?",8) == 0 || strncmp(p,"convert=",8) == 0) {
             if (strcmp(p+8,"ansi") == 0) {
                 tabconvp=ansimctab; /* asc2ansi */
-                memcpy(isisuctab,ansiuctab,256/*sizeof(ansiuctab)*/);
+                memmove(isisuctab,ansiuctab,256/*sizeof(ansiuctab)*/);
                 for (isiswctot=0; ansiactab[isiswctot]; isiswctot=isiswctot+1)
                     isiswctab[ansiactab[isiswctot]]=1;
                 continue;
@@ -2752,7 +2752,7 @@ mfn=     1
                             sprintf(batchp,"H%d %d ",
                                         MFQTXTAG,VDIRlen(irecx,xdir));
                             batchp+=strlen(batchp);
-                            memcpy(batchp,
+                            memmove(batchp,
                                 VFIELDP(irecx,xdir),VDIRlen(irecx,xdir));
                             batchp+=VDIRlen(irecx,xdir);
                             *batchp='\0';
@@ -2935,7 +2935,7 @@ mfn=     1
                                                   cifstfix=cifstfim=1;
                                            }
             if (strncmp(q,"/ansi",5) == 0) {q+=5;
-                memcpy(isisuctab,ansiuctab,256/*sizeof(ansiuctab)*/);
+                memmove(isisuctab,ansiuctab,256/*sizeof(ansiuctab)*/);
                 for (isiswctot=0; ansiactab[isiswctot]; isiswctot=isiswctot+1)
                     isiswctab[ansiactab[isiswctot]]=1;
             }
@@ -3155,7 +3155,7 @@ mfn=     1
         if (parmk2p) {
             for (xtp=parmk2p, xti=LE2; *xtp && xti; xtp++, xti--) *xtp = isisuctab[(int)*xtp];
             *xtp='\0';
-            memcpy(parmk2a,parmk2p,strlen(parmk2p));
+            memmove(parmk2a,parmk2p,strlen(parmk2p));
         }
         itrm=ntrms;
         if (parmtrace) printf("+++ TERM %"_LD_" = %s,%s,%s \n",itrm,parmkdbnp,parmk1p,parmk2p);
@@ -3438,7 +3438,7 @@ if ((parmkpostings && TRMpost < TRMxytotp) && (TRMpost%parmkkeep2 != 0)) goto KL
           if (!brec) { brec=nrecs; record(brec,dbnp,mfn); }
           recreadb=MFRmfbwb; recreadp=MFRmfbwp;
           recread(vrecp[brec],MFRmfn);
-          memcpy(MFX,VMFX(brec),VMFRmfrl(brec)); /* in trust.. */
+          memmove(MFX,VMFX(brec),VMFRmfrl(brec)); /* in trust.. */
         }
     }
 #endif
@@ -3463,7 +3463,7 @@ if ((parmkpostings && TRMpost < TRMxytotp) && (TRMpost%parmkkeep2 != 0)) goto KL
                 if (VRECrc(upirec) == RCLOCK) FATLOCK;
                 if (VRECrc(upirec) == RCNORMAL) {
 #if MULTI
-                    memcpy(VMFX(upirec),MFX,MFRmfrl);
+                    memmove(VMFX(upirec),MFX,MFRmfrl);
 #else
                     reccopy(upirec,upcrec,recp,MFRmfn);
 #endif
@@ -3638,9 +3638,9 @@ if ((parmkpostings && TRMpost < TRMxytotp) && (TRMpost%parmkkeep2 != 0)) goto KL
                 for (s1=0, p1=jdiSBUF, s1u=sbufs-1; s1<s1u; s1++, p1+=jdislen) {
                     for (s2=s1+1, p2=jdiSBUF+jdislen*s2; s2<sbufs; s2++, p2+=jdislen) {
                         if (memcmp(p1,p2,jdislen) <= 0) continue;
-                        memcpy(jdiSBUFx,p1  ,jdislen); 
-                        memcpy(p1  ,p2  ,jdislen); 
-                        memcpy(p2  ,jdiSBUFx,jdislen); 
+                        memmove(jdiSBUFx,p1  ,jdislen); 
+                        memmove(p1  ,p2  ,jdislen); 
+                        memmove(p2  ,jdiSBUFx,jdislen); 
                         hidx=jdiSBUH[s1]; jdiSBUH[s1]=jdiSBUH[s2]; jdiSBUH[s2]=hidx;
                     } /* end s2 */
                 } /* end s1 */
@@ -3741,7 +3741,7 @@ if ((parmkpostings && TRMpost < TRMxytotp) && (TRMpost%parmkkeep2 != 0)) goto KL
             if (fst_hdrp) if (*fst_hdrp) {
                 sprintf(mx_bup,"H 33000 %d ",fst_hdru);
                 batchp=mx_bup+strlen(mx_bup);
-                memcpy(batchp,fst_hdrp,fst_hdru); *(batchp+fst_hdru)='\0';
+                memmove(batchp,fst_hdrp,fst_hdru); *(batchp+fst_hdru)='\0';
                 if (fldupdat(irec,mx_bup)) fatal(mx_bup);
             }
         }
@@ -3769,7 +3769,7 @@ if ((parmkpostings && TRMpost < TRMxytotp) && (TRMpost%parmkkeep2 != 0)) goto KL
                 if (!*p || *p == '\r' || *p == '\n' || *p == delim) {
                     if (len) {
                         sprintf(batchp,"H%"_LD_" %"_LD_" ",(LONGX)tag,(LONGX)len); batchp+=strlen(batchp);
-                        memcpy(batchp,p0,len); *(batchp+=len)='\0';
+                        memmove(batchp,p0,len); *(batchp+=len)='\0';
                     }
                     if (mx_bup[0]) {
                         /* out rec */
@@ -3924,7 +3924,7 @@ if ((parmkpostings && TRMpost < TRMxytotp) && (TRMpost%parmkkeep2 != 0)) goto KL
                         else {
                             p=mx_bup; *p='\0';
                             for (xdir=0; xdir < MFRnvf; xdir++) {
-                                memcpy(p,FIELDP(xdir),n=DIRlen(xdir));
+                                memmove(p,FIELDP(xdir),n=DIRlen(xdir));
                                 p+=n;
                                 *p++='|';
                             }
@@ -3943,7 +3943,7 @@ if ((parmkpostings && TRMpost < TRMxytotp) && (TRMpost%parmkkeep2 != 0)) goto KL
                         q=mx_bup; n=DIRlen(0); n++;
                         sprintf(q,"H%d %d ",DIRtag(0),n); q+=strlen(q);
                         if (parmdupx == DUPPLEFT) *q++ = *p;
-                        memcpy(q,FIELDP(0),DIRlen(0)); q+=DIRlen(0);
+                        memmove(q,FIELDP(0),DIRlen(0)); q+=DIRlen(0);
                         if (parmdupx == DUPPRIGHT) *q++ = *p;
                         *q = '\0';
                         if (fldupdat(upirec,mx_bup)) fatal(mx_bup);
@@ -3979,7 +3979,7 @@ if ((parmkpostings && TRMpost < TRMxytotp) && (TRMpost%parmkkeep2 != 0)) goto KL
                             sprintf(batchp,"H%6"_LD_" %6"_LD_" ",
                                 (LONGX)DIRtag(xdir),(LONGX)DIRlen(xdir));
                             batchp+=strlen(batchp);
-                            memcpy(batchp,FIELDP(xdir),DIRlen(xdir));
+                            memmove(batchp,FIELDP(xdir),DIRlen(xdir));
                             batchp+=DIRlen(xdir);
                         }
                         *batchp='\0';
@@ -3998,7 +3998,7 @@ if ((parmkpostings && TRMpost < TRMxytotp) && (TRMpost%parmkkeep2 != 0)) goto KL
 #if MULTI
                         if (VRDBnetws(upcrec) != MONONETS) {
                             if (parmcopy == APPEND) {
-                                memcpy(VMFX(upirec),MFX,MFRmfrl);
+                                memmove(VMFX(upirec),MFX,MFRmfrl);
                                 VMFRmfn(upirec)=0L;
                                 VRECwlock(upirec)|=NEWREC;
                             }
@@ -4006,7 +4006,7 @@ if ((parmkpostings && TRMpost < TRMxytotp) && (TRMpost%parmkkeep2 != 0)) goto KL
                                 if (parmcopy != UPDATF) {
                                     record(upirec,VRDBname(upcrec),MFRmfn); /* RLOCK */
                             if (VRECrc(upirec) == RCLOCK) FATLOCK;
-                                    memcpy(VMFX(upirec),MFX,MFRmfrl);
+                                    memmove(VMFX(upirec),MFX,MFRmfrl);
                                 }
                                 VRECwlock(upirec)|=NEWREC|FORCE;
                             }
