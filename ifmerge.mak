@@ -18,12 +18,12 @@ CICONF2 = -DCIWTF=0 -DINCPROCX=0 -DINCPRECX=0 -DEXCFMCGI=1 -DEXCFMXML=1 -D_GLIBC
 
 CC = cc
 CCFLAGS = -funsigned-char -Wall
-CCLIBS =
+CCLIBS = -lm
 CCOPTS = -c $(CCFLAGS) $(CICONF1) $(CICONF2)
 
 ifmerge: ifmerge.o cidbx.o cigiz.o cirec.o ciupd.o citrm.o ciupi.o ciutl.o ciifl.o
 	echo ld ifmerge..
-	$(CC) $(CCLIBS) -o ifmerge ifmerge.o cidbx.o cigiz.o cirec.o ciupd.o citrm.o ciupi.o ciutl.o ciifl.o
+	$(CC) -o ifmerge ifmerge.o cidbx.o cigiz.o cirec.o ciupd.o citrm.o ciupi.o ciutl.o ciifl.o $(CCLIBS)
 
 ifmerge.o: ifmerge.c cisis.h
 	echo ifmerge..

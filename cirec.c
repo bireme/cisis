@@ -327,7 +327,7 @@ if (RECtype == TYPEMF0) {
 	MF0mftype,MF0reccnt,MF0mfcxx1,MF0mfcxx2,MF0mfcxx3);
 }
 else {
-    printf("record - RECrc=%d  Leader: %"_LD_,%d,%"_LD_,%d,%d,%d,%d\n",
+    printf("record - RECrc=%d  Leader: %"_LD_",%d,%"_LD_",%d,%d,%d,%d\n",
 	RECrc,MFRmfn,MFRmfrl,MFRmfbwb,MFRmfbwp,MFRbase,MFRnvf,MFRstatus);
 #if RECTRACE
     if (RECrc == RCNORMAL || RECrc == RCLDEL)

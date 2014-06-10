@@ -530,13 +530,13 @@ printf("+++k=%4"_LD_": %s",k,ibuf);
             m = m + 1;
             if ( l - i > j - k){
 #if TRACE
-printf("+++vai empilhar %"_LD_"%"_LD_"\n",i,l);
+printf("+++vai empilhar %"_LD_",%"_LD_"\n",i,l);
 #endif
                 il[m] = i; iu[m] = l; i = k;
             }
             else{
 #if TRACE
-printf("+++vai empilhar %"_LD_"%"_LD_"\n",k,j);
+printf("+++vai empilhar %"_LD_",%"_LD_"\n",k,j);
 #endif
                 il[m] = k; iu[m] = j; j = l;
             }

@@ -18,12 +18,12 @@ CICONF2 = -DCIWTF=0 -DINCPROCX=0 -DINCPRECX=0 -DEXCFMCGI=1 -DEXCFMXML=1 -D_GLIBC
 
 CC = cc
 CCFLAGS = -funsigned-char -Wall
-CCLIBS =
+CCLIBS = -lm
 CCOPTS = -c $(CCFLAGS) $(CICONF1) $(CICONF2)
 
 splitem: splitem.o cidbx.o cigiz.o cirec.o ciupd.o citrm.o
 	echo ld splitem..
-	$(CC) $(CCLIBS) -o splitem splitem.o cidbx.o cigiz.o cirec.o ciupd.o citrm.o
+	$(CC) -o splitem splitem.o cidbx.o cigiz.o cirec.o ciupd.o citrm.o $(CCLIBS)
 
 splitem.o: splitem.c cisis.h
 	echo splitem..

@@ -35,9 +35,6 @@ CISIS environment
 #if GCC
 #ifndef PACKED
 #define PACKED  __attribute__ ((aligned(2)))
-#define PACKED2 __attribute__ ((aligned(2),packed))
-//#define PACKED __attribute__ ((aligned(2)))
-//#define PACKED __attribute__ ((packed))
 #endif
 #endif
 

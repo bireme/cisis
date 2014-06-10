@@ -18,12 +18,12 @@ CICONF2 = -DCIWTF=0 -DINCPROCX=0 -DINCPRECX=0 -DEXCFMCGI=1 -DEXCFMXML=1 -D_GLIBC
 
 CC = cc
 CCFLAGS = -funsigned-char -Wall
-CCLIBS =
+CCLIBS = -lm
 CCOPTS = -c $(CCFLAGS) $(CICONF1) $(CICONF2)
 
 decs9a: decs9a.o cidbx.o cigiz.o cirec.o ciupd.o citrm.o ciutl.o
 	echo ld decs9a..
-	$(CC) $(CCLIBS) -o decs9a decs9a.o cidbx.o cigiz.o cirec.o ciupd.o citrm.o ciutl.o
+	$(CC) -o decs9a decs9a.o cidbx.o cigiz.o cirec.o ciupd.o citrm.o ciutl.o $(CCLIBS)
 
 decs9a.o: decs9a.c cisis.h
 	echo decs9a..

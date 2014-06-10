@@ -18,12 +18,12 @@ CICONF2 = -DCIWTF=0 -DINCPROCX=0 -DINCPRECX=0 -DEXCFMCGI=1 -DEXCFMXML=1
 
 CC = cc
 CCFLAGS = -funsigned-char -Wall
-CCLIBS =
+CCLIBS = -lm
 CCOPTS = -c $(CCFLAGS) $(CICONF1) $(CICONF2)
 
 crunchmf: crunchmf.o cidbx.o cigiz.o cirec.o ciupd.o citrm.o ciutl.o
 	echo ld crunchmf..
-	$(CC) $(CCLIBS) -o crunchmf crunchmf.o cidbx.o cigiz.o cirec.o ciupd.o citrm.o ciutl.o
+	$(CC) -o crunchmf crunchmf.o cidbx.o cigiz.o cirec.o ciupd.o citrm.o ciutl.o $(CCLIBS)
 
 crunchmf.o: crunchmf.c cisis.h
 	echo crunchmf..

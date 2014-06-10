@@ -18,12 +18,12 @@ CICONF2 = -DCIWTF=0 -DINCPROCX=0 -DINCPRECX=0 -DEXCFMCGI=1 -DEXCFMXML=1 -D_GLIBC
 
 CC = cc
 CCFLAGS = -funsigned-char -Wall
-CCLIBS =
+CCLIBS = -lm
 CCOPTS = -c $(CCFLAGS) $(CICONF1) $(CICONF2)
 
 rule: rule.o
 	echo ld rule..
-	$(CC) $(CCLIBS) -o rule rule.o
+	$(CC) -o rule rule.o $(CCLIBS)
 
 rule.o: rule.c 
 	echo rule..

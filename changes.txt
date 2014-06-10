@@ -179,3 +179,9 @@ ________________________________________________________________________________
 
 Buf corrido na funcao fmt_load_next_occ onde na versao 64 bits a funcao strcpy
 apresentava comportamento diferente da versao 32 bits.
+
+________________________________________________________________________________
+5.7d - 14/02/2013
+
+Inseridas as modificacoes dos fontes feitas pelo Ricardo Piva para a inclusao
+do processamento de registros em formato UTF-8.

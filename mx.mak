@@ -24,7 +24,7 @@ CC = cc
 
 CCFLAGS = -funsigned-char -Wall
 
-# Lib para Trigram Server Functions
+# Lib para Trigram Server Functions e log e sqrt
 CCLIBS = -lm
 
 #Compila

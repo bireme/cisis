@@ -25,7 +25,7 @@ CCOPTS = -c $(CCFLAGS) $(CICONF1) $(CICONF2)
 
 mxmys: mx.o mxaot.o ifloadao.o ciifl.o cisisx.o mxrun.o mxrel.o mxtxt.o mxbol.o cib71.o cib72.o cifm1.o cifm2.o cifm3.o cidbx.o cigiz.o cirec.o ciupd.o citrm.o ciupi.o ciiso.o ciutl.o cifst.o ciifu.o mys.o cicgi.o
 	echo ld mx..
-	$(CC) $(CCLIBS) -o mxmys mx.o mxaot.o ifloadao.o ciifl.o cisisx.o mxrun.o mxrel.o mxtxt.o mxbol.o cib71.o cib72.o cifm1.o cifm2.o cifm3.o cidbx.o cigiz.o cirec.o ciupd.o citrm.o ciupi.o ciiso.o ciutl.o cifst.o ciifu.o mys.o cicgi.o
+	$(CC) -o mxmys mx.o mxaot.o ifloadao.o ciifl.o cisisx.o mxrun.o mxrel.o mxtxt.o mxbol.o cib71.o cib72.o cifm1.o cifm2.o cifm3.o cidbx.o cigiz.o cirec.o ciupd.o citrm.o ciupi.o ciiso.o ciutl.o cifst.o ciifu.o mys.o cicgi.o $(CCLIBS)
 
 mx.o: mx.c cisis.h
 	echo mx..
