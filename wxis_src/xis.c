@@ -180,7 +180,7 @@
    06.Oct.2009 - long type changed to LONGX and seek to LSEEK64
 
    [ Version 7.1f ]
-   11.Apr.2012 - increased buffer size areas (EXE_REC_SIZE, EXE_BUFF_SIZE)
+   11.Apr.2012 - increased buffer size areas during index generation(EXE_REC_SIZE, EXE_BUFF_SIZE)
    ///////////////////////////////////////////////////////////////////////// */
 
 /* ----------------------------------------------------------- C HEADER FILE */

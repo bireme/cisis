@@ -1,3 +1,4 @@
+rm nohup.out
 rm *.o
 rm mk*.sh
 rm xmk.sh
@@ -6,4 +7,4 @@ make -f mx.mak
 rm *.o
 rm -fr utl
 rm -fr wxis
-./makemakeApp32.sh
+sh ./makemakeApp32.xsh

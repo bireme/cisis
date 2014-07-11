@@ -187,7 +187,7 @@ int parmjchk;
     for (p=dbname; *p; p++) { /* for p=dbname */
         if (*p == ':') { /* AOT 23/04/2005 */
             *p++ = '\0';
-            while isdigit(*p) {
+            while ( isdigit(*p) ) {
                 mj_plustag[mj_n]=mj_plustag[mj_n]*10+((int)(*p)-(int)'0');
                 *p++ = '\0';
             }

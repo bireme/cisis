@@ -451,7 +451,7 @@ printf("recupdat - crec=%"_LD_"  irec=%"_LD_"  dbn(crec)=%s  mfn=%"_LD_"  opw=%d
 #else
     recp=vrecp[crec];
 #endif /* CICPP */
-    printf("recupdat - RECrc=%d  Ctlmfr: %"_LD_"%"_LD_"%"_LD_"%d,%d,%"_LD_"%"_LD_"%"_LD_"%"_LD_"\n",
+    printf("recupdat - RECrc=%d  Ctlmfr: %"_LD_",%"_LD_",%"_LD_",%d,%d,%"_LD_"%"_LD_"%"_LD_"%"_LD_"\n",
 	RECrc,
 	MF0ctlmfn,MF0nxtmfn,MF0nxtmfb,MF0nxtmfp,
 	MF0mftype,MF0reccnt,MF0mfcxx1,MF0mfcxx2,MF0mfcxx3);
@@ -460,7 +460,7 @@ printf("recupdat - crec=%"_LD_"  irec=%"_LD_"  dbn(crec)=%s  mfn=%"_LD_"  opw=%d
 #else
     recp=vrecp[irec];
 #endif /* CICPP */
-    printf("recupdat - RECrc=%d  Leader: %"_LD_,%d,%"_LD_,%d,%d,%d,%d\n",
+    printf("recupdat - RECrc=%d  Leader: %"_LD_",%d,%"_LD_",%d,%d,%d,%d\n",
 	RECrc,MFRmfn,MFRmfrl,MFRmfbwb,MFRmfbwp,MFRbase,MFRnvf,MFRstatus);
     printf("recupdat - rc=%d\n",rc);
 #endif
@@ -741,9 +741,9 @@ printf("recwrite - fd=%d  lseek=%"P_OFF_T"  n=%d\n",DBXmsopn,(LONG_LONG)xbyte,n)
     }
 
 #if RUCTRACE
-printf("recwrite - rec: %"_LD_,%d,%"_LD_,%d,%d,%d,%d\n",
+printf("recwrite - rec: %"_LD_",%d,%"_LD_",%d,%d,%d,%d\n",
 	MFRmfn,MFRmfrl,MFRmfbwb,MFRmfbwp,MFRbase,MFRnvf,MFRstatus);
-printf("recwrite - mst: %"_LD_,%d,%"_LD_,%d,%d,%d,%d\n",
+printf("recwrite - mst: %"_LD_",%d,%"_LD_",%d,%d,%d,%d\n",
 	MSHmfn,MSHmfrl,MSHmfbwb,MSHmfbwp,MSHbase,MSHnvf,MSHstatus);
 #endif
 
@@ -1713,7 +1713,7 @@ printf("fldupdat - irec=%"_LD_"  nbytes=%"_LD_"  batchp='%s'\n",
 	realmfrl+=mfdirp->len;
     }
 #if RUFTRACE
-printf("fldupdat - RECrc=%d  Leader: %"_LD_,%d,%"_LD_,%d,%d,%d,%d\n",
+printf("fldupdat - RECrc=%d  Leader: %"_LD_",%d,%"_LD_",%d,%d,%d,%d\n",
  RECrc,MFRmfn,MFRmfrl,MFRmfbwb,MFRmfbwp,MFRbase,MFRnvf,MFRstatus);
 printf("fldupdat - dirsleft=%d  realmfrl=%d\n",dirsleft,realmfrl);
 for (dirp=dirarea, loop=0; loop<dirsleft; loop++, dirp++)
@@ -2099,7 +2099,7 @@ for (sxp=srcareap, dp=dirarea, loop=0; loop<dirsleft; loop++, dp++, sxp++)
     }
 
 #if RUGTRACE
-    printf("fldupdat - RECrc=%d  Leader: %"_LD_,%d,%"_LD_,%d,%d,%d,%d\n",
+    printf("fldupdat - RECrc=%d  Leader: %"_LD_",%d,%"_LD_",%d,%d,%d,%d\n",
 	RECrc,MFRmfn,MFRmfrl,MFRmfbwb,MFRmfbwp,MFRbase,MFRnvf,MFRstatus);
 for (mfdirp=MFRdir, loop=0; loop<MFRnvf; loop++, mfdirp++) {
  printf("fldupdat - dir[%d]: tag=%d  pos=%d  len=%d",

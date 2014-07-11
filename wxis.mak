@@ -23,8 +23,8 @@ CC = cc
 # CCFLAGS = -funsigned-char-Wall -I/usr/include/libxml2 -I/usr/local/include/libxslt
 # CCLIBS = -lm -lxslt -lxml2 -L/usr/local/lib
 
-CCFLAGS = -funsigned-char -Wall -g
-CCLIBS = -lm -o
+CCFLAGS = -funsigned-char -Wall
+CCLIBS = -lm
 CCOPTS = -c $(CCFLAGS) $(CICONF1) $(CICONF2)
 
 XISOBJS = xis_exec.o \
@@ -40,7 +40,7 @@ OTHOBJS = easyfc.o easyci.o arglist.o cgilist.o citpv.o freqlist.o \
 EASYINCS = wxis_src/easyfc.h wxis_src/easyci.h
 
 wxis :$(CIOBJS) $(OTHOBJS) $(XISOBJS) xis.o
-	 $(CC) $(CIOBJS) $(OTHOBJS) $(XISOBJS) xis.o $(CCLIBS) wxis
+	 $(CC) -o wxis $(CIOBJS) $(OTHOBJS) $(XISOBJS) xis.o $(CCLIBS)
 
 cidbx.o   : cisis.h
 	    $(CC) $(CCOPTS) cidbx.c

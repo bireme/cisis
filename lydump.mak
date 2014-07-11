@@ -17,12 +17,12 @@ CICONF2 = -DCIWTF=0 -DINCPROCX=0 -DINCPRECX=0 -DEXCFMCGI=1 -DEXCFMXML=1 -D_GLIBC
 
 CC = cc
 CCFLAGS = -funsigned-char -Wall
-CCLIBS =
+CCLIBS = -lm
 CCOPTS = -c $(CCFLAGS) $(CICONF1) $(CICONF2)
 
 lydump: lydump.o cidbx.o 
 	echo ld lydump..
-	$(CC) $(CCLIBS) -o lydump lydump.o cidbx.o 
+	$(CC) -o lydump lydump.o cidbx.o $(CCLIBS)
 
 lydump.o: lydump.c cisis.h
 	echo lydump..

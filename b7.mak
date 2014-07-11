@@ -18,7 +18,7 @@ CICONF2 = -DCIWTF=0 -DINCPROCX=0 -DINCPRECX=0 -DEXCFMCGI=1 -DEXCFMXML=1 -D_GLIBC
 
 CC = cc
 CCFLAGS = -funsigned-char -Wall
-CCLIBS =
+CCLIBS = -lm
 CCOPTS = -c $(CCFLAGS) $(CICONF1) $(CICONF2)
 
 b7: b7.o cib71.o cib72.o cifm1.o cifm2.o cifm3.o cidbx.o cigiz.o cirec.o ciupd.o citrm.o ciupi.o ciutl.o cifst.o
@@ -33,7 +33,7 @@ cib71.o: cib71.c cib70.h
 	echo cib71..
 	$(CC) $(CCOPTS) cib71.c
 
-cib71.o: cib72.c cib70.h
+cib72.o: cib72.c cib70.h
 	echo cib72..
 	$(CC) $(CCOPTS) cib72.c
 

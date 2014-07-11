@@ -134,7 +134,7 @@ char *argv[];
 
         /* tell */
         if ((++count % xtell) == 0)
-	    printf("+++ %"_LD_" (%"_LD_"%"_LD_")\n",count,errors,empty);
+	    printf("+++ %"_LD_" (%"_LD_",%"_LD_")\n",count,errors,empty);
 
         if (RECrc == RCEOF) break;
         if (RECrc != RCNORMAL) continue;

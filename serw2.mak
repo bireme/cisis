@@ -23,7 +23,7 @@ CCOPTS = -c $(CCFLAGS) $(CICONF1) $(CICONF2)
 
 serw2: serw2.o cidbx.o cigiz.o cirec.o ciupd.o citrm.o ciutl.o cifm1.o cifm2.o cifm3.o
 	echo ld serw2..
-	$(CC) $(CCLIBS) -o serw2 serw2.o cidbx.o cigiz.o cirec.o ciupd.o citrm.o ciutl.o cifm1.o cifm2.o cifm3.o
+	$(CC) -o serw2 serw2.o cidbx.o cigiz.o cirec.o ciupd.o citrm.o ciutl.o cifm1.o cifm2.o cifm3.o $(CCLIBS)
 
 serw2.o: serw2.c cisis.h w2.c w21.c w2arg.c w2ci.c w2ctv.c w2djk.c w2djv.c w2iscms.c w2loc.c w2oid.c w2ojd.c w2out1.c w2outx.c w2ov3.c w2p0.c w2pcol.c w2pcox.c w2pdoc.c w2ralbs.c w2rcol.c w2rdoc.c w2rel1.c w2rhit.c w2rtphix.c w2set.c w2setrt.c w2simil.c w2slng.c w2tkey.c w2tksum.c w2top.c wtfun.c wtrun.c wt.h wtfun.h wtrun.h wtrunz.h wtz.h
 	echo serw2..

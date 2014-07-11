@@ -23,7 +23,7 @@ CCOPTS = -c $(CCFLAGS) $(CICONF1) $(CICONF2)
 
 wtrig2: wtrig2.o cidbx.o cigiz.o cirec.o ciupd.o citrm.o ciutl.o cifm1.o cifm2.o cifm3.o
 	echo ld wtrig2..
-	$(CC) $(CCLIBS) -o wtrig2 wtrig2.o cidbx.o cigiz.o cirec.o ciupd.o citrm.o ciutl.o cifm1.o cifm2.o cifm3.o
+	$(CC) -o wtrig2 wtrig2.o cidbx.o cigiz.o cirec.o ciupd.o citrm.o ciutl.o cifm1.o cifm2.o cifm3.o $(CCLIBS)
 
 wtrig2.o: wtrig2.c cisis.h
 	echo wtrig2..

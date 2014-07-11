@@ -17,10 +17,10 @@ CICONF2 = -DCIWTF=0 -DINCPROCX=0 -DINCPRECX=0 -DEXCFMCGI=1 -DEXCFMXML=1 -D_GLIBC
 
 CC = cc
 CCFLAGS = -funsigned-char -Wall
-CCLIBS =
+CCLIBS = -lm
 CCOPTS = $(CCFLAGS) $(CICONF1) $(CICONF2)
 
 sizeof2: 
 	echo ld sizeof2..
-	$(CC) $(CCOPTS) sizeof2.c -o sizeof2
+	$(CC) $(CCOPTS) sizeof2.c -o sizeof2 $(CCLIBS)
 
