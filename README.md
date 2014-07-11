@@ -15,11 +15,11 @@ Linux Platform
 
 No configuration is required.
 
-1. 64 bit version.
+1) 64 bit version.
 
 Only call generateApp64.sh script. The applications will be generated into utl/linux64 directory.
 
-2. 32 bit version.
+2) 32 bit version.
 
 Only call generateApp32.sh script. The applications will be generated into utl/linux directory.
 
@@ -28,7 +28,7 @@ Only call generateApp32.sh script. The applications will be generated into utl/l
 
 Windows
 
-1. Change cisis.h preprocessor settings.
+1) Change cisis.h preprocessor settings.
 
 Open cisis.h file and change the default configuration to the following one:
 
@@ -38,15 +38,15 @@ Open cisis.h file and change the default configuration to the following one:
    MSC=0 or 1  (1 if Microsoft Visual Studio and 0 if other compiler is used)
    UNIX=0
 
-2. Set compiler configurations.
+2) Set compiler configurations.
 
    data alignment => byte
    calling conventions => C
    unsigned char => set
 
-3. Set project preprocessor directives.
+3) Set project preprocessor directives.
 
-   a. ISIS version
+   a) ISIS version
 
        wxis: 
 
@@ -101,7 +101,7 @@ Open cisis.h file and change the default configuration to the following one:
        MXFUN=0;
        IFLOADFUN=0;
 
-   b. ISIS1660 version
+   b) ISIS1660 version
 
        wxis: 
 
@@ -156,7 +156,7 @@ Open cisis.h file and change the default configuration to the following one:
        MXFUN=0;
        IFLOADFUN=0;
 
-   c. LIND version
+   c) LIND version
 
        wxis: 
 
@@ -211,7 +211,7 @@ Open cisis.h file and change the default configuration to the following one:
        MXFUN=0;
        IFLOADFUN=0;
 
-   d. FFI version
+   d) FFI version
 
        wxis: 
 
