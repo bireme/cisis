@@ -1191,7 +1191,7 @@ char *namep;
 #endif
     }
 
-    p="CISIS Interface v5.7e";
+    p="CISIS Interface v5.7f";
     q="Copyright (c)BIREME/PAHO 2010. [http://reddes.bvsalud.org/projects/cisis]";
   //q="Copyright (c)BIREME/PAHO 2010. [http://www.bireme.br/products/cisis]";
   //q2="Copyright (c)BIREME/PAHO 2010. [http://bvsmodelo.bvsalud.org/php/index.php?lang=pt]";

@@ -558,8 +558,8 @@ printf("\\begin tag %d..",tag); GETCHAR;
             }
 
         if (rngok) {
-            sprintf((char *)batchp,"H%u 000000 ",tag); batchp+=strlen((CONST char *)batchp);
-            fuplenp=batchp-1-6; fuplen=0; /* fuplenp points to 000000 */
+            sprintf((char *)batchp,"H%u 00000000 ",tag); batchp+=strlen((CONST char *)batchp);
+            fuplenp=batchp-1-8; fuplen=0; /* fuplenp points to 00000000 */
 #if TRACEG2
 printf("\\buffup=%s",buffup); GETCHAR;
 #endif
@@ -628,7 +628,7 @@ printf("\\no gizmo - copying %c",*p); GETCHAR;
                 }
 	    } /* end field chrs */
 
-            sprintf((char *)fuplenp,"%06d",fuplen); *(fuplenp+6)=' ';
+            sprintf((char *)fuplenp,"%08d",fuplen); *(fuplenp+8)=' ';
 
         }
 

@@ -177,7 +177,7 @@ de 4 gigabytes.
 ________________________________________________________________________________
 5.7c - 18/06/2012
 
-Buf corrido na funcao fmt_load_next_occ onde na versao 64 bits a funcao strcpy
+Bug corrido na funcao fmt_load_next_occ onde na versao 64 bits a funcao strcpy
 apresentava comportamento diferente da versao 32 bits.
 
 ________________________________________________________________________________
@@ -185,3 +185,12 @@ ________________________________________________________________________________
 
 Inseridas as modificacoes dos fontes feitas pelo Ricardo Piva para a inclusao
 do processamento de registros em formato UTF-8.
+
+________________________________________________________________________________
+5.7e - xx/xx/2014
+
+________________________________________________________________________________
+5.7f - 13/01/2015
+
+Bug corrigido na funcao recgizmo. Antes o comprimento maximo do registro tinha que
+ser de 6 digitos, agora passou a 8 digitos. 'H<tag> 00000000 <campo>'
